@@ -21,6 +21,42 @@ Route::get('/login', function(){
     return view('users/login');
 });
 
+Route::get('/home', function(){
+    return view('users/home');
+});
+
+Route::get('/homecare', function(){
+    return view('users/homecare');
+});
+
+Route::get('/reminderObat', function(){
+    return view('users/reminderObat');
+});
+
+Route::get('/telp', function(){
+    return view('users/telp');
+});
+
+Route::get('/tokoObat', function(){
+    return view('users/tokoObat');
+});
+
+Route::get('/ringkasanBayar', function(){
+    return view('users/ringkasanBayar');
+});
+
+Route::get('/riwayat', function(){
+    return view('users/riwayat');
+});
+
+Route::get('/menuObat', function(){
+    return view('users/menuObat');
+});
+
+Route::get('/setReminder', function(){
+    return view('users/setReminder');
+});
+
 Route::get('/auth/redirect', [SocialiteController::class, 'redirect']);
 
 Route::get('/auth/google/callback', [SocialiteController::class, 'callback']);
