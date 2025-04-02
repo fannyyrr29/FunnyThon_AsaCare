@@ -7,6 +7,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use App\Enums\Role;
+use Faker\Provider\Medical;
+use GuzzleHttp\RetryMiddleware;
 
 class User extends Authenticatable
 {
@@ -19,6 +22,8 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
+        'address',
+        'role',     
         'email',
         'password',
         'google_id',
@@ -44,4 +49,17 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function medicalrecords(){
+        return $this->hasMany(MedicalRecord::class, 'user_id');
+    }
+
+    public function reminders()
+    {
+        return $this->hasMany(Reminder::class);
+    }
+
+    public function emergencyCall(){
+        return $this->hasMany(EmergencyCall::class, 'user_id', 'id');
+    }
 }
