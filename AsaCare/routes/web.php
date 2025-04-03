@@ -57,6 +57,10 @@ Route::get('/setReminder', function(){
     return view('users/setReminder');
 });
 
+Route::get('/editProfile', function(){
+    return view('users/editProfile');
+});
+
 Route::get('/auth/redirect', [SocialiteController::class, 'redirect']);
 
 Route::get('/auth/google/callback', [SocialiteController::class, 'callback']);
