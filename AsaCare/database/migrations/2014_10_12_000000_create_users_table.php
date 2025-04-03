@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('address', 500);
             $table->enum('role', ['Admin', 'User']);
             $table->enum('gender', ['L', 'P']);
+            $table->date('birthdate');
             $table->string('profile', 45)->nullable();
             $table->string('email', 255)->unique();
             $table->timestamp('email_verified_at');
