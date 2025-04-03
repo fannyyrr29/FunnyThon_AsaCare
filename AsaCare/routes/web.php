@@ -1,6 +1,10 @@
 <?php
 
+use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\SocialiteController;
+use App\Http\Controllers\User\HomeController;
+use App\Http\Controllers\User\UserController;
+use App\Models\User;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,8 +21,22 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
-Route::get('/login', function(){
-    return view('users/login');
+
+
+//hanya bisa diakses oleh user yang belum terautentikasi
+Route::get('/login', [LoginController::class, 'index'])->middleware('guest');
+Route::post('/login', [LoginController::class, 'authenticate']);
+Route::get('/logout', [LoginController::class, 'logout']);
+
+// Route untuk User
+Route::group(['prefix' => 'user'], function() {
+    //Untuk menampilkan home
+    Route::get('/home', [UserController::class, 'home']);
+
+    
+
+    // Untuk Edit Profil
+    Route::resource('/editProfil', UserController::class)->only(['index', 'store', 'show']);
 });
 
 Route::get('/home', function(){
