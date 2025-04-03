@@ -1,12 +1,10 @@
 <!DOCTYPE html>
 <html lang="id">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Edit Profile</title>
+    <title>Lengkapi Profile</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
     <style>
         body {
             background-color: #f8f1dc;
@@ -45,12 +43,12 @@
 <body>
     <div class="container mt-5">
         <div class="card shadow">
-            <div class="card-header">Daftar Akun</div>
+            <div class="card-header">Lengkapi Profil</div>
             <div class="card-body">
                 <form id="daftarForm">
                     <div class="mb-3">
                         <label for="email" class="form-label">Email</label>
-                        <input type="email" class="form-control" id="email" placeholder="Masukkan email">
+                        <input type="email" class="form-control" id="email" placeholder="@gmail.com" disabled>
                         <small class="text-danger" id="emailError"></small>
                     </div>
 
@@ -92,9 +90,15 @@
                         <small class="text-danger" id="phoneError"></small>
                     </div>
 
-                    <button type="submit" class="btn btn-masuk">Daftar</button>
-                </form>
+                    <!-- Tambahkan Input Alamat Rumah -->
+                    <div class="mb-3">
+                        <label for="alamat" class="form-label">Alamat Rumah</label>
+                        <textarea class="form-control" id="alamat" rows="3" placeholder="Masukkan alamat rumah"></textarea>
+                        <small class="text-danger" id="alamatError"></small>
+                    </div>
 
+                    <button type="submit" class="btn btn-masuk">Simpan</button>
+                </form>
             </div>
         </div>
     </div>
@@ -104,24 +108,19 @@
             event.preventDefault(); // Mencegah form terkirim sebelum validasi selesai
             let isValid = true;
 
-            let email = document.getElementById("email").value.trim();
             let nik = document.getElementById("nik").value.trim();
             let nama = document.getElementById("nama").value.trim();
             let gender = document.querySelector('input[name="gender"]:checked');
             let tanggalLahir = document.getElementById("tanggal_lahir").value.trim();
             let phone = document.getElementById("phone").value.trim();
+            let alamat = document.getElementById("alamat").value.trim();
 
-            document.getElementById("emailError").innerText = "";
             document.getElementById("nikError").innerText = "";
             document.getElementById("namaError").innerText = "";
             document.getElementById("genderError").innerText = "";
             document.getElementById("tanggalLahirError").innerText = "";
             document.getElementById("phoneError").innerText = "";
-
-            if (email === "" || !email.includes("@") || !email.includes(".")) {
-                document.getElementById("emailError").innerText = "Email tidak valid!";
-                isValid = false;
-            }
+            document.getElementById("alamatError").innerText = "";
 
             if (nik === "" || nik.length !== 16 || isNaN(nik)) {
                 document.getElementById("nikError").innerText = "NIK harus terdiri dari 16 angka!";
@@ -148,13 +147,16 @@
                 isValid = false;
             }
 
+            if (alamat === "") {
+                document.getElementById("alamatError").innerText = "Alamat rumah tidak boleh kosong!";
+                isValid = false;
+            }
+
             if (isValid) {
                 alert("Pendaftaran berhasil!");
                 this.submit();
             }
         });
-
     </script>
 </body>
-
 </html>

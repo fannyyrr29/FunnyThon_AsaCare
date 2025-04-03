@@ -5,15 +5,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Layanan Rumah</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
     <style>
         .header {
             background-color: #A6192E;
             color: white;
             padding: 15px;
-            font-size: 18px;
+            font-size: 22px;
             display: flex;
             align-items: center;
+            font-weight: bold;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+        }
+        body {
+            padding-top: 60px; 
         }
         .header i {
             margin-right: 10px;
@@ -41,18 +49,20 @@
             font-size: 14px;
             color: #555;
         }
+        .logo{
+            padding-right: 10px;
+        }
     </style>
 </head>
 <body class="bg-light">
 
     <div class="header">
         <i class="fas fa-home"></i>
+        <!-- <div class="logo"> <img src="assets/images/home.png" width="25px"> </div> -->
         <span>Layanan Rumah</span>
     </div>
 
-    <!-- nanti kalau sudah ada datanya diloop dari db -->
     <div class="container mt-3">
-        <!-- Pemeriksaan Kesehatan -->
         <div class="card">
             <img src="assets/images/pemeriksaan.jpg" alt="Pemeriksaan Kesehatan Rutin">
             <div class="card-body">
@@ -61,7 +71,6 @@
             </div>
         </div>
 
-        <!-- Perawatan Luka -->
         <div class="card">
             <img src="assets/images/luka.jpg" alt="Perawatan Luka">
             <div class="card-body">
@@ -70,7 +79,6 @@
             </div>
         </div>
 
-        <!-- Fisioterapi di Rumah -->
         <div class="card">
             <img src="assets/images/fisioterapi.jpg" alt="Fisioterapi di rumah">
             <div class="card-body">
