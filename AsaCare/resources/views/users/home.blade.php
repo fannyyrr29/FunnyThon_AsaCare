@@ -13,6 +13,16 @@
     <link rel="manifest" href="{{ asset('/manifest.json') }}">
 
     <style>
+        .header {
+            background-color: #A2191F;
+            color: white;
+            padding: 10px;
+            font-size: 24px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+        }
+
         body {
             background-color: #FDF6EC;
         }
@@ -68,6 +78,12 @@
             border-radius: 10px;
             box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
             margin-bottom: 10px;
+            transition: background-color 0.3s;
+        }
+
+        .mood-btn.active {
+            background-color: #A6192E;
+            color: white;
         }
 
         .link-invitation {
@@ -81,7 +97,10 @@
 </head>
 
 <body>
-
+    <div class="header">
+        <i class="fas fa-store"></i>
+        <span>Home</span>
+    </div>
     <div class="container mt-4">
         <!-- Kartu Profil -->
         <div class="profile-card d-flex align-items-center">
@@ -129,31 +148,44 @@
         </div>
 
         <!-- Bagaimana kabar hari ini -->
-        <h6 class="text-center mt-4">Bagaimana kabar hari ini?</h6>
-        <div class="row text-center">
-            <div class="col-4">
-                <button class="mood-btn"><i class="far fa-smile" style="color: green;"></i>
-                    <img src="{{ asset('assets/images/smile.png') }}" width="50" class="rounded d-block mx-auto"
-                        alt="..."><br>Sehat</button>
-            </div>
-            <div class="col-4">
-                <button class="mood-btn"><i class="far fa-meh" style="color: orange;"></i>
-                    <img src="{{ asset('assets/images/neutral.png') }}" width="50" class="rounded d-block mx-auto"
-                        alt="..."><br>Kurang Sehat</button>
-            </div>
-            <div class="col-4">
-                <button class="mood-btn"><i class="far fa-frown" style="color: red;">
+        <div class="container mt-4">
+            <h6 class="text-center mt-4">Bagaimana kabar hari ini?</h6>
+            <div class="row text-center">
+                <div class="col-4">
+                    <button class="mood-btn" onclick="changeMood(this)"><i class="far fa-smile"
+                            style="color: green;"></i>
+                        <img src="{{ asset('assets/images/smile.png') }}" width="50" class="rounded d-block mx-auto"
+                            alt="...">
+                        <br>Sehat
+                    </button>
+                </div>
+                <div class="col-4">
+                    <button class="mood-btn" onclick="changeMood(this)"><i class="far fa-meh"
+                            style="color: orange;"></i>
+                        <img src="{{ asset('assets/images/neutral.png') }}" width="50" class="rounded d-block mx-auto"
+                            alt="...">
+                        <br>Kurang Sehat
+                    </button>
+                </div>
+                <div class="col-4">
+                    <button class="mood-btn" onclick="changeMood(this)"><i class="far fa-frown" style="color: red;"></i>
                         <img src="{{ asset('assets/images/angry.png') }}" width="50" class="rounded d-block mx-auto"
                             alt="...">
-                    </i><br>Sakit</button>
+                        <br>Sakit
+                    </button>
+                </div>
             </div>
         </div>
-    </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-
-    {{-- PWA --}}
-    <script src="{{ asset('/sw.js') }}"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+        <script>
+            function changeMood(button) {
+                document.querySelectorAll('.mood-btn').forEach(btn => btn.classList.remove('active'));
+                button.classList.add('active');
+            }
+        </script>
+        {{-- PWA --}}
+        <script src="{{ asset('/sw.js') }}"></script>
 </body>
 
 </html>
