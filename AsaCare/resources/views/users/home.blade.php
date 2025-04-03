@@ -12,7 +12,6 @@
     <link rel="apple-touch-icon" href="{{ asset('logo.png') }}">
     <link rel="manifest" href="{{ asset('/manifest.json') }}">
 
-    <script src="https://kit.fontawesome.com/your-fontawesome-kit.js" crossorigin="anonymous"></script>
     <style>
         body {
             background-color: #FDF6EC;
@@ -50,16 +49,6 @@
             width: 80px;
             height: 80px;
             object-fit: contain;
-            /* margin-bottom: 10px; */
-        }
-
-        .btn-red i {
-            font-size: 24px;
-            margin-bottom: 5px;
-        }
-
-        .row {
-            align-items: stretch;
         }
 
         .btn-red i {
@@ -67,12 +56,26 @@
             margin-bottom: 10px;
         }
 
+        .row {
+            align-items: stretch;
+            margin-bottom: 20px;
+        }
+
         .mood-btn {
             width: 100%;
-            padding: 5px;
+            padding: 10px;
             background-color: white;
             border-radius: 10px;
             box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+            margin-bottom: 10px;
+        }
+
+        .link-invitation {
+            color: #A6192E;
+        }
+
+        h6.text-center {
+            margin-top: 10px;
         }
     </style>
 </head>
@@ -85,8 +88,10 @@
             <img src="https://media-cdn.tripadvisor.com/media/photo-s/19/85/23/30/my-grandma-on-a-trip.jpg"
                 alt="Profile">
             <div class="ms-3">
-                <h5 class="mb-1">Halo, <strong style="color:#A6192E;">Sri Haryati</strong> ✏️</h5>
+                <h5 class="mb-1">Halo, <strong style="color:#A6192E;">Sri Haryati</strong>
+                </h5>
                 <p class="mb-0 text-muted"><i class="fas fa-map-marker-alt"></i> Jalan Merdeka No. 123</p>
+                <a href="invite" class="link-invitation">Undang Keluarga</a>
             </div>
         </div>
 
@@ -94,28 +99,28 @@
         <h6 class="text-center mt-4">Silahkan pilih salah satu opsi di bawah ini!</h6>
         <div class="row mt-3">
             <div class="col-6">
-                <button class="btn btn-red text-center">
+                <button class="btn-red text-center">
                     <img src="{{ asset('assets/images/home.png') }}" class="rounded d-block mx-auto" alt="...">
                     <i class="fas fa-home"></i><br>
                     Layanan Rumah
                 </button>
             </div>
             <div class="col-6">
-                <button class="btn btn-red text-center">
+                <button class="btn-red text-center">
                     <img src="{{ asset('assets/images/obat.png') }}" class="rounded d-block mx-auto" alt="...">
                     <i class="fas fa-pills"></i><br>
                     Obat-obatan
                 </button>
             </div>
             <div class="col-6 mt-2">
-                <button class="btn btn-red text-center">
+                <button class="btn-red text-center">
                     <img src="{{ asset('assets/images/history.png') }}" class="rounded d-block mx-auto" alt="...">
                     <i class="fas fa-file-medical"></i><br>
-                    Riwayat Pengobatan
+                    Riwayat Medis
                 </button>
             </div>
             <div class="col-6 mt-2">
-                <button class="btn btn-red text-center">
+                <button class="btn-red text-center">
                     <img src="{{ asset('assets/images/telp.png') }}" class="rounded d-block mx-auto" alt="...">
                     <i class="fas fa-phone"></i><br>
                     Telepon
@@ -133,37 +138,22 @@
             </div>
             <div class="col-4">
                 <button class="mood-btn"><i class="far fa-meh" style="color: orange;"></i>
-                    <img src="{{ asset('assets/images/neutral.png') }}" width="50"class="rounded d-block mx-auto"
+                    <img src="{{ asset('assets/images/neutral.png') }}" width="50" class="rounded d-block mx-auto"
                         alt="..."><br>Kurang Sehat</button>
             </div>
             <div class="col-4">
                 <button class="mood-btn"><i class="far fa-frown" style="color: red;">
-                        <img src="{{ asset('assets/images/angry.png') }}" width="50" class="rounded d-block mx-auto" alt="...">
+                        <img src="{{ asset('assets/images/angry.png') }}" width="50" class="rounded d-block mx-auto"
+                            alt="...">
                     </i><br>Sakit</button>
             </div>
         </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    
+
     {{-- PWA --}}
     <script src="{{ asset('/sw.js') }}"></script>
-    <script>
-        if ("serviceWorker" in navigator) {
-            // Register a service worker hosted at the root of the
-            // site using the default scope.
-            navigator.serviceWorker.register("/sw.js").then(
-                (registration) => {
-                    console.log("Service worker registration succeeded:", registration);
-                },
-                (error) => {
-                    console.error(`Service worker registration failed: ${error}`);
-                },
-            );
-        } else {
-            console.error("Service workers are not supported.");
-        }
-    </script>
 </body>
 
 </html>
