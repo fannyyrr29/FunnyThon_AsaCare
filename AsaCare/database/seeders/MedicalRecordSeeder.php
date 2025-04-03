@@ -13,7 +13,7 @@ class MedicalRecordSeeder extends Seeder
      */
     public function run(): void
     {
-        DB::table('medical_record')->insert([
+        DB::table('medical_records')->insert([
             [
                 'diagnose' => 'Diabetes Tipe 2',
                 'description' => 'Pasien mengalami gejala diabetes.',
