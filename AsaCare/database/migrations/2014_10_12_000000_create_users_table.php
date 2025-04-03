@@ -15,7 +15,8 @@ return new class extends Migration
             $table->id();
             $table->string('NIK', 16)->nullable();
             $table->string('name', 255);
-            $table->string('phone_number', 11)->nullable();
+            $table->string('username', 45);
+            $table->string('phone_number', 12)->nullable();
             $table->string('address', 500)->nullable();
             $table->enum('role', ['Admin', 'User']);
             $table->enum('gender', ['L', 'P'])->nullable();

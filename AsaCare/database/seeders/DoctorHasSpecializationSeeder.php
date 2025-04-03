@@ -13,7 +13,7 @@ class DoctorHasSpecializationSeeder extends Seeder
      */
     public function run(): void
     {
-        DB::table('doctor_has_specialization')->insert([
+        DB::table('doctor_has_specializations')->insert([
             ['doctor_id' => 1, 'specialization_id' => 1],
             ['doctor_id' => 1, 'specialization_id' => 2],
             ['doctor_id' => 2, 'specialization_id' => 3],
