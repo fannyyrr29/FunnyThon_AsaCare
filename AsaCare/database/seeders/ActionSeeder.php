@@ -26,42 +26,35 @@ class ActionSeeder extends Seeder
                 'description'=>'Cek tekanan darah, gula darah, kolesterol',
                 'image'=>'pemeriksaan.jpg',
                 'type'=>'Homecare',
-                'price'=>0
+                'price'=>100000
             ],
             [
                 'name'=>'Perawatan Luka',
                 'description'=>'Perawatan luka diabetes, luka pasca operasi',
                 'image'=>'luka.jpg',
                 'type'=>'Homecare',
-                'price'=>0
+                'price'=>400000
             ],
             [
                 'name'=>'Fisioterapi di Rumah',
                 'description'=>'Pemulihan pasca stroke, terapi sendi',
                 'image'=>'fisioterapi.jpg',
                 'type'=>'Homecare',
-                'price'=>0
+                'price'=>300000
             ],
             [
                 'name'=>'Pendampingan Lansia',
                 'description'=>'Perawatan harian, bantuan aktivitas',
                 'image'=>'pendampingan.jpg',
                 'type'=>'Homecare',
-                'price'=>0
+                'price'=>300000
             ],
             [
                 'name'=>'Pemberian Obat dan Infus di Rumah',
                 'description'=>'Pemberian obat dan infus',
                 'image'=>'infus.jpg',
                 'type'=>'Homecare',
-                'price'=>0
-            ],
-            [
-                'name'=>'Pemberian Obat dan Infus di Rumah',
-                'description'=>'Pemberian obat dan infus',
-                'image'=>'infus.jpg',
-                'type'=>'Homecare',
-                'price'=>0
+                'price'=>400000
             ],
             [
                 'name'=>'Booking Janji Temu dengan Dokter Umum',
