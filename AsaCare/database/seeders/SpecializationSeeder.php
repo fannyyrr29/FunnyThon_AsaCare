@@ -13,7 +13,7 @@ class SpecializationSeeder extends Seeder
      */
     public function run(): void
     {
-        DB::class('specializations')->insert([
+        DB::table('specializations')->insert([
             ['name' => 'Dokter Umum'],
             ['name' => 'Dokter Spesialis Anak'],
             ['name' => 'Dokter Spesialis Bedah'],

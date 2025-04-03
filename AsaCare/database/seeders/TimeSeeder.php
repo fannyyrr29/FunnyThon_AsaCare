@@ -13,7 +13,7 @@ class TimeSeeder extends Seeder
      */
     public function run(): void
     {
-        DB::class('times')->insert([
+        DB::table('times')->insert([
             ['time' => '05:00:00'],
             ['time' => '06:00:00'],
             ['time' => '07:30:00'],

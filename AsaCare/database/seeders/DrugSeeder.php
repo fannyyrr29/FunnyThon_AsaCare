@@ -13,7 +13,7 @@ class DrugSeeder extends Seeder
      */
     public function run(): void
     {
-        DB::class('drugs')->insert([
+        DB::table('drugs')->insert([
             [
                 'name'=>'Paracetamol (500 mg)',
                 'price'=>5000,

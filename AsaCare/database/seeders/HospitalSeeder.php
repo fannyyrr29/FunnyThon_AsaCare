@@ -13,7 +13,7 @@ class HospitalSeeder extends Seeder
      */
     public function run(): void
     {
-        DB::class('hospitals')->insert([
+        DB::table('hospitals')->insert([
             [
                 'name' => 'RSUD Dr. Soetomo',
                 'address' => 'Jl. Mayjen Prof. Dr. Moestopo No. 6-8, Surabaya',
