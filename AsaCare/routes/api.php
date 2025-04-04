@@ -3,6 +3,12 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\User\ActionController;
+use App\Http\Controllers\User\CallController;
+use App\Http\Controllers\User\HomeController;
+use App\Http\Controllers\User\MedicalRecordController;
+use App\Models\EmergencyCall;
+use App\Models\MedicalRecord;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -18,8 +24,9 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('/actions', [ActionController::class, 'index']);
-
-// Route::post('/login', [LoginController::class, 'authenticate']);
-// Route::post('/update', [UserController::class, 'store']);
-// Route::get('/show/{id}', [UserController::class, 'show']);
+// Route::post('/editProfil', [HomeController::class, 'editProfile']);
+// Route::get('/showProfile/{id}', [HomeController::class, 'showProfile']);
+// Route::get('/call/{id}', [HomeController::class, 'showEmergencyCall']);
+// Route::get('/medicalRecord/{id}', [HomeController::class, 'showMedicalRecord'])->name('user.medicalrecord');
+// Route::get('/obat', [HomeController::class, 'showDrug']);
+Route::get('/layanan', [HomeController::class, 'showAction']);

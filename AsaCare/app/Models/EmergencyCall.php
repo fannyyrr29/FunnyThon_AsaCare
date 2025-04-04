@@ -9,6 +9,8 @@ class EmergencyCall extends Model
 {
     use HasFactory;
 
+    protected $table = "emergencycall";
+
     protected $fillable = [
         'name', 'phone_number', 'user_id'
     ];

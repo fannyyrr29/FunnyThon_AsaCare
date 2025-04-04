@@ -34,6 +34,8 @@ class LoginController extends Controller
             // Authentication passed, log the user in manually
             Auth::login($user);
 
+            session(['user' => $user]);
+
             if ($user->role === 'admin') {
                 return redirect()->route('admin.dashboard'); 
             } elseif ($user->role === 'user') {

@@ -2,7 +2,12 @@
 
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\SocialiteController;
+use App\Http\Controllers\User\ActionController;
+use App\Http\Controllers\User\CallController;
+use App\Http\Controllers\User\DrugController;
 use App\Http\Controllers\User\HomeController;
+use App\Http\Controllers\User\LayananController;
+use App\Http\Controllers\User\MedicalRecordController;
 use App\Http\Controllers\User\UserController;
 use App\Models\User;
 use Illuminate\Support\Facades\Route;
@@ -31,12 +36,20 @@ Route::get('/logout', [LoginController::class, 'logout']);
 // Route untuk User
 Route::group(['prefix' => 'user'], function() {
     //Untuk menampilkan home
-    Route::get('/home', [UserController::class, 'home']);
-
+    Route::get('/home', [HomeController::class, 'index']);
+    //Untuk show profile di halaman edit
+    Route::get('/showProfile/{id}', [HomeController::class, 'showProfile']);
+    //Untuk menyimpan perubahan di db
+    Route::post('/editProfil', [HomeController::class, 'editProfile'])->name('user.editProfile');
+    //Menampilkan List Kontak
+    Route::get('/call/{id}', [HomeController::class, 'showEmergencyCall'])->name('user.call');
+    //Menampilkan riwayat kesehatan user
+    Route::get('/medicalRecord/{id}', [HomeController::class, 'showMedicalRecord'])->name('user.medicalrecord');
+    //Untuk menampilkan obat-obatan
+    Route::get('/obat', [HomeController::class, 'showDrug'])->name('user.drug');
+    //Untuk menampilkan layanan
+    Route::get('/layanan', [HomeController::class, 'showAction'])->name('user.layanan');
     
-
-    // Untuk Edit Profil
-    Route::resource('/editProfil', UserController::class)->only(['index', 'store', 'show']);
 });
 
 Route::get('/home', function(){
