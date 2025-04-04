@@ -1,7 +1,9 @@
 <?php
 
 use App\Http\Controllers\Auth\SocialiteController;
+use App\Http\Controllers\PusherController;
 use Illuminate\Support\Facades\Route;
+use Pusher\Pusher;
 
 /*
 |--------------------------------------------------------------------------
@@ -61,6 +63,12 @@ Route::get('/editProfile', function(){
     return view('users/editProfile');
 });
 
+Route::get('/konsultasi', [PusherController::class, 'index']);
+
+Route::post('/konsultasi/broadcast', [PusherController::class, 'broadcast']);
+
+Route::post('/konsultasi/receive', [PusherController::class, 'receive']);
+
 Route::get('/auth/redirect', [SocialiteController::class, 'redirect']);
 
-Route::get('/auth/google/callback', [SocialiteController::class, 'callback']);
+// Route::get('/auth/google/callback', [SocialiteController::class, 'callback']);
