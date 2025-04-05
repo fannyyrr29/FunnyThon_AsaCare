@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\User\ActionController;
 use App\Http\Controllers\User\CallController;
 use App\Http\Controllers\User\HomeController;
+use App\Http\Controllers\User\InviteController;
 use App\Http\Controllers\User\MedicalRecordController;
 use App\Models\EmergencyCall;
 use App\Models\MedicalRecord;
@@ -29,4 +30,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 // Route::get('/call/{id}', [HomeController::class, 'showEmergencyCall']);
 // Route::get('/medicalRecord/{id}', [HomeController::class, 'showMedicalRecord'])->name('user.medicalrecord');
 // Route::get('/obat', [HomeController::class, 'showDrug']);
-Route::get('/layanan', [HomeController::class, 'showAction']);
+// Route::get('/layanan', [HomeController::class, 'showAction']);
+// Route::get('/family/{id}', [InviteController::class, 'index']);
+ROute::post('/addFriend', [InviteController::class, 'addFriend']);

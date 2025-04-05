@@ -49,7 +49,7 @@ Route::group(['prefix' => 'user'], function() {
     Route::get('/obat', [HomeController::class, 'showDrug'])->name('user.drug');
     //Untuk menampilkan layanan
     Route::get('/layanan', [HomeController::class, 'showAction'])->name('user.layanan');
-    
+    //untuk menampilkan daftar 
 });
 
 Route::get('/home', function(){
