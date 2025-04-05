@@ -9,16 +9,16 @@ use function Illuminate\Validation\Rules\message;
 
 class PusherController extends Controller
 {
-    public function index(){
-        return view('users.konsultasi.index');
+    public function index($chat_id){
+        return view('users.konsultasi.index', compact('chat_id'));
     }
     public function broadcast(Request $request){
-        broadcast(new PusherBroadcast($request->get('message')))->toOthers();
+        broadcast(new PusherBroadcast($request->get('chat_id'), $request->get('message')))->toOthers();
         
-        return view('users.konsultasi.broadcast', ['message'=>$request->get('message')]);
+        return view('users.konsultasi.broadcast', ['chat_id'=>$request->get('chat_id'),'message'=>$request->get('message')]);
     }
     public function receive(Request $request){
-        return view('users.konsultasi.receive', ['message'=>$request->get('message')]);
+        return view('users.konsultasi.receive', ['chat_id'=>$request->get('chat_id'), 'message'=>$request->get('message')]);
     }
 
     // public function message(Request $request){

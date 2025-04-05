@@ -18,29 +18,30 @@
     <div class="chat">
         <div class="top">
             <img src="" alt="Avatar">
-            <p>Nama Orang</p>
+            <p>Chat id: {{$chat_id}}</p>
         </div>
         <div class="messages">
-            @include('users/konsultasi/receive', ['message' => 'Hi, how are you?'])
+            @include('users.konsultasi.receive', ['message' => 'Hi, how are you?'])
         </div>
         <div class="bottom">
             <form action="">
                 <input type="text" name="message" id="message" placeholder="Enter message..." autocomplete="off">
+                <input type="hidden" name="chat_id" id="chat_id" value="{{$chat_id}}">
                 <button type="submit"></button>
             </form>
         </div>
     </div>
 
     <script>
-        const pusher = new Pusher('{{ config('broadcasting.connections.pusher.key') }}', {
-            cluster: 'ap1'
-        });
-        const channel = pusher.subscribe('public');
+        const pusher = new Pusher('{{ config('broadcasting.connections.pusher.key') }}', {cluster: 'ap1'});
+        const chat_id = $('#chat_id').val();
+        const channel = pusher.subscribe(chat_id);
 
         // Receive messages
         channel.bind('chat', function(data) {
             $.post('/konsultasi/receive', {
                 _token: '{{ csrf_token() }}',
+                chat_id: data.chat_id,
                 message: data.message,
             }).done(function(res) {
                 $(".messages > .message").last().after(res);
@@ -60,6 +61,7 @@
                 },
                 data: {
                     _token: '{{ csrf_token() }}',
+                    chat_id: $('#chat_id').val(),
                     message: $("form #message").val(),
                 }
             }).done(function(res) {
