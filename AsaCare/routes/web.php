@@ -1,7 +1,7 @@
 <?php
 
+use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\SocialiteController;
-use App\Http\Controllers\PusherController;
 use Illuminate\Support\Facades\Route;
 use Pusher\Pusher;
 
@@ -19,8 +19,35 @@ use Pusher\Pusher;
 Route::get('/', function () {
     return view('welcome');
 });
-Route::get('/login', function(){
-    return view('users/login');
+
+
+//hanya bisa diakses oleh user yang belum terautentikasi
+Route::get('/login', [LoginController::class, 'index'])->middleware('guest');
+Route::post('/login', [LoginController::class, 'authenticate']);
+Route::get('/logout', [LoginController::class, 'logout']);
+
+// Route untuk User
+Route::group(['prefix' => 'user'], function() {
+    //Untuk menampilkan home
+    Route::get('/home', [HomeController::class, 'index']);
+    //Untuk show profile di halaman edit
+    Route::get('/showProfile/{id}', [HomeController::class, 'showProfile']);
+    //Untuk menyimpan perubahan di db
+    Route::post('/editProfil', [HomeController::class, 'editProfile'])->name('user.editProfile');
+    //Menampilkan List Kontak
+    Route::get('/call/{id}', [HomeController::class, 'showEmergencyCall'])->name('user.call');
+    //Menampilkan riwayat kesehatan user
+    Route::get('/medicalRecord/{id}', [HomeController::class, 'showMedicalRecord'])->name('user.medicalrecord');
+    //Untuk menampilkan obat-obatan
+    Route::get('/obat', [HomeController::class, 'showDrug'])->name('user.drug');
+    //Untuk menampilkan layanan
+    Route::get('/layanan', [HomeController::class, 'showAction'])->name('user.layanan');
+    //untuk input kondisi
+    Route::post('/addMood', [HomeController::class, 'addMood']);
+    //untuk cari teman
+    Route::post('/findFriend', [InviteController::class, 'searchFriend']);
+    //untuk add teman 
+    Route::post('/addFriend', [InviteController::class, 'addFriend']);
 });
 
 Route::get('/home', function(){

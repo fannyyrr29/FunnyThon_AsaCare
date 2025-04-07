@@ -67,19 +67,20 @@ class User extends Authenticatable
         return $this->hasMany(Condition::class, 'user_id', 'id');
     }
 
-    public function senders(){
+    //cek user diundang oleh siapa saja
+    public function senders() {
         return $this->belongsToMany(User::class, 'families', 'receiver_id', 'sender_id')->withPivot('status')
                 ->withTimestamps();
-    }
+    }    
 
+    //cek user mengundang siapa saja
     public function receivers(){
         return $this->belongsToMany(User::class, 'families', 'sender_id', 'receiver_id')->withPivot('status')
                 ->withTimestamps();
     }
 
-    public function families()
-    {
-        return $this->senders->merge($this->receivers);
+    public function families() {
+        return $this->belongsToMany(User::class, 'families', 'sender_id', 'receiver_id')->withPivot('status');
     }
-
+    
 }

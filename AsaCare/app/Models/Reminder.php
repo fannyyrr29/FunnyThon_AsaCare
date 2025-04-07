@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Reminder extends Model
 {
@@ -31,5 +32,11 @@ class Reminder extends Model
     public function drugRecord()
     {
         return $this->belongsTo(DrugRecord::class);
+    }
+
+    public function times()
+    {
+        return $this->belongsToMany(Time::class, 'reminder_times', 'reminders_user_id', 'times_id')
+                    ->withPivot('reminders_medical_record_id', 'reminders_drug_id');
     }
 }

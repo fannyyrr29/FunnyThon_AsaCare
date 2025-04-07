@@ -13,7 +13,7 @@ class Condition extends Model
 
     protected $casts = [
         'date' => 'date', 
-        'user_id' => 'integer'
+        'user_id' => 'integer',
     ];
 
     public function user(){
