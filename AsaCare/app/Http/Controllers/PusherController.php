@@ -10,7 +10,7 @@ use function Illuminate\Validation\Rules\message;
 class PusherController extends Controller
 {
     public function index($chat_id){
-        return view('users.konsultasi.index', compact('chat_id'));
+        return view('doctors.chat', compact('chat_id'));
     }
     public function broadcast(Request $request){
         broadcast(new PusherBroadcast($request->get('chat_id'), $request->get('message')))->toOthers();
@@ -21,9 +21,4 @@ class PusherController extends Controller
         return view('users.konsultasi.receive', ['chat_id'=>$request->get('chat_id'), 'message'=>$request->get('message')]);
     }
 
-    // public function message(Request $request){
-    //     event(new PusherBroadcast($request->input('username'), $request->input('message')));
-
-    //     return[];
-    // }
 }
