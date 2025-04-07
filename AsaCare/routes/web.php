@@ -2,16 +2,8 @@
 
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\SocialiteController;
-use App\Http\Controllers\User\ActionController;
-use App\Http\Controllers\User\CallController;
-use App\Http\Controllers\User\DrugController;
-use App\Http\Controllers\User\HomeController;
-use App\Http\Controllers\User\InviteController;
-use App\Http\Controllers\User\LayananController;
-use App\Http\Controllers\User\MedicalRecordController;
-use App\Http\Controllers\User\UserController;
-use App\Models\User;
 use Illuminate\Support\Facades\Route;
+use Pusher\Pusher;
 
 /*
 |--------------------------------------------------------------------------
@@ -97,6 +89,12 @@ Route::get('/setReminder', function(){
 Route::get('/editProfile', function(){
     return view('users/editProfile');
 });
+
+Route::get('/konsultasi/{chat_id}', [PusherController::class, 'index']);
+
+Route::post('/konsultasi/broadcast', [PusherController::class, 'broadcast']);
+
+Route::post('/konsultasi/receive', [PusherController::class, 'receive']);
 
 Route::get('/auth/redirect', [SocialiteController::class, 'redirect']);
 
