@@ -7,6 +7,8 @@ use App\Http\Controllers\User\InviteController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PusherController;
 use App\Http\Controllers\User\DrugController;
+use App\Http\Controllers\User\ReminderController;
+use Database\Seeders\ReminderSeeder;
 use Pusher\Pusher;
 
 /*
@@ -65,6 +67,10 @@ Route::middleware(['auth', 'role:User'])->prefix('user')->group(function(){
     Route::get('/hospitalcare', [HomeController::class, 'showHospitalCare'])->name('user.showHospitalCare');
     //untuk search layanan berdasarkan nama
     Route::post('/cariLayanan', [HomeController::class, 'cariLayanan'])->name('user.searchAction');
+    //untuk menampilkan reminder user
+    Route::get('/reminder/{id}', [ReminderController::class, 'index'])->name('user.reminder');
+    //untuk update status reminder
+    Route::post('/update', [ReminderController::class, 'updateStatus'])->name('user.updateReminder');
 });
 
 Route::middleware(['auth', 'role:Admin'])->prefix('admin')->group(function(){

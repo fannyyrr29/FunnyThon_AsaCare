@@ -10,12 +10,13 @@ class Drug extends Model
     use HasFactory;
 
     protected $fillable = [
-        'name', 'price', 'dose', 'period'
+        'name', 'price', 'dosis', 'quantity', 'type'
     ];
 
     protected $casts = [
         'price' => 'double', 
-        'dose' => 'integer'
+        'dose' => 'integer', 
+        'quantity' => 'double'
     ];
 
     public function drugRecords(){

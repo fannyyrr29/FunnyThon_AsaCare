@@ -14,7 +14,18 @@ class ReminderTimeSeeder extends Seeder
     public function run(): void
     {
         DB::table('reminder_times')->insert([
-            
+            [
+                'reminder_id' => 1, 
+                'time_id'=> 3
+            ],
+            [
+                'reminder_id' => 1, 
+                'time_id'=> 7
+            ],
+            [
+                'reminder_id' => 1, 
+                'time_id'=> 11
+            ],
         ]);
     }
 }

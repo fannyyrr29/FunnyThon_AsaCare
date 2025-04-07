@@ -12,14 +12,12 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('reminder_times', function (Blueprint $table) {
-            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
-            $table->foreignId('medical_record_id')->constrained('medical_records')->onDelete('cascade');
-            $table->foreignId('drug_id')->constrained('drugs')->onDelete('cascade');
-            $table->foreignId('time_id')->constrained('times')->onDelete('cascade');
+            $table->foreignId('reminder_id')->constrained('reminders')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreignId('time_id')->constrained('times')->onUpdate('cascade')->onDelete('cascade');
             $table->tinyInteger('status')->default(1);
             $table->timestamps();
 
-            $table->primary(['user_id', 'medical_record_id', 'drug_id', 'time_id']);
+            $table->primary(['reminder_id', 'time_id']);
         });
     }
 
