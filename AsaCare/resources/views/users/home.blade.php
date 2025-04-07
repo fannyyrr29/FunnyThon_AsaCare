@@ -1,191 +1,104 @@
-<!DOCTYPE html>
-<html lang="id">
+@extends('layouts.app')
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Home</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+@section('title', 'Home Page')
 
-    <!-- PWA  -->
-    <meta name="theme-color" content="#6777ef" />
-    <link rel="apple-touch-icon" href="{{ asset('logo.png') }}">
-    <link rel="manifest" href="{{ asset('/manifest.json') }}">
+@section('header_title', 'Home')
 
-    <style>
-        .header {
-            background-color: #A2191F;
-            color: white;
-            padding: 10px;
-            font-size: 24px;
-            font-weight: bold;
-            display: flex;
-            align-items: center;
-        }
-
-        body {
-            background-color: #FDF6EC;
-        }
-
-        .profile-card {
-            background-color: #FFF;
-            border-radius: 12px;
-            padding: 15px;
-            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-        }
-
-        .profile-card img {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            object-fit: cover;
-        }
-
-        .btn-red {
-            background-color: #A6192E;
-            color: white;
-            border-radius: 10px;
-            padding: 20px;
-            width: 100%;
-            font-size: 16px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            min-height: 160px;
-        }
-
-        .btn-red img {
-            width: 80px;
-            height: 80px;
-            object-fit: contain;
-        }
-
-        .btn-red i {
-            font-size: 24px;
-            margin-bottom: 10px;
-        }
-
-        .row {
-            align-items: stretch;
-            margin-bottom: 20px;
-        }
-
-        .mood-btn {
-            width: 100%;
-            padding: 10px;
-            background-color: white;
-            border-radius: 10px;
-            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-            margin-bottom: 10px;
-            transition: background-color 0.3s;
-        }
-
-        .mood-btn.active {
-            background-color: #A6192E;
-            color: white;
-        }
-
-        .link-invitation {
-            color: #A6192E;
-        }
-
-        h6.text-center {
-            margin-top: 10px;
-        }
-    </style>
-</head>
-
-<body>
-    <div class="header">
-        <i class="fas fa-store"></i>
-        <span>Home</span>
+@section('content')
+    <!-- Kartu Profil -->
+    <div class="profile-card d-flex align-items-center">
+        <img src="https://media-cdn.tripadvisor.com/media/photo-s/19/85/23/30/my-grandma-on-a-trip.jpg" alt="Profile">
+        <div class="ms-3 w-100">
+            <div class="d-flex justify-content-between align-items-start">
+                <div>
+                    <h5 class="mb-1">Halo, <strong style="color:#A6192E;">Sri Haryati</strong></h5>
+                    <p class="mb-0 text-muted"><i class="fas fa-map-marker-alt"></i> Jalan Merdeka No. 123</p>
+                </div>
+                <a href="{{ route('user.editProfile') }}" class="btn-red-general">
+                    <i class="fas fa-edit"></i> Edit Profil
+                </a>
+            </div>
+        </div>
     </div>
-    <div class="container mt-4">
-        <!-- Kartu Profil -->
-        <div class="profile-card d-flex align-items-center">
-            <img src="https://media-cdn.tripadvisor.com/media/photo-s/19/85/23/30/my-grandma-on-a-trip.jpg"
-                alt="Profile">
-            <div class="ms-3">
-                <h5 class="mb-1">Halo, <strong style="color:#A6192E;">Sri Haryati</strong>
-                </h5>
-                <p class="mb-0 text-muted"><i class="fas fa-map-marker-alt"></i> Jalan Merdeka No. 123</p>
-                <a href="invite" class="link-invitation">Undang Keluarga</a>
+
+<br>
+    <!-- Pilihan Layanan -->
+    <h6 class="text-center mt-4">Silahkan pilih salah satu opsi di bawah ini!</h6>
+    <div class="row mt-2 text-center">
+        <div class="col-4">
+            <button class="btn-red">
+                <img class="btn-red img" src="{{ asset('assets/images/home.png') }}" alt="...">
+                <br>Layanan Rumah
+            </button>
+        </div>
+        <div class="col-4">
+            <button class="btn-red">
+                <img class="btn-red img" src="{{ asset('assets/images/obat.png') }}" alt="...">
+                <br>Obat-obatan
+            </button>
+        </div>
+        <div class="col-4">
+            <button class="btn-red">
+                <img class="btn-red img" src="{{ asset('assets/images/family.png') }}" alt="...">
+                <br>Keluarga
+            </button>
+        </div>
+        <div class="col-4">
+            <button class="btn-red">
+                <img class="btn-red img" src="{{ asset('assets/images/history.png') }}" alt="...">
+                <br>Riwayat Medis
+            </button>
+        </div>
+        <div class="col-4">
+            <button class="btn-red  ">
+                <img class="btn-red img" src="{{ asset('assets/images/telp.png') }}" alt="...">
+                <br>Telepon
+            </button>
+        </div>
+    </div>
+
+    <!-- Bagaimana kabar hari ini -->
+    <div class="container mt-2">
+        <h6 class="text-center mt-2">Bagaimana kabar hari ini?</h6>
+        <div class="row text-center">
+            <div class="col-4">
+                <button class="mood-btn" onclick="changeMood(this)" data-mood="healthy">
+                    <img src="{{ asset('assets/images/smile.png') }}" width="50" class="rounded d-block mx-auto" alt="...">
+                    <br>Sehat
+                </button>
+            </div>
+            <div class="col-4">
+                <button class="mood-btn" onclick="changeMood(this)" data-mood="mid">
+                    <img src="{{ asset('assets/images/neutral.png') }}" width="50" class="rounded d-block mx-auto"
+                        alt="...">
+                    <br>Netral
+                </button>
+            </div>
+            <div class="col-4">
+                <button class="mood-btn" onclick="changeMood(this)" data-mood="sick">
+                    <img src="{{ asset('assets/images/angry.png') }}" width="50" class="rounded d-block mx-auto" alt="...">
+                    <br>Sakit
+                </button>
             </div>
         </div>
+@endsection
 
-        <!-- Pilihan Layanan -->
-        <h6 class="text-center mt-4">Silahkan pilih salah satu opsi di bawah ini!</h6>
-        <div class="row mt-3">
-            <div class="col-6">
-                <button class="btn-red text-center">
-                    <img src="{{ asset('assets/images/home.png') }}" class="rounded d-block mx-auto" alt="...">
-                    <i class="fas fa-home"></i><br>
-                    Layanan Rumah
-                </button>
-            </div>
-            <div class="col-6">
-                <button class="btn-red text-center">
-                    <img src="{{ asset('assets/images/obat.png') }}" class="rounded d-block mx-auto" alt="...">
-                    <i class="fas fa-pills"></i><br>
-                    Obat-obatan
-                </button>
-            </div>
-            <div class="col-6 mt-2">
-                <button class="btn-red text-center">
-                    <img src="{{ asset('assets/images/history.png') }}" class="rounded d-block mx-auto" alt="...">
-                    <i class="fas fa-file-medical"></i><br>
-                    Riwayat Medis
-                </button>
-            </div>
-            <div class="col-6 mt-2">
-                <button class="btn-red text-center">
-                    <img src="{{ asset('assets/images/telp.png') }}" class="rounded d-block mx-auto" alt="...">
-                    <i class="fas fa-phone"></i><br>
-                    Telepon
-                </button>
-            </div>
-        </div>
-
-        <!-- Bagaimana kabar hari ini -->
-        <div class="container mt-4">
-            <h6 class="text-center mt-4">Bagaimana kabar hari ini?</h6>
-            <div class="row text-center">
-                <div class="col-4">
-                    <button class="mood-btn" onclick="changeMood(this)"><i class="far fa-smile"
-                            style="color: green;"></i>
-                        <img src="{{ asset('assets/images/smile.png') }}" width="50" class="rounded d-block mx-auto"
-                            alt="...">
-                        <br>Sehat
-                    </button>
-                </div>
-                <div class="col-4">
-                    <button class="mood-btn" onclick="changeMood(this)"><i class="far fa-meh"
-                            style="color: orange;"></i>
-                        <img src="{{ asset('assets/images/neutral.png') }}" width="50" class="rounded d-block mx-auto"
-                            alt="...">
-                        <br>Kurang Sehat
-                    </button>
-                </div>
-                <div class="col-4">
-                    <button class="mood-btn" onclick="changeMood(this)"><i class="far fa-frown" style="color: red;"></i>
-                        <img src="{{ asset('assets/images/angry.png') }}" width="50" class="rounded d-block mx-auto"
-                            alt="...">
-                        <br>Sakit
-                    </button>
-                </div>
-            </div>
-        </div>
-
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    @push('scripts')
         <script>
             function changeMood(button) {
-                document.querySelectorAll('.mood-btn').forEach(btn => btn.classList.remove('active'));
-                button.classList.add('active');
+                document.querySelectorAll('.mood-btn').forEach(btn => {
+                    btn.classList.remove('mood-healthy', 'mood-mid', 'mood-sick');
+                });
+
+                const mood = button.getAttribute('data-mood');
+
+                if (mood === 'healthy') {
+                    button.classList.add('mood-healthy');
+                } else if (mood === 'mid') {
+                    button.classList.add('mood-mid');
+                } else if (mood === 'sick') {
+                    button.classList.add('mood-sick');
+                }
             }
         </script>
-        {{-- PWA --}}
-        <script src="{{ asset('/sw.js') }}"></script>
-</body>
-
-</html>
+    @endpush

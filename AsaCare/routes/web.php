@@ -20,7 +20,7 @@ use Pusher\Pusher;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('users/tokoobat');
 });
 
 
@@ -59,11 +59,6 @@ Route::middleware(['auth', 'role:Admin'])->prefix('admin')->group(function(){
 });
 
 
-
-Route::get('/home', function(){
-    return view('users/home');
-});
-
 Route::get('/homecare', function(){
     return view('users/homecare');
 });
@@ -84,10 +79,17 @@ Route::get('/ringkasanBayar', function(){
     return view('users/ringkasanBayar');
 });
 
+Route::get('/reservasi', function(){
+    return view('users/reservasi');
+});
+
+
 Route::get('/riwayat', function(){
     return view('users/riwayat');
 });
-
+Route::get('/riwayatBeliObat', function(){
+    return view('users/riwayatBeliObat');
+});
 Route::get('/menuObat', function(){
     return view('users/menuObat');
 });

@@ -1,49 +1,12 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Lengkapi Profile</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-        body {
-            background-color: #f8f1dc;
-        }
+@extends('layouts.app')
 
-        .card {
-            max-width: 400px;
-            margin: auto;
-            border-radius: 10px;
-            padding: 20px;
-        }
+@section('title', 'Lengkapi Profil')
+@section('header_title', 'Lengkapi Profil')
+@section('back_button', true)
 
-        .card-header {
-            background-color: #a52a2a;
-            color: white;
-            text-align: center;
-            font-size: 22px;
-            font-weight: bold;
-            border-radius: 10px 10px 0 0;
-            padding: 15px;
-        }
-
-        .btn-masuk {
-            background-color: #a52a2a;
-            color: white;
-            font-weight: bold;
-            width: 100%;
-        }
-
-        .btn-masuk:hover {
-            background-color: #8b1e1e;
-        }
-    </style>
-</head>
-
-<body>
+@section('content')
     <div class="container mt-5">
-        <div class="card shadow">
-            <div class="card-header">Lengkapi Profil</div>
+        <div class="card shadow" style="max-width: 400px; margin: auto; border-radius: 10px; padding: 20px;">
             <div class="card-body">
                 <form id="daftarForm">
                     <div class="mb-3">
@@ -90,22 +53,26 @@
                         <small class="text-danger" id="phoneError"></small>
                     </div>
 
-                    <!-- Tambahkan Input Alamat Rumah -->
                     <div class="mb-3">
                         <label for="alamat" class="form-label">Alamat Rumah</label>
                         <textarea class="form-control" id="alamat" rows="3" placeholder="Masukkan alamat rumah"></textarea>
                         <small class="text-danger" id="alamatError"></small>
                     </div>
 
-                    <button type="submit" class="btn btn-masuk">Simpan</button>
+                    <button type="submit" class="btn w-100 text-white fw-bold"
+                        style="background-color: #a52a2a;">Simpan</button>
                 </form>
             </div>
         </div>
     </div>
+    <br><br>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js">
+@endsection
+
+@push('scripts')
+    <script>
         document.getElementById("daftarForm").addEventListener("submit", function (event) {
-            event.preventDefault(); // Mencegah form terkirim sebelum validasi selesai
+            event.preventDefault();
             let isValid = true;
 
             let nik = document.getElementById("nik").value.trim();
@@ -158,5 +125,4 @@
             }
         });
     </script>
-</body>
-</html>
+@endpush

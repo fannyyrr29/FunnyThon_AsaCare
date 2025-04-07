@@ -6,12 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Home</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
-    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 
     <!-- PWA -->
     <meta name="theme-color" content="#6777ef" />
     <link rel="apple-touch-icon" href="{{ asset('logo.png') }}">
     <link rel="manifest" href="{{ asset('/manifest.json') }}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 
     <style>
         .header {
@@ -45,6 +45,25 @@
 
         .search-bar i {
             color: gray;
+        }
+
+        .nav-tabs .nav-link.active {
+            color: #000 !important;
+            border-bottom: 3px solid #000;
+            font-weight: bold;
+        }
+
+        .nav-tabs .nav-link {
+            color: #A2191F;
+        }
+
+        .nav-item {
+            text-align: center;
+            font-size: 0.8rem;
+        }
+
+        .nav-link.active {
+            color: #A2191F;
         }
 
         body {
@@ -109,17 +128,42 @@
             <i class="fas fa-search"></i>
         </div>
 
-        <div class="search-results" id="results">
-            <ul class="list-group-item">
-                <li class="profile-card d-flex align-items-center">
-                    <img src="https://media-cdn.tripadvisor.com/media/photo-s/19/85/23/30/my-grandma-on-a-trip.jpg"
-                        alt="Profile">
-                    <div class="ms-3">
-                        <h5 class="mb-1"><strong style="color:#A6192E;">Sri Haryati</strong></h5>
-                        <p class="mb-0 text-muted"><i class="fas fa-map-marker-alt"></i> Jalan Merdeka No. 123</p>
-                    </div>
+        <div class="container py-2">
+            <ul class="nav nav-tabs mt-3" id="myTab" role="tablist">
+
+                <li class="nav-item" role="presentation">
+                    <a class="nav-link" id="approved-tab" data-bs-toggle="tab" href="#approved" role="tab"
+                        aria-controls="approved" aria-selected="false">Approved</a>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <a class="nav-link active" id="pending-tab" data-bs-toggle="tab" href="#pending" role="tab"
+                        aria-controls="pending" aria-selected="true">Pending</a>
                 </li>
             </ul>
+
+            <div class="tab-content" id="myTabContent">
+                <div class="tab-pane fade show active" id="pending" role="tabpanel" aria-labelledby="pending-tab">
+                    <div class="profile-card mt-3">
+                        <p>haryono_983@gmail.com</p>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="approved" role="tabpanel" aria-labelledby="approved-tab">
+                    <!-- loop untuk user family -->
+                    <div class="search-results" id="results">
+                        <ul class="list-group-item">
+                            <li class="profile-card d-flex align-items-center">
+                                <img src="https://media-cdn.tripadvisor.com/media/photo-s/19/85/23/30/my-grandma-on-a-trip.jpg"
+                                    alt="Profile">
+                                <div class="ms-3">
+                                    <h5 class="mb-1"><strong style="color:#A6192E;">Sri Haryati</strong></h5>
+                                    <p class="mb-0 text-muted"><i class="fas fa-map-marker-alt"></i> Jalan Merdeka
+                                        No. 123</p>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <!-- Tombol Tambah -->

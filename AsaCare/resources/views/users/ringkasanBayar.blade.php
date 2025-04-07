@@ -30,7 +30,6 @@
                     <h6 class="fw-bold">Alamat Pengantaran</h6>
                     <div class="d-flex justify-content-between">
                         <span><i class="bi bi-geo-alt-fill"></i> Jalan Merdeka No. 123</span>
-                        <button class="btn btn-danger btn-sm">Ubah Alamat</button>
                     </div>
                 </div>
                 <hr>
@@ -80,7 +79,7 @@
                 <div>
                     <h5 class="text-left" class="fw-bold">Bayar Tunai</h5>
                     <h5 class="text-right" class="fw-bold">{{ 'Rp132.500' }} </h5>
-                    <button class="btn btn-danger w-100">Pesan Sekarang</button>
+                    <button class="btn-red-general">Pesan Sekarang</button>
                 </div>
             </div>
         </div>
