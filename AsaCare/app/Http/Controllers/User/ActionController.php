@@ -3,9 +3,6 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
-use App\Models\Doctor;
-use App\Models\Hospital;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class ActionController extends Controller
@@ -19,10 +16,9 @@ class ActionController extends Controller
         ->get(); 
 
         if ($doctors) {
-            return response()->json(compact('doctors'));
-        }
-
-        return response()->json(['header'=> 'ERROR', 'message' => 'Data tidak ditemukan!']);     
-        
+            return view('users.doctors', compact('doctors'));
+        }else{
+            return redirect()->back()->withErrors(['header' => 'ERROR', 'message' => 'Dokter tidak ditemukan!']);     
+        }        
     }
 }

@@ -45,22 +45,29 @@ class InviteController extends Controller
 
     public function searchFriend(Request $request){
         $userId = $request->user_id;
+        $email = $request->email;
 
-        $users = DB::select('
-        SELECT *
-        FROM users
-        WHERE id != ?
-          AND id NOT IN (1, 2)
-          AND id NOT IN (
-              SELECT sender_id FROM families WHERE receiver_id = ?
-              UNION
-              SELECT receiver_id FROM families WHERE sender_id = ?
-          )
-    ', [
-        $userId, $userId, $userId
-    ]);
+        try {
+            $users = DB::select('
+                SELECT *
+                FROM users
+                WHERE id != ?
+                AND id NOT IN (1, 2)
+                AND email LIKE ?
+                AND id NOT IN (
+                    SELECT sender_id FROM families WHERE receiver_id = ?
+                    UNION
+                    SELECT receiver_id FROM families WHERE sender_id = ?
+                )
+            ', [
+                $userId, '%' . $email . '%', $userId, $userId
+            ]);
+            return response()->json(compact('users'));
+        } catch (\Throwable $th) {
+            return response()->json(['header' => 'ERROR', 'message' => 'Pengguna tidak ditemukan']);
+        }
+        
 
-        return response()->json(compact('users'));
     }
     
 }

@@ -22,7 +22,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 
-// Route::post('/findFriend', [InviteController::class, 'searchFriend']);
+Route::post('/findFriend', [InviteController::class, 'searchFriend']);
 // Route::post('/editProfil', [HomeController::class, 'editProfile']);
 // Route::get('/showProfile/{id}', [HomeController::class, 'showProfile']);
 // Route::get('/call/{id}', [HomeController::class, 'showEmergencyCall']);
