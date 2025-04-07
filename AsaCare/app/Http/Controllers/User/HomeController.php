@@ -135,4 +135,12 @@ class HomeController extends Controller
             return response()->json(['header' => 'ERROR', 'message' => 'Data gagal diinputkan! ' . $th->getMessage() ]);
         }
     }
+
+    public function showMood($id){
+        $conditions = Condition::where('user_id', '=', $id)->get();
+        if ($conditions) {
+            return response()->json(['header'=>'SUKSES', 'conditions' => $conditions]);
+        }
+        return response()->json(['header'=> 'GAGAL', 'message'=> 'Kondisi Pengguna tidak ditemukan!']);
+    }
 }

@@ -33,3 +33,5 @@ Route::get('/medicalRecord/{id}', [HomeController::class, 'showMedicalRecord']);
 // ROute::post('/addFriend', [InviteController::class, 'addFriend']);
 // Route::post('/addMood', [HomeController::class, 'addMood']);
 Route::get('/doctors/{id}', [ActionController::class, 'showDoctors']);
+Route::post('/reject', [InviteController::class, 'reject']);
+Route::post('/showMood/{id}', [HomeController::class, 'showMood']);

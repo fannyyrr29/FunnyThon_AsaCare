@@ -60,5 +60,4 @@ class DrugController extends Controller
         }
         return response()->json(['header'=> 'Gagal', 'message' => 'Tolong lakukan pemesanan terlebih dahulu!']);
     }
-
 }

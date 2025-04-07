@@ -66,7 +66,17 @@ class InviteController extends Controller
         } catch (\Throwable $th) {
             return response()->json(['header' => 'ERROR', 'message' => 'Pengguna tidak ditemukan']);
         }
-        
+    }
+
+    public function reject(Request $request){
+        $sender = $request->sender_id;
+        $receiver = $request->receiver_id;
+
+        $request = DB::table('families')->where('sender_id', '=', $sender)->where('receiver_id', '=', $receiver)->where('status', '=', 0)->delete();
+        if ($request) {
+            return response()->json(['header'=>'SUKSES', 'message' => 'Pertemanan ditolak!']);
+        }
+        return response()->json(['header'=> 'GAGAL', 'message' => 'Pertemanan tidak dapat ditolak!']);
 
     }
     

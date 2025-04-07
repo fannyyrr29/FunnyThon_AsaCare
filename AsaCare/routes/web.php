@@ -51,12 +51,14 @@ Route::middleware(['auth', 'role:User'])->prefix('user')->group(function(){
     Route::post('/addMood', [HomeController::class, 'addMood'])->name('user.mood');
     //untuk cari teman
     Route::post('/findFriend', [InviteController::class, 'searchFriend'])->name('user.search');
-    //untuk add teman 
+    //untuk accept pertemanan 
     Route::post('/addFriend', [InviteController::class, 'addFriend'])->name('user.add');
     //dipanggil ketika user menekan button checkout
     Route::post('/chart', [DrugController::class, 'checkout'])->name('user.checkout');
-
-    
+    //untuk menolak pertemanan
+    Route::post('/reject', [InviteController::class, 'reject'])->name('user.reject');
+    //untuk menampilkan Kondisi dari User
+    Route::post('/showMood/{id}', [HomeController::class, 'showMood'])->name('user.showMood');
 });
 
 Route::middleware(['auth', 'role:Admin'])->prefix('admin')->group(function(){
