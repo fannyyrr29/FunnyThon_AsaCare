@@ -89,24 +89,28 @@ class HomeController extends Controller
             return response()->json(['message' => "Data tidak ditemukan!"], 404);
         }
 
-        $doctorId = $medicalRecords[0]->doctor_id;
-        $doctor = Doctor::find($doctorId);
+        $doctors = [];
+        foreach ($medicalRecords as $key => $mr) {
+            $doctor = Doctor::find($mr->doctor_id);
+            if ($doctor) {
+                array_push($doctors, $doctor);
+            }else{
+                return response()->json(['message' => "Dokter tidak ditemukan!"], 404);
+            }
+        }
 
         $drugs = [];
-
         foreach ($medicalRecords as $key => $record) {
             $drug = Drug::find($record->drug_id);
             if ($drug) {
                 # code...
                 array_push($drugs, $drug);
+            }else{
+                return response()->json(['message' => "Obat tidak ditemukan!"], 404);
+
             }
         }
-
-        if (!$doctor) {
-            return response()->json(['message' => "Dokter tidak ditemukan!"], 404);
-        }
-
-        return view('users.riwayat', compact('medicalRecords', 'doctor', 'drugs'));
+        return view('users.riwayat', compact('medicalRecords', 'doctors', 'drugs'));
     }
 
     public function showDrug(){
@@ -130,5 +134,38 @@ class HomeController extends Controller
         } catch (\Throwable $th) {
             return response()->json(['header' => 'ERROR', 'message' => 'Data gagal diinputkan! ' . $th->getMessage() ]);
         }
+    }
+
+    public function showMood($id){
+        $conditions = Condition::where('user_id', '=', $id)->get();
+        if ($conditions) {
+            return response()->json(['header'=>'SUKSES', 'conditions' => $conditions]);
+        }
+        return response()->json(['header'=> 'GAGAL', 'message'=> 'Kondisi Pengguna tidak ditemukan!']);
+    }
+
+    public function showActionHomeCare(){
+        $homecare = Action::where('type', '=', 'Homecare')->get();
+        return view('users.homecare', compact('homecare'));
+    }
+
+    public function showActionHospitalCare(){
+        $hospitalCare = Action::where('type', '=', 'Hospitalcare')->get();
+        return view('users.homecare', compact('hospitalCare'));
+    }
+
+    public function cariLayanan(Request $request){
+        $request->validate([
+            'name' => 'required|string|max:255',
+        ]);
+    
+        if (!empty($request->name)) {
+            $action = Action::where('name', 'like', '%' . $request->input('name') . '%')->get();
+        } else {
+            $action = collect();
+        }
+        
+        return response()->json(compact('action'));
+        
     }
 }

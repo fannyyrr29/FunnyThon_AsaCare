@@ -11,17 +11,16 @@ class Reminder extends Model
     use HasFactory;
 
     protected $fillable = [
-        'user_id', 'medical_record_id', 'drug_id', 'time_id', 'status', 'start_date', 'duration_day'
+        'user_id', 'medical_record_id', 'drug_id', 'status', 'start_date', 'duration_per_day'
     ];
 
     protected $casts = [
         'user_id' => 'integer', 
         'medical_record_id' => 'integer', 
         'drug_id' => 'integer', 
-        'time_id' => 'integer', 
         'status' => 'integer',
         'start_date' => 'date', 
-        'duration_day' => 'integer'
+        'duration_per_day' => 'integer'
     ];
 
     public function user()

@@ -6,6 +6,9 @@ use App\Http\Controllers\User\HomeController;
 use App\Http\Controllers\User\InviteController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PusherController;
+use App\Http\Controllers\User\DrugController;
+use App\Http\Controllers\User\ReminderController;
+use Database\Seeders\ReminderSeeder;
 use Pusher\Pusher;
 
 /*
@@ -50,8 +53,24 @@ Route::middleware(['auth', 'role:User'])->prefix('user')->group(function(){
     Route::post('/addMood', [HomeController::class, 'addMood'])->name('user.mood');
     //untuk cari teman
     Route::post('/findFriend', [InviteController::class, 'searchFriend'])->name('user.search');
-    //untuk add teman 
+    //untuk accept pertemanan 
     Route::post('/addFriend', [InviteController::class, 'addFriend'])->name('user.add');
+    //dipanggil ketika user menekan button checkout
+    Route::post('/keranjang', [DrugController::class, 'checkout'])->name('user.checkout');
+    //untuk menolak pertemanan
+    Route::post('/tolak', [InviteController::class, 'reject'])->name('user.reject');
+    //untuk menampilkan Kondisi dari User
+    Route::post('/kondisi/{id}', [HomeController::class, 'showMood'])->name('user.showMood');
+    //untuk search HomeCare
+    Route::get('/homecare', [HomeController::class, 'showActionHomeCare'])->name('user.showHomeCare');
+    //untuk search HospitalCare
+    Route::get('/hospitalcare', [HomeController::class, 'showHospitalCare'])->name('user.showHospitalCare');
+    //untuk search layanan berdasarkan nama
+    Route::post('/cariLayanan', [HomeController::class, 'cariLayanan'])->name('user.searchAction');
+    //untuk menampilkan reminder user
+    Route::get('/reminder/{id}', [ReminderController::class, 'index'])->name('user.reminder');
+    //untuk update status reminder
+    Route::post('/update', [ReminderController::class, 'updateStatus'])->name('user.updateReminder');
 });
 
 Route::middleware(['auth', 'role:Admin'])->prefix('admin')->group(function(){

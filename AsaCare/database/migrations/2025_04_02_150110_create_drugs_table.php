@@ -15,8 +15,9 @@ return new class extends Migration
             $table->id();
             $table->string('name', 45);
             $table->double('price');
+            $table->double('quantity');
             $table->integer('dosis');
-            $table->enum('periode', ['Setiap Hari', 'Hari Tertentu']);
+            $table->enum('type', ['tablet', 'sirup']);
             $table->timestamps();
         });
     }

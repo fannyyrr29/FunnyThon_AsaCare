@@ -35,6 +35,8 @@ class DatabaseSeeder extends Seeder
             DrugRecordSeeder::class,
             FamilySeeder::class,
             ReminderSeeder::class,
+            ConditionSeeder::class,
+            ReminderTimeSeeder::class
         ]);
     }
 }
