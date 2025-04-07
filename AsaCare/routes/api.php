@@ -3,6 +3,7 @@
 use App\Http\Controllers\User\InviteController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\User\HomeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,7 +25,7 @@ Route::post('/findFriend', [InviteController::class, 'searchFriend']);
 // Route::post('/editProfil', [HomeController::class, 'editProfile']);
 // Route::get('/showProfile/{id}', [HomeController::class, 'showProfile']);
 // Route::get('/call/{id}', [HomeController::class, 'showEmergencyCall']);
-// Route::get('/medicalRecord/{id}', [HomeController::class, 'showMedicalRecord'])->name('user.medicalrecord');
+// Route::get('/medicalRecord/{id}', [HomeController::class, 'showMedicalRecord']);
 // Route::get('/obat', [HomeController::class, 'showDrug']);
 // Route::get('/layanan', [HomeController::class, 'showAction']);
 // Route::get('/family/{id}', [InviteController::class, 'index']);

@@ -5,11 +5,14 @@ namespace App\Http\Controllers\User;
 use App\Http\Controllers\Controller;
 use App\Models\Action;
 use App\Models\Condition;
+use App\Models\Doctor;
 use App\Models\Drug;
 use App\Models\EmergencyCall;
 use App\Models\MedicalRecord;
 use App\Models\User;
+use Database\Seeders\DrugSeeder;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Symfony\Component\HttpFoundation\RateLimiter\RequestRateLimiterInterface;
 
 class HomeController extends Controller
@@ -73,14 +76,37 @@ class HomeController extends Controller
         // return response()->json(['message' => "Data tidak ditemukan!"], 404);
     }
 
-    public function showMedicalRecord(string $id){
-        $medicalRecords = MedicalRecord::where('user_id', '=', $id)->get();
-        
-        if ($medicalRecords) {
-            # code...
-            return response()->json(compact('medicalRecords'));
+    public function showMedicalRecord(string $id)
+    {
+        $medicalRecords = DB::table('medical_records as mr')
+            ->join('drug_records as dr', 'mr.id', '=', 'dr.medical_record_id')
+            ->select('mr.id', 'mr.diagnose', 'mr.description', 'mr.date', 'mr.rating', 'mr.doctor_id', 
+                    'dr.drug_id', 'dr.amount')
+            ->where('mr.user_id', '=', $id)
+            ->get();
+
+        if ($medicalRecords->isEmpty()) {
+            return response()->json(['message' => "Data tidak ditemukan!"], 404);
         }
-        return response()->json(['message' => "Data tidak ditemukan!"]);
+
+        $doctorId = $medicalRecords[0]->doctor_id;
+        $doctor = Doctor::find($doctorId);
+
+        $drugs = [];
+
+        foreach ($medicalRecords as $key => $record) {
+            $drug = Drug::find($record->drug_id);
+            if ($drug) {
+                # code...
+                array_push($drugs, $drug);
+            }
+        }
+
+        if (!$doctor) {
+            return response()->json(['message' => "Dokter tidak ditemukan!"], 404);
+        }
+
+        return view('users.riwayat', compact('medicalRecords', 'doctor', 'drugs'));
     }
 
     public function showDrug(){

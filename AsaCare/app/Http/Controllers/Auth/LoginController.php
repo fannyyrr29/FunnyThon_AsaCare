@@ -36,15 +36,17 @@ class LoginController extends Controller
 
             session(['user' => $user]);
 
-            if ($user->role === 'admin') {
-                return redirect()->route('admin.dashboard'); 
-            } elseif ($user->role === 'user') {
-                return redirect()->route('user.dashboard'); 
-            } elseif ($user->role === 'doctor') {
-                return redirect()->route('doctor.dashboard'); 
-            }else {
-                return redirect()->route('home')->with('error', 'Role tidak dikenali!');
+            switch ($user->role) {
+                case 'Admin':
+                    # code...
+                    return redirect()->route('admin.dashboard');
+                case 'Dokter':
+                    return redirect()->route('doctor.dashboard');
+                default:
+                    # code...
+                    return redirect()->route('login')->withInput()->withErrors(['Error' => 'Peran anda tidak ditemukan!']);
             }
+
         }
 
         // If authentication fails, return an error response

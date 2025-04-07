@@ -29,12 +29,13 @@ Route::get('/login', [LoginController::class, 'index'])->middleware('guest');
 Route::post('/login', [LoginController::class, 'authenticate']);
 Route::get('/logout', [LoginController::class, 'logout']);
 
-// Route untuk User
-Route::group(['prefix' => 'user'], function() {
+
+// Route untuk User 
+Route::middleware(['auth', 'role:User'])->prefix('user')->group(function(){
     //Untuk menampilkan home
     Route::get('/home', [HomeController::class, 'index']);
     //Untuk show profile di halaman edit
-    Route::get('/showProfile/{id}', [HomeController::class, 'showProfile']);
+    Route::get('/showProfile/{id}', [HomeController::class, 'showProfile'])->name('user.profile');
     //Untuk menyimpan perubahan di db
     Route::post('/editProfil', [HomeController::class, 'editProfile'])->name('user.editProfile');
     //Menampilkan List Kontak
@@ -46,12 +47,18 @@ Route::group(['prefix' => 'user'], function() {
     //Untuk menampilkan layanan
     Route::get('/layanan', [HomeController::class, 'showAction'])->name('user.layanan');
     //untuk input kondisi
-    Route::post('/addMood', [HomeController::class, 'addMood']);
+    Route::post('/addMood', [HomeController::class, 'addMood'])->name('user.mood');
     //untuk cari teman
     Route::post('/findFriend', [InviteController::class, 'searchFriend'])->name('user.search');
     //untuk add teman 
     Route::post('/addFriend', [InviteController::class, 'addFriend'])->name('user.add');
 });
+
+Route::middleware(['auth', 'role:Admin'])->prefix('admin')->group(function(){
+
+});
+
+
 
 Route::get('/home', function(){
     return view('users/home');
