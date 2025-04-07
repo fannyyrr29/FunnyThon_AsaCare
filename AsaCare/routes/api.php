@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\User\ActionController;
 use App\Http\Controllers\User\InviteController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -21,13 +22,14 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 
-Route::post('/findFriend', [InviteController::class, 'searchFriend']);
+// Route::post('/findFriend', [InviteController::class, 'searchFriend']);
 // Route::post('/editProfil', [HomeController::class, 'editProfile']);
 // Route::get('/showProfile/{id}', [HomeController::class, 'showProfile']);
 // Route::get('/call/{id}', [HomeController::class, 'showEmergencyCall']);
-// Route::get('/medicalRecord/{id}', [HomeController::class, 'showMedicalRecord']);
+Route::get('/medicalRecord/{id}', [HomeController::class, 'showMedicalRecord']);
 // Route::get('/obat', [HomeController::class, 'showDrug']);
 // Route::get('/layanan', [HomeController::class, 'showAction']);
 // Route::get('/family/{id}', [InviteController::class, 'index']);
 // ROute::post('/addFriend', [InviteController::class, 'addFriend']);
 // Route::post('/addMood', [HomeController::class, 'addMood']);
+Route::get('/doctors/{id}', [ActionController::class, 'showDoctors']);

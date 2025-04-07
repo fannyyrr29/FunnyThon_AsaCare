@@ -89,24 +89,28 @@ class HomeController extends Controller
             return response()->json(['message' => "Data tidak ditemukan!"], 404);
         }
 
-        $doctorId = $medicalRecords[0]->doctor_id;
-        $doctor = Doctor::find($doctorId);
+        $doctors = [];
+        foreach ($medicalRecords as $key => $mr) {
+            $doctor = Doctor::find($mr->doctor_id);
+            if ($doctor) {
+                array_push($doctors, $doctor);
+            }else{
+                return response()->json(['message' => "Dokter tidak ditemukan!"], 404);
+            }
+        }
 
         $drugs = [];
-
         foreach ($medicalRecords as $key => $record) {
             $drug = Drug::find($record->drug_id);
             if ($drug) {
                 # code...
                 array_push($drugs, $drug);
+            }else{
+                return response()->json(['message' => "Obat tidak ditemukan!"], 404);
+
             }
         }
-
-        if (!$doctor) {
-            return response()->json(['message' => "Dokter tidak ditemukan!"], 404);
-        }
-
-        return view('users.riwayat', compact('medicalRecords', 'doctor', 'drugs'));
+        return view('users.riwayat', compact('medicalRecords', 'doctors', 'drugs'));
     }
 
     public function showDrug(){
