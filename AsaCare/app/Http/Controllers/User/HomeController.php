@@ -143,4 +143,29 @@ class HomeController extends Controller
         }
         return response()->json(['header'=> 'GAGAL', 'message'=> 'Kondisi Pengguna tidak ditemukan!']);
     }
+
+    public function showActionHomeCare(){
+        $homecare = Action::where('type', '=', 'Homecare')->get();
+        return view('users.homecare', compact('homecare'));
+    }
+
+    public function showActionHospitalCare(){
+        $hospitalCare = Action::where('type', '=', 'Hospitalcare')->get();
+        return view('users.homecare', compact('hospitalCare'));
+    }
+
+    public function cariLayanan(Request $request){
+        $request->validate([
+            'name' => 'required|string|max:255',
+        ]);
+    
+        if (!empty($request->name)) {
+            $action = Action::where('name', 'like', '%' . $request->input('name') . '%')->get();
+        } else {
+            $action = collect();
+        }
+        
+        return response()->json(compact('action'));
+        
+    }
 }

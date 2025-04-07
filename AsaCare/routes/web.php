@@ -54,11 +54,17 @@ Route::middleware(['auth', 'role:User'])->prefix('user')->group(function(){
     //untuk accept pertemanan 
     Route::post('/addFriend', [InviteController::class, 'addFriend'])->name('user.add');
     //dipanggil ketika user menekan button checkout
-    Route::post('/chart', [DrugController::class, 'checkout'])->name('user.checkout');
+    Route::post('/keranjang', [DrugController::class, 'checkout'])->name('user.checkout');
     //untuk menolak pertemanan
-    Route::post('/reject', [InviteController::class, 'reject'])->name('user.reject');
+    Route::post('/tolak', [InviteController::class, 'reject'])->name('user.reject');
     //untuk menampilkan Kondisi dari User
-    Route::post('/showMood/{id}', [HomeController::class, 'showMood'])->name('user.showMood');
+    Route::post('/kondisi/{id}', [HomeController::class, 'showMood'])->name('user.showMood');
+    //untuk search HomeCare
+    Route::get('/homecare', [HomeController::class, 'showActionHomeCare'])->name('user.showHomeCare');
+    //untuk search HospitalCare
+    Route::get('/hospitalcare', [HomeController::class, 'showHospitalCare'])->name('user.showHospitalCare');
+    //untuk search layanan berdasarkan nama
+    Route::post('/cariLayanan', [HomeController::class, 'cariLayanan'])->name('user.searchAction');
 });
 
 Route::middleware(['auth', 'role:Admin'])->prefix('admin')->group(function(){
