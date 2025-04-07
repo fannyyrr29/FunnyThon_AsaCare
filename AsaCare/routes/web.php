@@ -6,6 +6,7 @@ use App\Http\Controllers\User\HomeController;
 use App\Http\Controllers\User\InviteController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PusherController;
+use App\Http\Controllers\User\DrugController;
 use Pusher\Pusher;
 
 /*
@@ -52,6 +53,10 @@ Route::middleware(['auth', 'role:User'])->prefix('user')->group(function(){
     Route::post('/findFriend', [InviteController::class, 'searchFriend'])->name('user.search');
     //untuk add teman 
     Route::post('/addFriend', [InviteController::class, 'addFriend'])->name('user.add');
+    //dipanggil ketika user menekan button checkout
+    Route::post('/chart', [DrugController::class, 'checkout'])->name('user.checkout');
+
+    
 });
 
 Route::middleware(['auth', 'role:Admin'])->prefix('admin')->group(function(){
