@@ -11,11 +11,9 @@ return new class extends Migration {
     public function up(): void
     {
         Schema::create('reminders', function (Blueprint $table) {
-            $table->id();
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->foreignId('medical_record_id')->constrained()->onDelete('cascade');
             $table->foreignId('drug_id')->constrained()->onDelete('cascade');
-            $table->foreignId('time_id')->constrained();
             $table->tinyInteger('status');
             $table->date('start_date');
             $table->integer('duration_day');

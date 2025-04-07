@@ -6,6 +6,7 @@ use App\Http\Controllers\User\ActionController;
 use App\Http\Controllers\User\CallController;
 use App\Http\Controllers\User\DrugController;
 use App\Http\Controllers\User\HomeController;
+use App\Http\Controllers\User\InviteController;
 use App\Http\Controllers\User\LayananController;
 use App\Http\Controllers\User\MedicalRecordController;
 use App\Http\Controllers\User\UserController;
@@ -49,7 +50,12 @@ Route::group(['prefix' => 'user'], function() {
     Route::get('/obat', [HomeController::class, 'showDrug'])->name('user.drug');
     //Untuk menampilkan layanan
     Route::get('/layanan', [HomeController::class, 'showAction'])->name('user.layanan');
-    //untuk menampilkan daftar 
+    //untuk input kondisi
+    Route::post('/addMood', [HomeController::class, 'addMood']);
+    //untuk cari teman
+    Route::post('/findFriend', [InviteController::class, 'searchFriend']);
+    //untuk add teman 
+    Route::post('/addFriend', [InviteController::class, 'addFriend']);
 });
 
 Route::get('/home', function(){

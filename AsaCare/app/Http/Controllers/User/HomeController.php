@@ -4,11 +4,13 @@ namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
 use App\Models\Action;
+use App\Models\Condition;
 use App\Models\Drug;
 use App\Models\EmergencyCall;
 use App\Models\MedicalRecord;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Symfony\Component\HttpFoundation\RateLimiter\RequestRateLimiterInterface;
 
 class HomeController extends Controller
 {
@@ -89,5 +91,18 @@ class HomeController extends Controller
         }
         return redirect()->back()->withErrors(['Error' => "Tidak ditemukan data obat!"]);
 
+    }
+    public function addMood(Request $request){
+        try {
+            $condition = new Condition();
+            $condition->condition = $request->condition;
+            $condition->date = now()->toDateString();
+            $condition->user_id = $request->user_id;
+            if ($condition->save()) {
+                return response()->json(['header' => 'SUKSES', 'message' => 'Data berhasil diinputkan!']);
+            }
+        } catch (\Throwable $th) {
+            return response()->json(['header' => 'ERROR', 'message' => 'Data gagal diinputkan! ' . $th->getMessage() ]);
+        }
     }
 }

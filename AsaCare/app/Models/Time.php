@@ -17,7 +17,9 @@ class Time extends Model
         'time' => 'datetime:H:i:s'
     ];
 
-    public function reminders(){
-        return $this->hasMany(Reminder::class, 'time_id', 'id');
+    public function reminders()
+    {
+        return $this->belongsToMany(Reminder::class, 'reminder_times', 'times_id', 'reminders_user_id')
+                    ->withPivot('reminders_medical_record_id', 'reminders_drug_id');
     }
 }

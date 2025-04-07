@@ -20,7 +20,7 @@ class MedicalRecordSeeder extends Seeder
                 'date' => '2023-01-10 09:00:00',
                 'rating' => 5,
                 'total' => 400000,
-                'user_id' => 2, 
+                'user_id' => 5, 
                 'doctor_id' => 1 
             ],
             [
