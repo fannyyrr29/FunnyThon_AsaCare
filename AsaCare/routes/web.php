@@ -2,7 +2,10 @@
 
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\SocialiteController;
+use App\Http\Controllers\User\HomeController;
+use App\Http\Controllers\User\InviteController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PusherController;
 use Pusher\Pusher;
 
 /*
@@ -45,9 +48,9 @@ Route::group(['prefix' => 'user'], function() {
     //untuk input kondisi
     Route::post('/addMood', [HomeController::class, 'addMood']);
     //untuk cari teman
-    Route::post('/findFriend', [InviteController::class, 'searchFriend']);
+    Route::post('/findFriend', [InviteController::class, 'searchFriend'])->name('user.search');
     //untuk add teman 
-    Route::post('/addFriend', [InviteController::class, 'addFriend']);
+    Route::post('/addFriend', [InviteController::class, 'addFriend'])->name('user.add');
 });
 
 Route::get('/home', function(){
