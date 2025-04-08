@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\DoctorController;
 use App\Http\Controllers\Admin\HospitalController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\SocialiteController;
@@ -81,6 +82,7 @@ Route::middleware(['auth', 'role:Admin'])->prefix('admin')->group(function(){
     //untuk show dashboard
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
     Route::resource('/hospital', HospitalController::class);
+    Route::resource('/doctor', DoctorController::class);
 });
 
 

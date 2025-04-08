@@ -28,7 +28,20 @@ class Doctor extends Model
         return $this->belongsTo(Hospital::class, 'hospital_id');
     }
 
-    public function specialization(){
-        return $this->belongsToMany(Specialization::class, 'doctor_has_specializations', 'doctor_id', 'specialization_id')->withPivot('action_id')->withTimestamps();
+    public function specialization()
+    {
+        // ambil spesialisasi dari relasi pertama saja
+        return $this->hasOneThrough(Specialization::class, DoctorSpecialization::class, 'doctor_id', 'id', 'id', 'specialization_id');
     }
+
+    public function actions()
+    {
+        return $this->belongsToMany(Action::class, 'doctor_has_specializations', 'doctor_id', 'action_id');
+    }
+
+    public function doctorSpecializations()
+    {
+        return $this->hasMany(DoctorSpecialization::class);
+    }
+
 }
