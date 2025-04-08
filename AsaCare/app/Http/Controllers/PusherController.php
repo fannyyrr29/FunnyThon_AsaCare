@@ -15,10 +15,10 @@ class PusherController extends Controller
     public function broadcast(Request $request){
         broadcast(new PusherBroadcast($request->get('chat_id'), $request->get('message')))->toOthers();
         
-        return view('users.konsultasi.broadcast', ['chat_id'=>$request->get('chat_id'),'message'=>$request->get('message')]);
+        return view('doctors.chat', ['chat_id'=>$request->get('chat_id'),'message'=>$request->get('message')]);
     }
     public function receive(Request $request){
-        return view('users.konsultasi.receive', ['chat_id'=>$request->get('chat_id'), 'message'=>$request->get('message')]);
+        return view('doctors.chat', ['chat_id'=>$request->get('chat_id'), 'message'=>$request->get('message')]);
     }
 
 }

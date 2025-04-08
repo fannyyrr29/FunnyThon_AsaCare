@@ -78,7 +78,7 @@
 
                     <!-- Header -->
                     <div class="chat-header d-flex align-items-center">
-                        <a href="#" class="me-3 fs-4 text-decoration-none text-dark">
+                        <a href="{{url('/listChat')}}" class="me-3 fs-4 text-decoration-none text-dark">
                             <span class="glyphicon glyphicon-chevron-left"></span>
                         </a>
                         <h5 class="mb-0 fw-bold">{{ $chat_id }}</h5>
@@ -86,6 +86,10 @@
 
                     <!-- Messages -->
                     <div class="chat-messages">
+                        {{-- @foreach ($collection as $item)
+                            
+                        @endforeach --}}
+                        
                         {{-- <!-- Chat kiri -->
                             <div class="d-flex align-items-start mb-3">
                                 <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava5-bg.webp"

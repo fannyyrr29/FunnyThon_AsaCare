@@ -89,21 +89,27 @@
           <!-- Body chat list -->
           <div class="chat-body">
             <!-- Contoh chat -->
-            <div class="chat-item">
-              <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava1-bg.webp" alt="Avatar" />
-              <div class="chat-info">
-                <h6>John Doe</h6>
-                <p>Hello, are you there?</p>
+            {{-- @foreach ($collection as $item)
+                
+            @endforeach --}}
+            <a href="{{url('/konsultasi/1')}}">
+              <div class="chat-item">
+                <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava1-bg.webp" alt="Avatar" />
+                <div class="chat-info">
+                  <h6>John Doe</h6>
+                  <p>Hello, are you there?</p>
+                </div>
               </div>
-            </div>
-
-            <div class="chat-item">
-              <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava1-bg.webp" alt="Avatar" />
-              <div class="chat-info">
-                <h6>Jane Smith</h6>
-                <p>I'll get back to you later</p>
+            </a>
+            <a href="{{url('/konsultasi/2')}}">
+              <div class="chat-item">
+                <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava1-bg.webp" alt="Avatar" />
+                <div class="chat-info">
+                  <h6>John Doe</h6>
+                  <p>Hello, are you there?</p>
+                </div>
               </div>
-            </div>
+            </a>
 
             <!-- Tambah item lainnya -->
           </div>

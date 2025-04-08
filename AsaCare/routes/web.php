@@ -121,6 +121,10 @@ Route::get('/editProfile', function(){
     return view('users/editProfile');
 });
 
+Route::get('/listChat', function(){
+    return view('doctors/listChat');
+});
+
 Route::get('/konsultasi/{chat_id}', [PusherController::class, 'index']);
 
 Route::post('/konsultasi/broadcast', [PusherController::class, 'broadcast']);
