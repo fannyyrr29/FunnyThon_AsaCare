@@ -20,6 +20,7 @@ class DrugSeeder extends Seeder
                 'dosis'=>1,
                 'quantity' => 12,
                 'type'=>'tablet',
+                'periode' => 'Hari Tertentu'
             ],
             [
                 'name'=>'Amoxicillin (500 mg)',
@@ -27,6 +28,7 @@ class DrugSeeder extends Seeder
                 'dosis'=>2,
                 'quantity' => 12,
                 'type'=>'tablet',
+                'periode' => 'Setiap Hari'
             ],
             [
                 'name'=>'Cetirizine (10 mg)',
@@ -34,6 +36,8 @@ class DrugSeeder extends Seeder
                 'dosis'=>1,
                 'quantity' => 12,
                 'type'=>'tablet',
+                'periode' => 'Hari Tertentu'
+
             ],
             [
                 'name'=>'Ranitidine (150 mg)',
@@ -41,6 +45,7 @@ class DrugSeeder extends Seeder
                 'dosis'=>1,
                 'quantity' => 12,
                 'type'=>'tablet',
+                'periode' => 'Setiap Hari'
             ],
             [
                 'name'=>'Metformin (500 mg)',
@@ -48,6 +53,8 @@ class DrugSeeder extends Seeder
                 'dosis'=>1,
                 'quantity' => 12,
                 'type'=>'tablet',
+                'periode' => 'Hari Tertentu'
+
             ],
             [
                 'name'=>'Aspirin (80 mg)',
@@ -55,6 +62,8 @@ class DrugSeeder extends Seeder
                 'dosis'=>1,
                 'quantity' => 10,
                 'type'=>'tablet',
+                'periode' => 'Setiap Hari'
+
             ],
             [
                 'name'=>'Mylanta Sirup (150 ml)',
@@ -62,6 +71,7 @@ class DrugSeeder extends Seeder
                 'dosis'=>3,
                 'quantity' => 150,
                 'type'=>'sirup',
+                'periode' => 'Hari Tertentu'
             ],
             [
                 'name'=>'Neurobion Forte',
@@ -69,6 +79,7 @@ class DrugSeeder extends Seeder
                 'dosis'=>1,
                 'quantity' => 10,
                 'type'=>'tablet',
+                'periode' => 'Hari Tertentu'
             ],
             [
                 'name'=>'Surbex-Z 6 Tablet',
@@ -76,6 +87,7 @@ class DrugSeeder extends Seeder
                 'dosis'=>1,
                 'quantity' => 6,
                 'type'=>'tablet',
+                'periode' => 'Setiap Hari'
             ],
             [
                 'name'=>'Sangobion 10 Kapsul',
@@ -83,6 +95,7 @@ class DrugSeeder extends Seeder
                 'dosis'=>1,
                 'quantity' => 10,
                 'type'=>'tablet',
+                'periode' => 'Hari Tertentu'
             ],
         ]);
     }

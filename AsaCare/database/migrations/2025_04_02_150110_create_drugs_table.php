@@ -18,6 +18,7 @@ return new class extends Migration
             $table->double('quantity');
             $table->integer('dosis');
             $table->enum('type', ['tablet', 'sirup']);
+            $table->enum('periode', ['Setiap Hari', 'Hari Tertentu']);
             $table->timestamps();
         });
     }

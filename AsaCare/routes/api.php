@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\DoctorController;
+use App\Http\Controllers\Admin\DrugController;
 use App\Http\Controllers\Admin\HospitalController;
 use App\Http\Controllers\Admin\MedicalRecordController;
 use App\Http\Controllers\Admin\UserController;
@@ -33,3 +34,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 // Route::put('/user/{id}', [UserController::class, 'update']);
 // Route::delete('/user/{id}', [UserController::class, 'destroy']);
 // Route::delete('/medicalRecord/{id}', [MedicalRecordController::class, 'destroy']);
+Route::delete('/obat/{id}', [DrugController::class, 'destroy']);
