@@ -11,7 +11,7 @@ class Reminder extends Model
     use HasFactory;
 
     protected $fillable = [
-        'user_id', 'medical_record_id', 'drug_id', 'status', 'start_date', 'duration_per_day'
+        'user_id', 'medical_record_id', 'drug_id', 'status', 'start_date', 'duration_day'
     ];
 
     protected $casts = [
@@ -20,7 +20,7 @@ class Reminder extends Model
         'drug_id' => 'integer', 
         'status' => 'integer',
         'start_date' => 'date', 
-        'duration_per_day' => 'integer'
+        'duration_day' => 'integer'
     ];
 
     public function user()
@@ -38,4 +38,9 @@ class Reminder extends Model
         return $this->belongsToMany(Time::class, 'reminder_times', 'reminders_user_id', 'times_id')
                     ->withPivot('reminders_medical_record_id', 'reminders_drug_id');
     }
+    public function reminderTimes()
+    {
+        return $this->hasMany(ReminderTime::class);
+    }
+
 }

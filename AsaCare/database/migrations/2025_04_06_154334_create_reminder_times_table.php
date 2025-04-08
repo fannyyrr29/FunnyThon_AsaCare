@@ -14,10 +14,10 @@ return new class extends Migration
         Schema::create('reminder_times', function (Blueprint $table) {
             $table->foreignId('reminder_id')->constrained('reminders')->onUpdate('cascade')->onDelete('cascade');
             $table->foreignId('time_id')->constrained('times')->onUpdate('cascade')->onDelete('cascade');
+            $table->date('date');
             $table->tinyInteger('status')->default(1);
             $table->timestamps();
 
-            $table->primary(['reminder_id', 'time_id']);
         });
     }
 

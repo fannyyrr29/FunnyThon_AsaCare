@@ -16,15 +16,20 @@ class ReminderTimeSeeder extends Seeder
         DB::table('reminder_times')->insert([
             [
                 'reminder_id' => 1, 
-                'time_id'=> 3
+                'time_id'=> 3,
+                'date' => '2023-01-10'
             ],
             [
                 'reminder_id' => 1, 
-                'time_id'=> 7
+                'time_id'=> 7,
+                'date' => '2023-01-10'
+
             ],
             [
                 'reminder_id' => 1, 
-                'time_id'=> 11
+                'time_id'=> 11,
+                'date' => '2023-01-10'
+
             ],
         ]);
     }

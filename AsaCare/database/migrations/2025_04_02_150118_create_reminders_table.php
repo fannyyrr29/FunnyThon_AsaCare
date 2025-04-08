@@ -17,7 +17,7 @@ return new class extends Migration {
             $table->foreignId('drug_id')->constrained()->onDelete('cascade');
             $table->tinyInteger('status');
             $table->date('start_date');
-            $table->integer('duration_per_day');
+            $table->integer('duration_day');
             $table->timestamps();
         });
     }

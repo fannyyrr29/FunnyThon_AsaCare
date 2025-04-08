@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\User\HomeController;
 use App\Http\Controllers\User\ReminderController;
 use App\Models\Doctor;
+use App\Models\MedicalRecord;
 
 /*
 |--------------------------------------------------------------------------
@@ -34,4 +35,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 // Route::put('/user/{id}', [UserController::class, 'update']);
 // Route::delete('/user/{id}', [UserController::class, 'destroy']);
 // Route::delete('/medicalRecord/{id}', [MedicalRecordController::class, 'destroy']);
-Route::delete('/obat/{id}', [DrugController::class, 'destroy']);
+// Route::delete('/obat/{id}', [DrugController::class, 'destroy']);
+// Route::get('/medicalRecord', [MedicalRecordController::class, 'index']);

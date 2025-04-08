@@ -20,7 +20,7 @@ class ReminderSeeder extends Seeder
                 'drug_id' => 1, 
                 'status' => 1,
                 'start_date' => '2023-01-10',
-                'duration_per_day' => 3
+                'duration_day' => 3
             ],
             [
                 'user_id' => 3, 
@@ -28,7 +28,7 @@ class ReminderSeeder extends Seeder
                 'drug_id' => 4, 
                 'status' => 0,
                 'start_date' => '2023-01-10',
-                'duration_per_day' => 3
+                'duration_day' => 3
             ],
         ]);
     }
