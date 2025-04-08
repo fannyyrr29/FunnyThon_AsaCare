@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\ActionController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\DoctorController;
 use App\Http\Controllers\Admin\HospitalController;
@@ -11,9 +12,6 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PusherController;
 use App\Http\Controllers\User\DrugController;
 use App\Http\Controllers\User\ReminderController;
-use App\Models\Hospital;
-use Database\Seeders\HospitalSeeder;
-use Database\Seeders\ReminderSeeder;
 use Pusher\Pusher;
 
 /*
@@ -83,6 +81,7 @@ Route::middleware(['auth', 'role:Admin'])->prefix('admin')->group(function(){
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
     Route::resource('/hospital', HospitalController::class);
     Route::resource('/doctor', DoctorController::class);
+    Route::resource('/action', ActionController::class);
 });
 
 

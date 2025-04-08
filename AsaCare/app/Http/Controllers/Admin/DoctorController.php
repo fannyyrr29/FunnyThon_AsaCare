@@ -10,7 +10,6 @@ use App\Models\Hospital;
 use App\Models\Specialization;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use League\CommonMark\Util\SpecReader;
 
 class DoctorController extends Controller
 {
