@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\ActionController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\DoctorController;
 use App\Http\Controllers\Admin\HospitalController;
+use App\Http\Controllers\Admin\MedicalRecordController;
 use App\Http\Controllers\Admin\SpecializationController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Auth\LoginController;
@@ -14,7 +15,6 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PusherController;
 use App\Http\Controllers\User\DrugController;
 use App\Http\Controllers\User\ReminderController;
-use App\Models\Specialization;
 use Pusher\Pusher;
 
 /*
@@ -87,6 +87,7 @@ Route::middleware(['auth', 'role:Admin'])->prefix('admin')->group(function(){
     Route::resource('action', ActionController::class)->names('admin.layanan'); 
     Route::resource('user', UserController::class)->names('admin.user');
     Route::resource('specialization', SpecializationController::class)->names('admin.spesialisasi');
+    Route::resource('medicalRecord', MedicalRecordController::class)->names('admin.riwayatKesehatan');
 });
 
 

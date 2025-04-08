@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\DoctorController;
 use App\Http\Controllers\Admin\HospitalController;
+use App\Http\Controllers\Admin\MedicalRecordController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\User\ActionController;
 use App\Http\Controllers\User\InviteController;
@@ -31,3 +32,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 // Route::get('/doctor/', [DoctorController::class, 'index']);
 // Route::put('/user/{id}', [UserController::class, 'update']);
 // Route::delete('/user/{id}', [UserController::class, 'destroy']);
+// Route::delete('/medicalRecord/{id}', [MedicalRecordController::class, 'destroy']);

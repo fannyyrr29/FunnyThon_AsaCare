@@ -16,7 +16,7 @@ return new class extends Migration {
             $table->text('description');
             $table->dateTime('date');
             $table->integer('rating')->nullable();
-            $table->double('total');
+            $table->double('total')->default(0);
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->foreignId('doctor_id')->constrained()->onDelete('cascade')->nullable();
             $table->timestamps();
