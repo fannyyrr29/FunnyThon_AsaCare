@@ -115,9 +115,8 @@ class UserController extends Controller
             }
         } catch (\Throwable $th) {
             // return response()->json(['header'=> 'GAGAL', 'message' => 'Data tidak dapat dihapus! ' . $th->getMessage()]);
-            return redirect()->route('admin.user.index')->with(['header'=> 'GAGAL', 'message' => 'Pengguna tidak dapat dihapus!']);
+            return redirect()->route('admin.user.index')->with(['header'=> 'GAGAL', 'message' => 'Pengguna tidak dapat dihapus! ' . $th->getMessage()]);
         }
-        
-
+    
     }
 }
