@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\ActionController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\DoctorController;
 use App\Http\Controllers\Admin\HospitalController;
+use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\SocialiteController;
 use App\Http\Controllers\User\HomeController;
@@ -82,6 +83,7 @@ Route::middleware(['auth', 'role:Admin'])->prefix('admin')->group(function(){
     Route::resource('/hospital', HospitalController::class);
     Route::resource('/doctor', DoctorController::class);
     Route::resource('/action', ActionController::class);
+    Route::resource('/user', UserController::class);
 });
 
 
