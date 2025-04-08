@@ -19,13 +19,8 @@ class DoctorController extends Controller
      */
     public function index()
     {
-        $doctor = Doctor::with('doctorSpecializations.action', 'doctorSpecializations.specialization')->findOrFail($id);
-
-        $specialization = $doctor->doctorSpecializations->first()->specialization ?? null;
-
-        $actions = $doctor->doctorSpecializations->pluck('action')->unique('id');
-
-        return view('doctor.show', compact('doctor', 'specialization', 'actions'));
+        $doctors = Doctor::with('doctorSpecializations.specialization', 'doctorSpecializations.action')->get();
+        return view('doctor.show', compact('doctor'));
     }
 
     /**
