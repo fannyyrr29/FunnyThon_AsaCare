@@ -37,7 +37,7 @@ class DoctorHasSpecializationSeeder extends Seeder
             ['doctor_id' => 12, 'specialization_id' => 2, 'action_id' => 1],
             ['doctor_id' => 12, 'specialization_id' => 2, 'action_id' => 7],
             ['doctor_id' => 13, 'specialization_id' => 43, 'action_id' => 5],
-            ['doctor_id' => 15, 'specialization_id' => 11,'action_id' => 4]
+            ['doctor_id' => 14, 'specialization_id' => 11,'action_id' => 4]
         ]);
     }
 }

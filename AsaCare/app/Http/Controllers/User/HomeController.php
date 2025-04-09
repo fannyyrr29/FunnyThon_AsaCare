@@ -17,13 +17,15 @@ use Symfony\Component\HttpFoundation\RateLimiter\RequestRateLimiterInterface;
 
 class HomeController extends Controller
 {
-    public function index(){
-        $user = session('user');
-        if (!$user) {
-            return redirect()->route('login')->with('error', 'Please log in to access your profile.');
+    public function index()
+    {
+        if (auth()->user()->role !== 'User') {
+            abort(403);
         }
-        return view('users.home', compact('user'));
+
+        return view('users.home');
     }
+
 
     public function showProfile(string $id){
         $user = User::find($id);

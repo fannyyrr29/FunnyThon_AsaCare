@@ -10,13 +10,14 @@ class Doctor extends Model
     use HasFactory;
 
     protected $fillable = [
-        'name', 'license_number', 'experience_year', 'rating', 'hospital_id'
+        'name', 'license_number', 'experience_year', 'rating', 'hospital_id', 'user_id'
     ];
 
     protected $casts = [
         'experience_year' => 'integer',
         'rating' => 'double', 
-        'hospital_id' => 'integer'
+        'hospital_id' => 'integer', 
+        'user_id' => 'integer'
     ];
 
 
@@ -42,6 +43,10 @@ class Doctor extends Model
     public function doctorSpecializations()
     {
         return $this->hasMany(DoctorSpecialization::class);
+    }
+    
+    public function user(){
+        return $this->belongsTo(User::class, 'user_id', 'id');
     }
 
 }
