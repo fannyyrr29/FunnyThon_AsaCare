@@ -36,3 +36,15 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 });
+
+// Fungsi untuk menutup reminder
+function closeReminder() {
+    document.getElementById('reminder').style.display = 'none';
+    localStorage.setItem('reminderClosed', 'true');
+}
+
+window.onload = function () {
+    if (localStorage.getItem('reminderClosed') === 'true') {
+        document.getElementById('reminder').style.display = 'none';
+    }
+};

@@ -15,9 +15,10 @@
     <link rel="manifest" href="{{ asset('/manifest.json') }}">
 
     @stack('styles')
-    {{-- Vite Styles utk css general--}}
-    <!-- @vite(['resources/css/app.css', 'resources/js/app.js']) -->
-    <link rel="stylesheet" href="/asset/css/app.css">
+    
+    <link rel="stylesheet" href="assets/css/app.css">
+    <script src="{{ asset('assets/js/app.js') }}"></script>
+
 </head>
 
 <body>

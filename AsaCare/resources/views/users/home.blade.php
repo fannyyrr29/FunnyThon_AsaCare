@@ -21,37 +21,42 @@
         </div>
     </div>
 
-<br>
+    <!-- Reminder -->
+    <div id="reminder" class="reminder">
+        <span class="close-btn" onclick="closeReminder()">x</span>
+        <h6>Jangan lupa minum obat</h6>
+    </div>
+
     <!-- Pilihan Layanan -->
     <h6 class="text-center mt-4">Silahkan pilih salah satu opsi di bawah ini!</h6>
     <div class="row mt-2 text-center">
         <div class="col-4">
             <button class="btn-red">
-                <img class="btn-red img" src="{{ asset('assets/images/home.png') }}" alt="...">
+                <img class="bg-red img" src="{{ asset('assets/images/home.png') }}" alt="...">
                 <br>Layanan Rumah
             </button>
         </div>
         <div class="col-4">
             <button class="btn-red">
-                <img class="btn-red img" src="{{ asset('assets/images/obat.png') }}" alt="...">
+                <img class="bg-red img" src="{{ asset('assets/images/obat.png') }}" alt="...">
                 <br>Obat-obatan
             </button>
         </div>
         <div class="col-4">
             <button class="btn-red">
-                <img class="btn-red img" src="{{ asset('assets/images/family.png') }}" alt="...">
+                <img class="bg-red img" src="{{ asset('assets/images/family.png') }}" alt="...">
                 <br>Keluarga
             </button>
         </div>
         <div class="col-4">
             <button class="btn-red">
-                <img class="btn-red img" src="{{ asset('assets/images/history.png') }}" alt="...">
+                <img class="bg-red img" src="{{ asset('assets/images/history.png') }}" alt="...">
                 <br>Riwayat Medis
             </button>
         </div>
         <div class="col-4">
             <button class="btn-red  ">
-                <img class="btn-red img" src="{{ asset('assets/images/telp.png') }}" alt="...">
+                <img class="bg-red img" src="{{ asset('assets/images/telp.png') }}" alt="...">
                 <br>Telepon
             </button>
         </div>

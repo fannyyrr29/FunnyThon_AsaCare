@@ -29,7 +29,7 @@ use Pusher\Pusher;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('users/menuobat');
 });
 
 
@@ -92,7 +92,11 @@ Route::middleware(['auth', 'role:Admin'])->prefix('admin')->group(function(){
 
 
 Route::get('/homecare', function(){
-    return view('users/homecare');
+    return view('users/home');
+});
+
+Route::get('/family', function(){
+    return view('users/family');
 });
 
 Route::get('/reminderObat', function(){
