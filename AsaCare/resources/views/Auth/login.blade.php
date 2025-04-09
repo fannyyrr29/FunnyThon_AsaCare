@@ -41,26 +41,31 @@
                             <div class="card shadow-2-strong" style="border-radius: 1rem;">
                                 <div class="card-body p-5 text-center">
                                     <div class="p-4">
-                                        <div data-mdb-input-init class="form-outline mb-4">
-                                            <input type="email" id="typeEmailX-2" class="form-control form-control-lg" placeholder="Email"/>
-                                        </div>
-    
-                                        <div data-mdb-input-init class="form-outline mb-4">
-                                            <input type="password" id="typePasswordX-2"
-                                                class="form-control form-control-lg" placeholder="Password"/>
-                                        </div>
-                                        <!-- Checkbox -->
-                                        <div class="form-check d-flex justify-content-start mb-4">
-                                            <input class="form-check-input" type="checkbox" value=""
-                                                id="form1Example3" />
-                                            <label class="form-check-label" for="form1Example3"> Remember password </label>
-                                        </div>
-    
-                                        <button data-mdb-button-init data-mdb-ripple-init
-                                            class="btn btn-primary btn-lg btn-block w-100 border-0" style="background-color: #a31d1c;" type="submit">Login</button>
-    
+                                        <form action="{{route('login')}}" method="post">
+                                            <div data-mdb-input-init class="form-outline mb-4">
+                                                <input type="email" id="typeEmailX-2"
+                                                    class="form-control form-control-lg" placeholder="Email" />
+                                            </div>
+
+                                            <div data-mdb-input-init class="form-outline mb-4">
+                                                <input type="password" id="typePasswordX-2"
+                                                    class="form-control form-control-lg" placeholder="Password" />
+                                            </div>
+                                            <!-- Checkbox -->
+                                            <div class="form-check d-flex justify-content-start mb-4">
+                                                <input class="form-check-input" type="checkbox" value=""
+                                                    id="form1Example3" />
+                                                <label class="form-check-label" for="form1Example3"> Remember password
+                                                </label>
+                                            </div>
+
+                                            <button data-mdb-button-init data-mdb-ripple-init
+                                                class="btn btn-primary btn-lg btn-block w-100 border-0"
+                                                style="background-color: #a31d1c;" type="submit">Login</button>
+                                        </form>
                                     </div>
                                     
+
                                     <hr class="my-4">
 
                                     <div class="p-4">
