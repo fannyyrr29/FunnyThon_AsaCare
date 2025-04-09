@@ -6,6 +6,8 @@ use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
+
 
 class UserSeeder extends Seeder
 {
@@ -230,7 +232,47 @@ class UserSeeder extends Seeder
                 'created_at' => '2023-01-10 10:00:00',
                 'updated_at' => '2023-01-10 10:00:00',
                 'gender' => 'L'
-            ]
+            ],
+            [
+                'NIK' => '3578900000000001',
+                'name' => 'Dr. Ahmad Fauzi',
+                'username' => 'dr_ahmad',
+                'phone_number' => '081210000001',
+                'address' => 'Jl. Kesehatan No. 1',
+                'role' => 'Dokter',
+                'birthdate' => '1980-01-15',
+                'profile' => 'dr_ahmad.jpg',
+                'email' => 'dr.ahmad@example.com',
+                'gender' => 'Laki-laki',
+                'email_verified_at' => now(),
+                'password' => Hash::make('dokter123'),
+                'google_id' => null,
+                'google_token' => null,
+                'google_refresh_token' => null,
+                'remember_token' => Str::random(20),
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'NIK' => '3578900000000002',
+                'name' => 'Dr. Budi Santoso',
+                'username' => 'dr_budi',
+                'phone_number' => '081210000002',
+                'address' => 'Jl. Sehat Selalu No. 2',
+                'role' => 'Dokter',
+                'birthdate' => '1979-06-12',
+                'profile' => 'dr_budi.jpg',
+                'email' => 'dr.budi@example.com',
+                'gender' => 'Laki-laki',
+                'email_verified_at' => now(),
+                'password' => Hash::make('dokter123'),
+                'google_id' => null,
+                'google_token' => null,
+                'google_refresh_token' => null,
+                'remember_token' => Str::random(20),
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
         ]);
     }
 }

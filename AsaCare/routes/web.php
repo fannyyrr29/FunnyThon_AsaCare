@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\SpecializationController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\SocialiteController;
+use App\Http\Controllers\Doctor\DasboardController;
 use App\Http\Controllers\User\HomeController;
 use App\Http\Controllers\User\InviteController;
 use Illuminate\Support\Facades\Route;
@@ -28,10 +29,7 @@ use Pusher\Pusher;
 |
 */
 
-Route::get('/', function () {
-    return view('users/menuobat');
-});
-
+Route::get('/', [LoginController::class, 'index'])->middleware('guest');
 
 //hanya bisa diakses oleh user yang belum terautentikasi
 Route::get('/login', [LoginController::class, 'index'])->middleware('guest');
@@ -42,7 +40,7 @@ Route::get('/logout', [LoginController::class, 'logout']);
 // Route untuk User 
 Route::middleware(['auth', 'role:User'])->prefix('user')->group(function(){
     //Untuk menampilkan home
-    Route::get('/home', [HomeController::class, 'index'])->name('user.home');
+    Route::get('/', [HomeController::class, 'index'])->name('user.home');
     //Untuk show profile di halaman edit
     Route::get('/showProfile/{id}', [HomeController::class, 'showProfile'])->name('user.profile');
     //Untuk menyimpan perubahan di db
@@ -88,6 +86,10 @@ Route::middleware(['auth', 'role:Admin'])->prefix('admin')->group(function(){
     Route::resource('user', UserController::class)->names('admin.user');
     Route::resource('specialization', SpecializationController::class)->names('admin.spesialisasi');
     Route::resource('medicalRecord', MedicalRecordController::class)->names('admin.riwayatKesehatan');
+});
+
+Route::middleware(['auth', 'role:Doctor'])->prefix('doctor')->group(function(){
+    Route::get('/', [DasboardController::class, 'index']);
 });
 
 
