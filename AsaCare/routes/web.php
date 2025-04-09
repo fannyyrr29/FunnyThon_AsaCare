@@ -29,7 +29,7 @@ use Pusher\Pusher;
 */
 
 Route::get('/', function () {
-    return view('users/tokoobat');
+    return view('welcome');
 });
 
 
