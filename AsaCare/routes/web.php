@@ -35,14 +35,14 @@ Route::get('/', function () {
 
 //hanya bisa diakses oleh user yang belum terautentikasi
 Route::get('/login', [LoginController::class, 'index'])->middleware('guest');
-Route::post('/login', [LoginController::class, 'authenticate']);
+Route::post('/login', [LoginController::class, 'authenticate'])->name('login');
 Route::get('/logout', [LoginController::class, 'logout']);
 
 
 // Route untuk User 
 Route::middleware(['auth', 'role:User'])->prefix('user')->group(function(){
     //Untuk menampilkan home
-    Route::get('/home', [HomeController::class, 'index']);
+    Route::get('/home', [HomeController::class, 'index'])->name('user.home');
     //Untuk show profile di halaman edit
     Route::get('/showProfile/{id}', [HomeController::class, 'showProfile'])->name('user.profile');
     //Untuk menyimpan perubahan di db

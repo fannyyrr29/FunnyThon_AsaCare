@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\DrugController;
 use App\Http\Controllers\Admin\HospitalController;
 use App\Http\Controllers\Admin\MedicalRecordController;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\User\ActionController;
 use App\Http\Controllers\User\InviteController;
 use Illuminate\Http\Request;
@@ -28,6 +29,8 @@ use App\Models\MedicalRecord;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+Route::post('/login', [LoginController::class, 'authenticate']);
+
 
 // Route::get('/hospital', [HospitalController::class, 'index']);
 // Route::get('/doctors/{id}/edit', [DoctorController::class, 'edit'])->name('doctors.edit');
