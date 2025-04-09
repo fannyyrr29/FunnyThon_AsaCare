@@ -80,7 +80,7 @@ Route::middleware(['auth', 'role:User'])->prefix('user')->group(function(){
 Route::middleware(['auth', 'role:Admin'])->prefix('admin')->group(function(){
     //untuk show dashboard
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
-    Route::resource('hospital', HospitalController::class)->names('admin.rumahsakit');
+    Route::resource('hospital', HospitalController::class)->names('admin.rumahsakit.index');
     Route::resource('doctor', DoctorController::class)->names('admin.dokter');
     Route::resource('action', ActionController::class)->names('admin.layanan'); 
     Route::resource('user', UserController::class)->names('admin.user');
@@ -88,8 +88,8 @@ Route::middleware(['auth', 'role:Admin'])->prefix('admin')->group(function(){
     Route::resource('medicalRecord', MedicalRecordController::class)->names('admin.riwayatKesehatan');
 });
 
-Route::middleware(['auth', 'role:Doctor'])->prefix('doctor')->group(function(){
-    Route::get('/', [DasboardController::class, 'index']);
+Route::middleware(['auth', 'role:Dokter'])->prefix('doctor')->group(function(){
+    Route::get('/', [DasboardController::class, 'index'])->name('doctor.index');
 });
 
 

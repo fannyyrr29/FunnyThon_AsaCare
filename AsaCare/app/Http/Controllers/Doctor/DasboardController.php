@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Doctor;
 
 use App\Http\Controllers\Controller;
+use App\Models\Doctor;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class DasboardController extends Controller
 {
@@ -12,7 +14,8 @@ class DasboardController extends Controller
      */
     public function index()
     {
-        return view('doctors.home');
+        $doctor = Doctor::find(Auth::id());
+        return view('doctors.index', compact('doctor'));
     }
 
     /**
