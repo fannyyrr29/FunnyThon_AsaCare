@@ -39,6 +39,8 @@
     <!-- jsvectormap -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jsvectormap@1.5.3/dist/css/jsvectormap.min.css"
         integrity="sha256-+uGLJmmTKOqBr+2E6KDYs/NRsHxSkONXFHUL0fy2O/4=" crossorigin="anonymous" />
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <!--end::Head-->
 <!--begin::Body-->
@@ -70,8 +72,7 @@
                 <!--begin::Brand Link-->
                 <a href="./index.html" class="brand-link">
                     <!--begin::Brand Image-->
-                    <img src="/assets/images/logo.png" alt="AsaCare Logo"
-                        class="brand-image opacity-100" />
+                    <img src="/assets/images/logo.png" alt="AsaCare Logo" class="brand-image opacity-100" />
                     <!--end::Brand Image-->
                     <!--begin::Brand Text-->
                     <span class="brand-text fw-light">AsaCare</span>
@@ -87,49 +88,55 @@
                     <ul class="nav sidebar-menu flex-column" data-lte-toggle="treeview" role="menu"
                         data-accordion="false">
                         <li class="nav-item">
-                            <a href="{{route('admin.dashboard')}}" class="nav-link">
+                            <a href="{{ route('admin.dashboard') }}"
+                                class="nav-link {{ request()->routeIs('admin.dashboard') ? 'active' : '' }}">
                                 <i class="nav-icon bi bi-house-door-fill"></i>
                                 <p>Dashboard</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{route('admin.rumahsakit.index')}}" class="nav-link">
+                            <a href="{{ route('admin.rumahsakit.index') }}"
+                                class="nav-link {{ request()->routeIs('admin.rumahsakit.index') ? 'active' : '' }}">
                                 <i class="nav-icon bi bi-house-heart-fill"></i>
                                 <p>Rumah Sakit</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{route('admin.dokter.index')}}" class="nav-link">
+                            <a href="{{ route('admin.dokter.index') }}"
+                                class="nav-link {{ request()->routeIs('admin.dokter.index') ? 'active' : '' }}">
                                 <i class="nav-icon bi bi-person-heart"></i>
                                 <p>Dokter</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{route('admin.layanan.index')}}" class="nav-link">
+                            <a href="{{ route('admin.layanan.index') }}"
+                                class="nav-link  {{ request()->routeIs('admin.layanan.index') ? 'active' : '' }}">
                                 <i class="nav-icon bi bi-heart-pulse-fill"></i>
                                 <p>Layanan</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{route('admin.user.index')}}" class="nav-link">
+                            <a href="{{ route('admin.user.index') }}"
+                                class="nav-link {{ request()->routeIs('admin.user.index') ? 'active' : '' }}">
                                 <i class="nav-icon bi bi-person-fill-gear"></i>
                                 <p>Pengguna</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{route('admin.spesialisasi.index')}}" class="nav-link">
+                            <a href="{{ route('admin.spesialisasi.index') }}"
+                                class="nav-link  {{ request()->routeIs('admin.spesialisasi.index') ? 'active' : '' }}">
                                 <i class="nav-icon bi bi-file-earmark-medical-fill"></i>
-                                <p>spesialisasi</p>
+                                <p>Spesialisasi</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{route('admin.riwayatKesehatan.index')}}" class="nav-link">
+                            <a href="{{ route('admin.riwayatKesehatan.index') }}"
+                                class="nav-link  {{ request()->routeIs('admin.riwayatKesehatan.index') ? 'active' : '' }}">
                                 <i class="nav-icon bi bi-journal-medical"></i>
                                 <p>Riwayat Kesehatan</p>
                             </a>
                         </li>
                     </ul>
-                    
                     <!--end::Sidebar Menu-->
                 </nav>
             </div>
