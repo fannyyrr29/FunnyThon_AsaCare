@@ -82,5 +82,9 @@ class User extends Authenticatable
     public function families() {
         return $this->belongsToMany(User::class, 'families', 'sender_id', 'receiver_id')->withPivot('status');
     }
+
+    public function doctor(){
+        return $this->belongsTo(Doctor::class, 'user_id', 'id');
+    }
     
 }

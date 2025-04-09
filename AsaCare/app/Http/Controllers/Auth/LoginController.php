@@ -33,12 +33,13 @@ class LoginController extends Controller
             Auth::login($user);
 
             session(['user' => $user]);
-
+            
             switch ($user->role) {
                 case 'Admin':
                     # code...
                     return redirect()->route('admin.dashboard');
                 case 'Dokter':
+                    // return response()->json(compact('user'));
                     return redirect()->route('doctor.index');
                 default:
                     # code...
