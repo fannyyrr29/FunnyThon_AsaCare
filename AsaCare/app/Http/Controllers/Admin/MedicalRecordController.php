@@ -30,8 +30,8 @@ class MedicalRecordController extends Controller
             'reminders.reminderTimes.time',
             'actions'
         ])->get();
-            return response()->json(compact('medicalRecords'));
-        // return view('admins.riwayatKesehatan', compact('medicalRecords'));
+        //     return response()->json(compact('medicalRecords'));
+        return view('admins.medicalRecord', compact('medicalRecords'));
     }
 
 

@@ -19,7 +19,7 @@ class DoctorController extends Controller
     public function index()
     {
         $doctors = Doctor::with('doctorSpecializations.specialization', 'doctorSpecializations.action')->get();
-        return view('doctor.show', compact('doctor'));
+        return view('admins.doctor', compact('doctors'));
     }
 
     /**

@@ -14,9 +14,9 @@ class ActionController extends Controller
      */
     public function index()
     {
-        $action = Action::all();
-        if ($action) {
-            return view('admins.layanan', compact('action'));
+        $actions = Action::all();
+        if ($actions) {
+            return view('admins.service', compact('actions'));
         }
         return redirect()->back()->withErrors(['header' => "GAGAL", 'message' => "Tidak dapat menampilkan action!"]);
     }
