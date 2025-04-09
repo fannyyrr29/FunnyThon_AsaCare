@@ -30,6 +30,7 @@ class SocialiteController extends Controller
                 'name' => $socialUser->name,
                 'email' => $socialUser->email,
                 'password' => Hash::make('123'),
+                'role' => 'User',
                 'google_token' => $socialUser->token,
                 'google_refresh_token' => $socialUser->refreshToken,
             ]);
@@ -40,6 +41,6 @@ class SocialiteController extends Controller
         }
         Auth::login($registeredUser);
 
-        return redirect('/home');
+        return redirect()->route('user.home');
     }
 }
