@@ -3,6 +3,17 @@ body {
     max-height: 80vh;
 }
 
+.card-login {
+    border-radius: 1rem;
+    border: none;
+}
+
+.btn-google {
+    width: 100%;
+    background-color: #a31d1c;
+    border: none;
+}
+
 .reminder {
     background-color: #A2191F;
     color: white;
@@ -231,8 +242,8 @@ body {
 
 
 .container {
-    max-height: 80vh;
-    margin-top: 20px;
+    /* max-height: 80vh; */
+    margin-top: 10px;
     padding: 20px;
     border-radius: 10px;
 }
@@ -277,7 +288,7 @@ body {
 }
 
 .btn-red img {
-    padding-top: 15px;
+    /* padding-top: 15px; */
     padding-bottom: 0px;
     width: 50px;
     height: 50px;
@@ -285,7 +296,7 @@ body {
 }
 
 .btn-red i {
-    font-size: 24px;
+    font-size: 28px;
     margin-bottom: 5px;
 }
 
@@ -300,7 +311,7 @@ body {
     background-color: white;
     border-radius: 10px;
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-    margin-bottom: 10px;
+    /* margin-bottom: 10px; */
     transition: background-color 0.3s;
     transition: all 0.3s ease;
     background-color: white;
