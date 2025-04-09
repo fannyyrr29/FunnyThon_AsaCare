@@ -42,7 +42,7 @@ Route::get('/logout', [LoginController::class, 'logout']);
 // Route untuk User 
 Route::middleware(['auth', 'role:User'])->prefix('user')->group(function(){
     //Untuk menampilkan home
-    Route::get('/home', [HomeController::class, 'index'])->name('user.home');
+    Route::get('/home', [HomeController::class, 'index']);
     //Untuk show profile di halaman edit
     Route::get('/showProfile/{id}', [HomeController::class, 'showProfile'])->name('user.profile');
     //Untuk menyimpan perubahan di db
