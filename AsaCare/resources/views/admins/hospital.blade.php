@@ -49,7 +49,7 @@
                                                 <td>{{ $hospital->name }}</td>
                                                 <td>{{ $hospital->address }}</td>
                                                 <td>{{ $hospital->phone_number }}</td>
-                                                <td><button class="btn-primary"><i class="fa fa-trash"></i></button></td>
+                                                <td><button type="button" class="btn btn-danger"><i class="fa fa-trash"></i></button></td>
                                             </tr>
                                         @endforeach
                                     </tbody>
