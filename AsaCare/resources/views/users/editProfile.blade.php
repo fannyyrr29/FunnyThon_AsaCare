@@ -5,8 +5,7 @@
 @section('back_button', true)
 
 @section('content')
-    <div class="container mt-5">
-        <div class="card shadow" style="max-width: 400px; margin: auto; border-radius: 10px; padding: 20px;">
+<div class="card shadow" style="max-width: 400px; margin: auto; border-radius: 10px; padding: 20px;">
             <div class="card-body">
                 <form id="daftarForm">
                     <div class="mb-3">
@@ -64,8 +63,6 @@
                 </form>
             </div>
         </div>
-    </div>
-    <br><br>
 
 @endsection
 

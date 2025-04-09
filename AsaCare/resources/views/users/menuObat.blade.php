@@ -4,7 +4,7 @@
 
 @section('content')
 
-    <div class="container min-vh-100 d-flex align-items-center justify-content-center">
+    <div class="container d-flex align-items-center justify-content-center">
         <div class="row w-100 flex-column align-items-center">
             <div class="col-12 mb-3">
                 <button class="btn-red w-50 mx-auto d-block">
