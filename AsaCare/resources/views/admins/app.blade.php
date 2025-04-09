@@ -93,39 +93,39 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{route('admin.dashboard')}}" class="nav-link">
+                            <a href="{{route('admin.rumahsakit.index')}}" class="nav-link">
                                 <i class="nav-icon bi bi-house-heart-fill"></i>
-                                <p>Hospital</p>
+                                <p>Rumah Sakit</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{route('admin.dashboard')}}" class="nav-link">
+                            <a href="{{route('admin.dokter.index')}}" class="nav-link">
                                 <i class="nav-icon bi bi-person-heart"></i>
-                                <p>Doctor</p>
+                                <p>Dokter</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{route('admin.dashboard')}}" class="nav-link">
+                            <a href="{{route('admin.layanan.index')}}" class="nav-link">
                                 <i class="nav-icon bi bi-heart-pulse-fill"></i>
-                                <p>Service</p>
+                                <p>Layanan</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{route('admin.dashboard')}}" class="nav-link">
+                            <a href="{{route('admin.user.index')}}" class="nav-link">
                                 <i class="nav-icon bi bi-person-fill-gear"></i>
-                                <p>User</p>
+                                <p>Pengguna</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{route('admin.dashboard')}}" class="nav-link">
+                            <a href="{{route('admin.spesialisasi.index')}}" class="nav-link">
                                 <i class="nav-icon bi bi-file-earmark-medical-fill"></i>
-                                <p>Specialization</p>
+                                <p>spesialisasi</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{route('admin.dashboard')}}" class="nav-link">
+                            <a href="{{route('admin.riwayatKesehatan.index')}}" class="nav-link">
                                 <i class="nav-icon bi bi-journal-medical"></i>
-                                <p>Medical Record</p>
+                                <p>Riwayat Kesehatan</p>
                             </a>
                         </li>
                     </ul>
