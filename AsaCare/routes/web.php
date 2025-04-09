@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\SocialiteController;
 use App\Http\Controllers\Doctor\DasboardController;
+use App\Http\Controllers\Doctor\MedicalRecordController as DoctorMedicalRecordController;
 use App\Http\Controllers\User\HomeController;
 use App\Http\Controllers\User\InviteController;
 use Illuminate\Support\Facades\Route;
@@ -29,10 +30,11 @@ use Pusher\Pusher;
 |
 */
 
-Route::get('/', function () {
-    return view('doctors/diagnosa');
-});
+// Route::get('/', function () {
+//     return view('doctors/diagnosa');
+// });
 
+Route::get('/', [LoginController::class, 'index'])->middleware('guest');
 
 //hanya bisa diakses oleh user yang belum terautentikasi
 Route::get('/login', [LoginController::class, 'index'])->middleware('guest');
@@ -93,6 +95,7 @@ Route::middleware(['auth', 'role:Admin'])->prefix('admin')->group(function(){
 
 Route::middleware(['auth', 'role:Dokter'])->prefix('doctor')->group(function(){
     Route::get('/', [DasboardController::class, 'index'])->name('doctor.index');
+    Route::resource('medicalRecord', DoctorMedicalRecordController::class);
 });
 
 

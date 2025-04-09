@@ -15,7 +15,7 @@
     <link rel="manifest" href="{{ asset('/manifest.json') }}">
 
     @stack('styles')
-    
+
     <link rel="stylesheet" href="assets/css/app.css">
     <script src="{{ asset('assets/js/app.js') }}"></script>
 

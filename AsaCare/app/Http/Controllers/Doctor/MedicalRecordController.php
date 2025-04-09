@@ -25,12 +25,13 @@ class MedicalRecordController extends Controller
     {
         $medicalRecords = MedicalRecord::with([
             'user',
+            'doctor',
             'drugRecords.drug',
             'reminders.reminderTimes.time',
             'actions'
-        ])->where('doctor_id', '=', Auth::id())->get();
-            // return response()->json(compact('medicalRecords'));
-        return view('doctor.riwayatKesehatan', compact('medicalRecords'));
+        ])->get();
+        // return response()->json(compact('medicalRecords'));
+        return view('doctors.riwayatKesehatan', compact('medicalRecords'));
     }
 
     /**
