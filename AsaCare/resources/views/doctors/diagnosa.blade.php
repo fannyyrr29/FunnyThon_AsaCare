@@ -47,7 +47,8 @@
                     <label class="form-check-label" for="setiapHari">Setiap Hari</label>
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="periode" id="hariTertentu" data-bs-toggle="modal" data-bs-target="#modalHari">
+                    <input class="form-check-input" type="radio" name="periode" id="hariTertentu" data-bs-toggle="modal"
+                        data-bs-target="#modalHari">
                     <label class="form-check-label" for="hariTertentu">Hari Tertentu</label>
                 </div>
             </div>
@@ -81,13 +82,20 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Tutup"></button>
                 </div>
                 <div class="modal-body">
-                    <div class="form-check"><input class="form-check-input" type="checkbox" id="senin"><label class="form-check-label" for="senin">Senin</label></div>
-                    <div class="form-check"><input class="form-check-input" type="checkbox" id="selasa"><label class="form-check-label" for="selasa">Selasa</label></div>
-                    <div class="form-check"><input class="form-check-input" type="checkbox" id="rabu"><label class="form-check-label" for="rabu">Rabu</label></div>
-                    <div class="form-check"><input class="form-check-input" type="checkbox" id="kamis"><label class="form-check-label" for="kamis">Kamis</label></div>
-                    <div class="form-check"><input class="form-check-input" type="checkbox" id="jumat"><label class="form-check-label" for="jumat">Jumat</label></div>
-                    <div class="form-check"><input class="form-check-input" type="checkbox" id="sabtu"><label class="form-check-label" for="sabtu">Sabtu</label></div>
-                    <div class="form-check"><input class="form-check-input" type="checkbox" id="minggu"><label class="form-check-label" for="minggu">Minggu</label></div>
+                    <div class="form-check"><input class="form-check-input" type="checkbox" id="senin"><label
+                            class="form-check-label" for="senin">Senin</label></div>
+                    <div class="form-check"><input class="form-check-input" type="checkbox" id="selasa"><label
+                            class="form-check-label" for="selasa">Selasa</label></div>
+                    <div class="form-check"><input class="form-check-input" type="checkbox" id="rabu"><label
+                            class="form-check-label" for="rabu">Rabu</label></div>
+                    <div class="form-check"><input class="form-check-input" type="checkbox" id="kamis"><label
+                            class="form-check-label" for="kamis">Kamis</label></div>
+                    <div class="form-check"><input class="form-check-input" type="checkbox" id="jumat"><label
+                            class="form-check-label" for="jumat">Jumat</label></div>
+                    <div class="form-check"><input class="form-check-input" type="checkbox" id="sabtu"><label
+                            class="form-check-label" for="sabtu">Sabtu</label></div>
+                    <div class="form-check"><input class="form-check-input" type="checkbox" id="minggu"><label
+                            class="form-check-label" for="minggu">Minggu</label></div>
                 </div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
