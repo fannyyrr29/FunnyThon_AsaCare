@@ -21,65 +21,68 @@
         </div>
     </div>
 
-<br>
-    <!-- Pilihan Layanan -->
-    <h6 class="text-center mt-4">Silahkan pilih salah satu opsi di bawah ini!</h6>
-    <div class="row mt-2 text-center">
-        <div class="col-4">
-            <button class="btn-red">
-                <img class="btn-red img" src="{{ asset('assets/images/home.png') }}" alt="...">
-                <br>Layanan Rumah
-            </button>
-        </div>
-        <div class="col-4">
-            <button class="btn-red">
-                <img class="btn-red img" src="{{ asset('assets/images/obat.png') }}" alt="...">
-                <br>Obat-obatan
-            </button>
-        </div>
-        <div class="col-4">
-            <button class="btn-red">
-                <img class="btn-red img" src="{{ asset('assets/images/family.png') }}" alt="...">
-                <br>Keluarga
-            </button>
-        </div>
-        <div class="col-4">
-            <button class="btn-red">
-                <img class="btn-red img" src="{{ asset('assets/images/history.png') }}" alt="...">
-                <br>Riwayat Medis
-            </button>
-        </div>
-        <div class="col-4">
-            <button class="btn-red  ">
-                <img class="btn-red img" src="{{ asset('assets/images/telp.png') }}" alt="...">
-                <br>Telepon
-            </button>
-        </div>
+    <!-- Reminder -->
+    <div id="reminder" class="reminder">
+        <span class="close-btn" onclick="closeReminder()">x</span>
+        <h6>Jangan lupa minum obat</h6>
     </div>
 
-    <!-- Bagaimana kabar hari ini -->
+    <!-- Pilihan Layanan -->
+    <h6 class="text-center mt-4">Silahkan pilih salah satu opsi di bawah ini!</h6>
     <div class="container mt-2">
-        <h6 class="text-center mt-2">Bagaimana kabar hari ini?</h6>
+        <div class="row text-center g-3">
+            <div class="col-md-4 col-6">
+                <button class="btn-red w-100">
+                    <img class="bg-red img-fluid" src="{{ asset('assets/images/home.png') }}" alt="...">
+                    <br>Layanan Rumah
+                </button>
+            </div>
+            <div class="col-md-4 col-6">
+                <button class="btn-red w-100">
+                    <img class="bg-red img-fluid" src="{{ asset('assets/images/obat.png') }}" alt="...">
+                    <br>Obat-obatan
+                </button>
+            </div>
+            <div class="col-md-4 col-6">
+                <button class="btn-red w-100">
+                    <img class="bg-red img-fluid" src="{{ asset('assets/images/family.png') }}" alt="...">
+                    <br>Keluarga
+                </button>
+            </div>
+            <div class="col-md-4 col-6">
+                <button class="btn-red w-100">
+                    <img class="bg-red img-fluid" src="{{ asset('assets/images/history.png') }}" alt="...">
+                    <br>Riwayat Medis
+                </button>
+            </div>
+        </div>
+        <!-- Bagaimana kabar hari ini -->
+        <h6 class="text-center mt-2 mb-2">Bagaimana kabar hari ini?</h6>
         <div class="row text-center">
             <div class="col-4">
                 <button class="mood-btn" onclick="changeMood(this)" data-mood="healthy">
-                    <img src="{{ asset('assets/images/smile.png') }}" width="50" class="rounded d-block mx-auto" alt="...">
-                    <br>Sehat
+                    <img src="{{ asset('assets/images/smile.png') }}" width="50" class="rounded d-block mx-auto mb-2" alt="...">
+                    Sehat
                 </button>
             </div>
             <div class="col-4">
                 <button class="mood-btn" onclick="changeMood(this)" data-mood="mid">
-                    <img src="{{ asset('assets/images/neutral.png') }}" width="50" class="rounded d-block mx-auto"
+                    <img src="{{ asset('assets/images/neutral.png') }}" width="50" class="rounded d-block mx-auto mb-2"
                         alt="...">
-                    <br>Netral
+                    Netral
                 </button>
             </div>
             <div class="col-4">
                 <button class="mood-btn" onclick="changeMood(this)" data-mood="sick">
-                    <img src="{{ asset('assets/images/angry.png') }}" width="50" class="rounded d-block mx-auto" alt="...">
-                    <br>Sakit
+                    <img src="{{ asset('assets/images/angry.png') }}" width="50" class="rounded d-block mx-auto mb-2" alt="...">
+                    Sakit
                 </button>
             </div>
+        </div>
+
+        <!-- Tombol Tambah -->
+        <div class="add-button" data-bs-toggle="modal" data-bs-target="#searchModal">
+            <img src="{{ asset('assets/images/telp.png') }}" class="rounded d-block mx-auto" width="24" alt="...">
         </div>
 @endsection
 

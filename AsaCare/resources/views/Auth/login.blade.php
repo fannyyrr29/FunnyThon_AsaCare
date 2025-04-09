@@ -35,12 +35,12 @@
                         alt="Logo">
                 </div>
                 <div class="row justify-content-center text-center">
-                    <h1 class="mb-5">Masuk</h1>
+                    <h1 class="mb-3 mt-5">Masuk</h1>
                     <div class="col-12 col-md-8 col-lg-6 col-xl-5">
                         <div class="card bg-transparent">
                             <div class="card shadow-2-strong" style="border-radius: 1rem;">
-                                <div class="card-body p-5 text-center">
-                                    <div class="p-4">
+                                <div class="card-body text-center">
+                                    <div class="p-3">
                                         <form action="{{ route('login') }}" method="post">
                                             @csrf
                                             <div data-mdb-input-init class="form-outline mb-4">
@@ -66,10 +66,10 @@
                                     </div>
 
 
-                                    <hr class="my-4">
+                                    <hr class="my-2">
 
                                     <div class="p-4">
-                                        <div class="form-outline mb-4">
+                                        <div class="form-outline mb-2">
                                             <a href="auth/redirect" class="btn btn-primary btn-lg border-0 w-100"
                                                 style="background-color: #a31d1c;"> <img src="assets/images/google.png"
                                                     alt="Google Logo" width="24" height="24"> Masuk dengan
