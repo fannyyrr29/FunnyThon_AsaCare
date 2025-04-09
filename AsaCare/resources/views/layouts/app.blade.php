@@ -22,7 +22,7 @@
 
 <body>
     {{-- HEADER --}}
-    <div class="header d-flex align-items-center px-3 py-3">
+    <div class="header d-flex align-items-center px-3 py-3" style="background-color: #A2191F; color: white;">
         @hasSection('back_button')
             <button onclick="window.history.back()" class="btn btn-link text-white me-2 p-0">
                 <i class="fas fa-arrow-left"></i>
