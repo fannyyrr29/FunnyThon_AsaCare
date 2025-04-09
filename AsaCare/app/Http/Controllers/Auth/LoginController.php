@@ -8,8 +8,6 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Redis;
 
 class LoginController extends Controller
 {
@@ -41,7 +39,7 @@ class LoginController extends Controller
                     # code...
                     return redirect()->route('admin.dashboard');
                 case 'Dokter':
-                    return redirect()->route('doctor.dashboard');
+                    return redirect()->route('doctor.index');
                 default:
                     # code...
                     return redirect()->route('login')->withInput()->withErrors(['Error' => 'Peran anda tidak ditemukan!']);
