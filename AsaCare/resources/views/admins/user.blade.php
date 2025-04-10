@@ -37,18 +37,31 @@
                                 <table class="table table-striped table-bordered">
                                     <thead>
                                         <tr>
-                                            <th>Rumah Sakit</th>
+                                            <th>Nama</th>
+                                            <th>NIK</th>
                                             <th>Alamat</th>
                                             <th>Nomor Telepon</th>
+                                            <th>Role</th>
+                                            <th>Gender</th>
+                                            <th>Tanggal Lahir</th>
+                                            <th>Foto Profil</th>
+                                            <th>Email</th>
                                             <th>Aksi</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach ($hospitals as $hospital)
+                                        @foreach ($users as $user)
                                             <tr>
-                                                <td>{{ $hospital->name }}</td>
-                                                <td>{{ $hospital->address }}</td>
-                                                <td>{{ $hospital->phone_number }}</td>
+                                                <td>{{ $user->name }}</td>
+                                                <td>{{ $user->NIK }}</td>
+                                                <td>{{ $user->address }}</td>
+                                                <td>{{ $user->phone_number }}</td>
+                                                <td>{{ $user->role }}</td>
+                                                <td>{{ $user->gender }}</td>
+                                                <td>{{ $user->birthdate }}</td>
+                                                <td><img src="{{ asset('assets/images/' . $user->profile) }}" alt="Image"
+                                                        width="50" height=auto data-bs-toggle="modal" style="cursor:pointer;"></td>
+                                                <td>{{ $user->email }}</td>
                                                 <td><button type="button" class="btn btn-danger"><i
                                                             class="fa fa-trash"></i></button></td>
                                             </tr>

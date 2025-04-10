@@ -43,6 +43,7 @@
                                             <th>Rating</th>
                                             <th>Rumah Sakit</th>
                                             <th>Spesialisasi</th>
+                                            <th>Aksi</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -57,6 +58,8 @@
                                                     @foreach ($doctor->doctor_specializations as $specialization)
                                                         <td>{{ $specialization->specialization->name }}</td>
                                                     @endforeach
+                                                @else
+                                                    <td>-</td>
                                                 @endif
                                                 <td><button class="btn-primary"><i class="fa fa-trash"></i></button></td>
                                             </tr>

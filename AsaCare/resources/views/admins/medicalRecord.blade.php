@@ -37,21 +37,30 @@
                                 <table class="table table-striped table-bordered">
                                     <thead>
                                         <tr>
-                                            <th>Rumah Sakit</th>
-                                            <th>Alamat</th>
-                                            <th>Nomor Telepon</th>
+                                            <th>Pasien</th>
+                                            <th>Dokter</th>
+                                            <th>Diagnosa</th>
+                                            <th>Deskripsi</th>
+                                            <th>Tanggal</th>
+                                            <th>Rating</th>
+                                            <th>Total</th>
                                             <th>Aksi</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach ($hospitals as $hospital)
+                                        @foreach ($medicalRecords as $medicalRecord)
                                             <tr>
-                                                <td>{{ $hospital->name }}</td>
-                                                <td>{{ $hospital->address }}</td>
-                                                <td>{{ $hospital->phone_number }}</td>
+                                                <td>{{ $medicalRecord->user->name }}</td>
+                                                <td>{{ $medicalRecord->doctor->name }}</td>
+                                                <td>{{ $medicalRecord->diagnose }}</td>
+                                                <td>{{ $medicalRecord->description }}</td>
+                                                <td>{{ $medicalRecord->date }}</td>
+                                                <td>{{ $medicalRecord->rating }}</td>
+                                                <td>{{ $medicalRecord->total }}</td>
                                                 <td><button type="button" class="btn btn-danger"><i class="fa fa-trash"></i></button></td>
                                             </tr>
                                         @endforeach
+                                        {{-- {{ $medicalRecords }} --}}
                                     </tbody>
                                 </table>
                             </div>
