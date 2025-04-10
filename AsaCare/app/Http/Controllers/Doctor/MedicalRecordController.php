@@ -39,12 +39,12 @@ class MedicalRecordController extends Controller
      */
     public function create()
     {
-        $users = User::all();
+        $users = User::where('role', '=', 'User')->get();
         $drugs = Drug::all();          
         $actions = Action::all();       
         $times = Time::all();          
 
-        return view('doctor.tambahRiwayatKesehatan', compact('users', 'drugs', 'actions', 'times'));
+        return view('doctors.tambahRiwayatKesehatan', compact('users', 'drugs', 'actions', 'times'));
     }
 
     /**
@@ -54,14 +54,14 @@ class MedicalRecordController extends Controller
     {
         try {
             DB::beginTransaction();
-
+            $doctor = Doctor::where('user_id', Auth::id())->first();
             // 1. Simpan Medical Record
             $medicalRecord = new MedicalRecord();
-            $medicalRecord->diagnose = $request->diagnose;
-            $medicalRecord->description = $request->description;
+            $medicalRecord->diagnose = $request->diagnosa;
+            $medicalRecord->description = $request->deskripsi;
             $medicalRecord->date = now();
             $medicalRecord->user_id = $request->user_id;
-            $medicalRecord->doctor_id = Auth::id();
+            $medicalRecord->doctor_id = $doctor->id;
             $medicalRecord->rating = null;
             $medicalRecord->total = 0;
             $medicalRecord->save();
@@ -97,41 +97,43 @@ class MedicalRecordController extends Controller
                     'duration_day' => $drugData['duration_day']
                 ]);
 
-                // Waktu Reminder berdasarkan dosis
-                $timeMappings = [
-                    1 => [8],               // id jam 12:00
-                    2 => [6, 15],           // id jam 10:00, 18:00
-                    3 => [4, 10, 16],       // id jam 08:00, 13:00, 19:30
-                ];
-
-                $dose = $drug->dosis;
-                $durasi = (int) $drugData['duration_day'];
-
-                if (isset($timeMappings[$dose])) {
-                    for ($i = 0; $i < $durasi; $i++) {
-                        $tanggal = now()->addDays($i)->toDateString();
-                        foreach ($timeMappings[$dose] as $timeId) {
-                            ReminderTime::insert([
-                                'reminders_id' => $reminder->id,
-                                'time_id' => $timeId,
-                                'date' => $tanggal,
-                                'status' => 1,
-                                'created_at' => now(),
-                                'updated_at' => now()
-                            ]);                            
+                if ($drug->periode === 'Setiap Hari') {
+                    $timeMappings = [
+                        1 => [8],               // id jam 12:00
+                        2 => [6, 15],           // id jam 10:00, 18:00
+                        3 => [4, 10, 16],       // id jam 08:00, 13:00, 19:30
+                    ];
+    
+                    $dose = $drug->dosis;
+                    $durasi = (int) $drugData['duration_day'];
+    
+                    if (isset($timeMappings[$dose])) {
+                        for ($i = 0; $i < $durasi; $i++) {
+                            $tanggal = now()->addDays($i)->toDateString();
+                            foreach ($timeMappings[$dose] as $timeId) {
+                                ReminderTime::insert([
+                                    'reminder_id' => $reminder->id,
+                                    'time_id' => $timeId,
+                                    'date' => $tanggal,
+                                    'status' => 1,
+                                    'created_at' => now(),
+                                    'updated_at' => now()
+                                ]);                            
+                            }
                         }
                     }
-                }
+                }else continue;
+                
             }
 
             $medicalRecord->total = $totalHargaObat;
             $medicalRecord->save();
 
             DB::commit();
-            return response()->json(['header' => 'SUKSES', 'message' => 'Data rekam medis berhasil disimpan']);
+            return redirect()->route('medicalRecord.index')->with(['header' => 'SUKSES', 'message' => 'Data rekam medis berhasil disimpan']);
         } catch (\Throwable $th) {
             DB::rollBack();
-            return response()->json(['header' => 'GAGAL', 'message' => 'Terjadi kesalahan: ' . $th->getMessage()]);
+            return redirect()->back()->withInput()->withErrors(['header' => 'GAGAL', 'message' => 'Terjadi kesalahan: ' . $th->getMessage()]);
         }
     }
 
@@ -300,10 +302,12 @@ class MedicalRecordController extends Controller
 
             DB::commit();
 
-            return response()->json(['header' => 'SUKSES', 'message' => 'Data rekam medis beserta relasinya berhasil dihapus!']);
+            // return response()->json(['header' => 'SUKSES', 'message' => 'Data rekam medis beserta relasinya berhasil dihapus!']);
+            return redirect()->back()->with(['header' => 'SUKSES', 'message' => 'Data rekam medis beserta relasinya berhasil dihapus!']);
         } catch (\Throwable $th) {
             DB::rollBack();
-            return response()->json(['header' => 'GAGAL', 'message' => 'Data rekam medis tidak dapat dihapus! ' . $th->getMessage()]);
+            // return response()->json(['header' => 'GAGAL', 'message' => 'Data rekam medis tidak dapat dihapus! ' . $th->getMessage()]);   
+            return redirect()->back()->with(['header' => 'GAGAL', 'message' => 'Data rekam medis tidak dapat dihapus! ' . $th->getMessage()]);
         }
     }
 }

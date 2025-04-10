@@ -1,132 +1,137 @@
-@extends('layouts.app')
+@extends('layouts.doctorApp')
 
 @section('content')
-    <div class="container mt-3">
-        <div class="card">
-            <div class="card-header">
-                <h2 class="text-center">Data Riwayat Kesehatan User</h2>
-            </div>
-            <div class="card-body">
-                <table class="table table-hover">
-                    <thead>
+    @if (session('header') && session('message'))
+        @php
+            $alertType = session('header') === 'SUKSES' ? 'success' : 'danger';
+        @endphp
+        <div class="mb-3 alert alert-{{ $alertType }} alert-dismissible fade show" role="alert">
+            <strong>{{ session('header') }}:</strong> {{ session('message') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    @endif
+    <div class="card">
+        <h1 class="text-center my-3">Data Riwayat Kesehatan User</h1>
+        <div class="card-body">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>Diagnosa</th>
+                        <th>Deskripsi</th>
+                        <th>Date</th>
+                        <th>Rating</th>
+                        <th>Dokter</th>
+                        <th>User</th>
+                        <th>Riwayat Obat</th>
+                        <th>Riwayat Pengingat</th>
+                        <th>Riwayat Layanan</th>
+                        <th>Ubah</th>
+                        <th>Hapus</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($medicalRecords as $medicalRecord)
                         <tr>
-                            <th>Diagnosa</th>
-                            <th>Deskripsi</th>
-                            <th>Date</th>
-                            <th>Rating</th>
-                            <th>Dokter</th>
-                            <th>User</th>
-                            <th>Riwayat Obat</th>
-                            <th>Riwayat Pengingat</th>
-                            <th>Riwayat Layanan</th>
-                            <th>Ubah</th>
-                            <th>Hapus</th>
+                            <td>{{ $medicalRecord->diagnose }}</td>
+                            <td>{{ $medicalRecord->description }}</td>
+                            <td>{{ date('d-m-Y', strtotime($medicalRecord->date)) }}</td>
+                            <td>{{ $medicalRecord->rating }}</td>
+                            <td>{{ $medicalRecord->doctor->name }}</td>
+                            <td>{{ $medicalRecord->user->name }}</td>
+                            <td><button data-id="{{ $medicalRecord->id }}" class="btn btn-primary tampilObat">Tampilkan
+                                    Obat</button></td>
+                            <td><button data-id="{{ $medicalRecord->id }}" class="btn btn-danger tampilPengingat">Tampilkan
+                                    Pengingat</button></td>
+                            <td><button data-id="{{ $medicalRecord->id }}" class="btn btn-secondary tampilAction">Tampilkan
+                                    Layanan</button></td>
+                            <td>
+                                <form action="" method="post">
+                                    @csrf
+                                    <input class="btn btn-warning" type="submit" value="Ubah">
+                                </form>
+                            </td>
+                            <td>
+                                <form action="{{ route('medicalRecord.destroy', $medicalRecord->id) }}" method="post">
+                                    @method('DELETE')
+                                    @csrf
+                                    <input class="btn btn-danger btnHapus" type="submit" value="Hapus">
+                                </form>
+                            </td>
+
                         </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($medicalRecords as $medicalRecord)
-                            <tr>
-                                <td>{{ $medicalRecord->diagnose }}</td>
-                                <td>{{ $medicalRecord->description }}</td>
-                                <td>{{ date('d-m-Y', strtotime($medicalRecord->date)) }}</td>
-                                <td>{{ $medicalRecord->rating }}</td>
-                                <td>{{ $medicalRecord->doctor->name }}</td>
-                                <td>{{ $medicalRecord->user->name }}</td>
-                                <td><button data-id="{{ $medicalRecord->id }}" class="btn btn-primary tampilObat">Tampilkan
-                                        Obat</button></td>
-                                <td><button data-id="{{ $medicalRecord->id }}"
-                                        class="btn btn-danger tampilPengingat">Tampilkan Pengingat</button></td>
-                                <td><button data-id="{{ $medicalRecord->id }}"
-                                        class="btn btn-secondary tampilAction">Tampilkan Layanan</button></td>
-                                <td>
-                                    <form action="" method="post">
-                                        @csrf
-                                        <input class="btn btn-warning" type="submit" value="Ubah">
-                                    </form>
-                                </td>
-                                <td>
-                                    <form action="{{ route('medicalRecord.destroy', $medicalRecord->id) }}" method="post">
-                                        @method('DELETE')
-                                        <input class="btn btn-danger btnHapus" type="submit" value="Hapus">
-                                    </form>
-                                </td>
-
-                            </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-                <div class="modal fade" id="drugModal" tabindex="-1" aria-labelledby="drugModalLabel" aria-hidden="true">
-                    <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="drugModalLabel">Daftar Obat</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                    aria-label="Tutup"></button>
-                            </div>
-                            <div class="modal-body">
-                                <table class="table table-bordered">
-                                    <thead>
-                                        <tr>
-                                            <th>Nama Obat</th>
-                                            <th>Jenis</th>
-                                            <th>Dosis</th>
-                                            <th>Periode</th>
-                                            <th>Jumlah</th>
-                                            <th>Subtotal</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody id="drugTableBody">
-                                    </tbody>
-                                </table>
-                            </div>
+                    @endforeach
+                </tbody>
+            </table>
+            <form action="{{ route('medicalRecord.create') }}" method="get">
+                <button type="submit" class="btn btn-success">Tambah</button>
+            </form>
+            <div class="modal fade" id="drugModal" tabindex="-1" aria-labelledby="drugModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="drugModalLabel">Daftar Obat</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Tutup"></button>
+                        </div>
+                        <div class="modal-body">
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>Nama Obat</th>
+                                        <th>Jenis</th>
+                                        <th>Dosis</th>
+                                        <th>Periode</th>
+                                        <th>Jumlah</th>
+                                        <th>Subtotal</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="drugTableBody">
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
-                <div class="modal fade" id="reminderModal" tabindex="-1" aria-labelledby="reminderModalLabel"
-                    aria-hidden="true">
-                    <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="reminderModalLabel">Daftar Obat</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                    aria-label="Tutup"></button>
-                            </div>
-                            <div class="modal-body">
-                                <table class="table table-bordered">
-                                    <thead>
-                                        <tr>
-                                            <th>Tanggal</th>
-                                            <th>Obat</th>
-                                            <th>Jam</th>
-                                            <th>Status</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody id="reminderTableBody">
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal fade" id="actionModal" tabindex="-1" aria-labelledby="actionModalLabel"
-                    aria-hidden="true">
-                    <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title">Riwayat Aksi pada Medical Record</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                    aria-label="Tutup"></button>
-                            </div>
-                            <div class="modal-body">
-                                <ul class="list-group" id="actionList">
-                                    <!-- Diisi dari JavaScript -->
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
             </div>
+            <div class="modal fade" id="reminderModal" tabindex="-1" aria-labelledby="reminderModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="reminderModalLabel">Daftar Obat</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Tutup"></button>
+                        </div>
+                        <div class="modal-body">
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>Tanggal</th>
+                                        <th>Obat</th>
+                                        <th>Jam</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="reminderTableBody">
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal fade" id="actionModal" tabindex="-1" aria-labelledby="actionModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Riwayat Aksi pada Medical Record</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Tutup"></button>
+                        </div>
+                        <div class="modal-body">
+                            <ul class="list-group" id="actionList">
+                                <!-- Diisi dari JavaScript -->
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </div>
 @endsection
