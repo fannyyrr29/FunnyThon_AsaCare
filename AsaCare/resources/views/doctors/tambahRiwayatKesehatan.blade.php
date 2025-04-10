@@ -1,5 +1,7 @@
 @extends('layouts.doctorApp')
 
+@section('PageName', 'Tambah Riwayat Kesehatan')
+
 @section('content')
     <div class="container-fluid">
         @if (session('header') && session('message'))
@@ -34,6 +36,16 @@
                             @foreach ($users as $user)
                                 <option value="{{ $user->id }}">{{ $user->name }}</option>
                             @endforeach
+                        </select>
+                    </div>
+                    <div class="input-group mb-3">
+                        <label for="id_label_multiple">Layanan</label>
+                        <select class="form-control js-example-basic-multiple" id="actionSelect" multiple="multiple"
+                            style="width:100%" name="action_ids[]">
+                            @foreach ($actions as $action)
+                                <option value="{{ $action->id }}">{{ $action->name }}</option>
+                            @endforeach
+
                         </select>
                     </div>
                     <div class="input-group mb-3">
@@ -72,6 +84,11 @@
             } else {
                 console.warn("Select2 element NOT FOUND!");
             }
+
+            $('#actionSelect').select2({
+                placeholder: 'Pilih Layanan',
+                allowClear: true
+            })
 
 
             $('#drugSelect').on('change', function() {

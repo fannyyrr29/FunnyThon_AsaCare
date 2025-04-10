@@ -1,22 +1,10 @@
 <?php
 
-use App\Http\Controllers\Admin\DoctorController;
-use App\Http\Controllers\Admin\DrugController;
-use App\Http\Controllers\Admin\HospitalController;
-use App\Http\Controllers\Admin\MedicalRecordController;
-use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Auth\LoginController;
-use App\Http\Controllers\Doctor\MedicalRecordController as DoctorMedicalRecordController;
-use App\Http\Controllers\User\ActionController;
-use App\Http\Controllers\User\InviteController;
 use App\Http\Controllers\Doctor\DasboardController as DoctorDashboardController;
+use App\Http\Controllers\Doctor\MedicalRecordController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\User\HomeController;
-use App\Http\Controllers\User\ReminderController;
-use App\Models\Doctor;
-use App\Models\MedicalRecord;
-
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -43,3 +31,4 @@ Route::post('/login', [LoginController::class, 'authenticate']);
 // Route::delete('/obat/{id}', [DrugController::class, 'destroy']);
 // Route::get('/medicalRecord', [DoctorMedicalRecordController::class, 'index']);
 Route::resource('/dashboard', DoctorDashboardController::class);
+Route::get('/edit/{id}', [MedicalRecordController::class, 'edit']);

@@ -7,6 +7,7 @@ use App\Models\Action;
 use App\Models\Doctor;
 use App\Models\Drug;
 use App\Models\DrugRecord;
+use App\Models\MedicalAction;
 use App\Models\MedicalRecord;
 use App\Models\Reminder;
 use App\Models\ReminderTime;
@@ -65,6 +66,14 @@ class MedicalRecordController extends Controller
             $medicalRecord->rating = null;
             $medicalRecord->total = 0;
             $medicalRecord->save();
+
+            foreach ($request->action_ids as $actionId) {
+                $action = Action::find($actionId);
+                $medicalAction = new MedicalAction();
+                $medicalAction->medical_record_id = $medicalRecord->id;
+                $medicalAction->action_id = $action->id;
+                $medicalAction->save();
+            }
 
             $totalHargaObat = 0;
 
@@ -151,21 +160,26 @@ class MedicalRecordController extends Controller
     public function edit(string $id)
     {
         $medicalRecord = MedicalRecord::with([
+            'reminders.drug',
             'drugRecords.drug',          // Ambil detail obat dari drug_records
             'reminders.reminderTimes',  // Ambil reminder dan waktu-waktunya
             'actions',                  // Kalau kamu punya tindakan medis yang direlasikan
         ])->find($id);
 
         if (!$medicalRecord) {
-            return redirect()->back()->with(['header' => 'GAGAL', 'message' => 'Data rekam medis tidak ditemukan!']);
+            // return redirect()->back()->with(['header' => 'GAGAL', 'message' => 'Data rekam medis tidak ditemukan!']);
+            return response()->json(['header' => 'GAGAL', 'message' => 'Data rekam medis tidak ditemukan!']);
+
         }
 
         // Opsional: bisa juga ambil semua obat, jam, dll jika kamu ingin dropdown di view
         $allDrugs = Drug::all();
         $allTimes = Time::all();
         $allActions = Action::all();
+        $allUsers = User::all();
 
-        return view('doctors.ubahRiwayatKesehatan', compact('medicalRecord', 'allDrugs', 'allTimes', 'allActions'));
+        // return response()->json(compact('medicalRecord', 'allDrugs', 'allTimes', 'allActions'));
+        return view('doctors.ubahRiwayatKesehatan', compact('medicalRecord', 'allDrugs', 'allTimes', 'allActions', 'allUsers'));
     }
 
     /**
@@ -175,16 +189,16 @@ class MedicalRecordController extends Controller
     {
         try {
             DB::beginTransaction();
-    
             $medicalRecord = MedicalRecord::findOrFail($id);
+            $doctorId = DB::table('doctors')->where('user_id', Auth::id())->value('id');
     
             // Update medical record
             $medicalRecord->update([
-                'diagnose' => $request->diagnose,
-                'description' => $request->description,
+                'diagnose' => $request->diagnosa,
+                'description' => $request->deskripsi,
                 'date' => now(),
                 'user_id' => $request->user_id,
-                'doctor_id' => Auth::id(),
+                'doctor_id' =>  $doctorId,
                 'rating' => $request->rating ?? null,
             ]);
     

@@ -45,7 +45,7 @@
                             <td><button data-id="{{ $medicalRecord->id }}" class="btn btn-secondary tampilAction">Tampilkan
                                     Layanan</button></td>
                             <td>
-                                <form action="" method="post">
+                                <form action="{{ route('medicalRecord.edit', $medicalRecord->id) }}" method="get">
                                     @csrf
                                     <input class="btn btn-warning" type="submit" value="Ubah">
                                 </form>
@@ -136,7 +136,7 @@
     </div>
 @endsection
 
-@push('scripts')
+@section('script')
     <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
         crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
@@ -248,7 +248,7 @@
 
                         $('#actionList').append(`
                 <li class="list-group-item">
-                    <strong>[${formatted}]</strong> - ${act.type.toUpperCase()}: ${act.description}
+                    <strong>[${formatted}]</strong> - ${act.type.toUpperCase()}: ${act.name}
                 </li>
             `);
                     });
@@ -287,4 +287,4 @@
             });
         });
     </script>
-@endpush
+@endsection
