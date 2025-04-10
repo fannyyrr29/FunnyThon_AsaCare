@@ -23,7 +23,7 @@ class UserSeeder extends Seeder
                 'phone_number' => '081234567890',
                 'address' => 'Jl. Merdeka No. 1, Surabaya',
                 'role' => 'admin',
-                'birthdate' => null,
+                'birthdate' => '2000-03-20',
                 'profile' => 'profile1.jpg',
                 'email' => 'admin1@example.com',
                 'email_verified_at' => '2023-01-02 12:00:00',
