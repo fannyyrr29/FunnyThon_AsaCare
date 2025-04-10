@@ -11,16 +11,31 @@
         <div class="mb-4 position-relative" style="z-index: 2;">
             <img src="https://rsjpparamarta.com/images/dr-annisa-tri-kusuma-spn-TQ.png" alt="Foto Dokter"
                 class="rounded-circle" width="120" height="120">
-            <h5 class="mt-3 mb-1">dr. Siti Rahmawati</h5>
-            <p class="text-muted mb-1">Spesialis Penyakit Dalam</p>
+            <h5 class="mt-3 mb-1">{{ $doctor->name }}</h5>
+            <p class="text-muted mb-1">{{ $specialization->name }}</p>
             <div>
-                <i class="fas fa-star text-warning"></i>
-                <i class="fas fa-star text-warning"></i>
-                <i class="fas fa-star text-warning"></i>
-                <i class="fas fa-star text-warning"></i>
-                <i class="fas fa-star-half-alt text-warning"></i>
-                <span class="ms-2 text-muted">4.5/5</span>
+                @php
+                    $rating = $doctor->rating; // Misalnya, $doctor->rating adalah 3.5
+                    $fullStars = floor($rating);
+                    $halfStar = $rating - $fullStars > 0 ? 1 : 0;
+                    $emptyStars = 5 - $fullStars - $halfStar;
+                @endphp
+
+                @for ($i = 0; $i < $fullStars; $i++)
+                    <i class="fas fa-star text-warning"></i>
+                @endfor
+
+                @if ($halfStar)
+                    <i class="fas fa-star-half-alt text-warning"></i>
+                @endif
+
+                @for ($i = 0; $i < $emptyStars; $i++)
+                    <i class="fas fa-star text-muted"></i>
+                @endfor
+
+                <span class="ms-2 text-muted">{{ $doctor->rating }}/5</span>
             </div>
+
         </div>
 
         {{-- Tombol Menu --}}
