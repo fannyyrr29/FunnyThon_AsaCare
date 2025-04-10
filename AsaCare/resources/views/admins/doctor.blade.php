@@ -55,11 +55,7 @@
                                                 <td>{{ $doctor->rating }}</td>
                                                 <td>{{ $doctor->hospital->name }}</td>
                                                 <td>
-                                                    <ul>
-                                                        @foreach ($doctor->specializations as $specialization)
-                                                            <li>{{ $specialization->name }}</li>
-                                                        @endforeach
-                                                    </ul>
+                                                    {{ $doctor->specialization->name }}
                                                 </td>
                                                 <td><button class="btn-primary"><i class="fa fa-trash"></i></button></td>
                                             </tr>

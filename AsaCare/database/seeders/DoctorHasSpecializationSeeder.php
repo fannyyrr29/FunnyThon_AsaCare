@@ -13,31 +13,31 @@ class DoctorHasSpecializationSeeder extends Seeder
      */
     public function run(): void
     {
-        DB::table('doctor_has_specializations')->insert([
-            ['doctor_id' => 1, 'specialization_id' => 1, 'action_id' => 1],
-            ['doctor_id' => 1, 'specialization_id' => 1, 'action_id' => 7],
-            ['doctor_id' => 1, 'specialization_id' => 2, 'action_id' => 1],
-            ['doctor_id' => 1, 'specialization_id' => 2, 'action_id' => 7],
-            ['doctor_id' => 2, 'specialization_id' => 43, 'action_id' => 5],
-            ['doctor_id' => 3, 'specialization_id' => 11, 'action_id' => 4],
-            ['doctor_id' => 4, 'specialization_id' => 1, 'action_id' => 1],
-            ['doctor_id' => 4, 'specialization_id' => 1, 'action_id' => 7],
-            ['doctor_id' => 5, 'specialization_id' => 2, 'action_id' => 1],
-            ['doctor_id' => 5, 'specialization_id' => 2, 'action_id' => 7],
-            ['doctor_id' => 5, 'specialization_id' => 43, 'action_id' => 5],
-            ['doctor_id' => 7, 'specialization_id' => 11, 'action_id' => 4],
-            ['doctor_id' => 8, 'specialization_id' => 1, 'action_id'=> 1],
-            ['doctor_id' => 8, 'specialization_id' => 1, 'action_id'=> 7],
-            ['doctor_id' => 8, 'specialization_id' => 43, 'action_id' => 5],
-            ['doctor_id' => 9, 'specialization_id' => 2, 'action_id' => 1],
-            ['doctor_id' => 9, 'specialization_id' => 2, 'action_id' => 7],
-            ['doctor_id' => 10, 'specialization_id' => 11,'action_id' => 4],
-            ['doctor_id' => 11, 'specialization_id' => 1, 'action_id' => 1],
-            ['doctor_id' => 11, 'specialization_id' => 1, 'action_id' => 7],
-            ['doctor_id' => 12, 'specialization_id' => 2, 'action_id' => 1],
-            ['doctor_id' => 12, 'specialization_id' => 2, 'action_id' => 7],
-            ['doctor_id' => 13, 'specialization_id' => 43, 'action_id' => 5],
-            ['doctor_id' => 14, 'specialization_id' => 11,'action_id' => 4]
+        DB::table('doctor_has_actions')->insert([
+            ['doctor_id' => 1,  'action_id' => 1],
+            ['doctor_id' => 1, 'action_id' => 7],
+            ['doctor_id' => 1, 'action_id' => 1],
+            ['doctor_id' => 1, 'action_id' => 7],
+            ['doctor_id' => 2, 'action_id' => 5],
+            ['doctor_id' => 3, 'action_id' => 4],
+            ['doctor_id' => 4, 'action_id' => 1],
+            ['doctor_id' => 4, 'action_id' => 7],
+            ['doctor_id' => 5, 'action_id' => 1],
+            ['doctor_id' => 5, 'action_id' => 7],
+            ['doctor_id' => 5, 'action_id' => 5],
+            ['doctor_id' => 7, 'action_id' => 4],
+            ['doctor_id' => 8, 'action_id'=> 1],
+            ['doctor_id' => 8, 'action_id'=> 7],
+            ['doctor_id' => 8, 'action_id' => 5],
+            ['doctor_id' => 9, 'action_id' => 1],
+            ['doctor_id' => 9, 'action_id' => 7],
+            ['doctor_id' => 10,'action_id' => 4],
+            ['doctor_id' => 11,'action_id' => 1],
+            ['doctor_id' => 11,'action_id' => 7],
+            ['doctor_id' => 12,'action_id' => 1],
+            ['doctor_id' => 12,'action_id' => 7],
+            ['doctor_id' => 13, 'action_id' => 5],
+            ['doctor_id' => 14,'action_id' => 4]
         ]);
     }
 }

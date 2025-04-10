@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\DoctorController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Doctor\DasboardController as DoctorDashboardController;
 use App\Http\Controllers\Doctor\MedicalRecordController;
@@ -30,5 +31,7 @@ Route::post('/login', [LoginController::class, 'authenticate']);
 // Route::delete('/medicalRecord/{id}', [MedicalRecordController::class, 'destroy']);
 // Route::delete('/obat/{id}', [DrugController::class, 'destroy']);
 // Route::get('/medicalRecord', [DoctorMedicalRecordController::class, 'index']);
-Route::resource('/dashboard', DoctorDashboardController::class);
-Route::get('/edit/{id}', [MedicalRecordController::class, 'edit']);
+// Route::resource('/dashboard', DoctorDashboardController::class);
+// Route::get('/edit/{id}', [MedicalRecordController::class, 'edit']);
+
+Route::get('/dokter', [DoctorController::class, 'index']);

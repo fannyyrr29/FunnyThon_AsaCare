@@ -34,7 +34,7 @@ class SpecializationController extends Controller
             $specialization = new Specialization();
             $specialization->name = $request->name;
             if ($specialization->save()) {
-                return redirect()->route('admins.specialization.index')->with(['header' => 'SUKSES', 'message' => 'Spesialisasi berhasil ditambahkan!']);
+                return redirect()->route('admin.spesialisasi.index')->with(['header' => 'SUKSES', 'message' => 'Spesialisasi berhasil ditambahkan!']);
             }
         } catch (\Throwable $th) {
             return redirect()->back()->withErrors(['header' => 'GAGAL', 'message' => 'Spesialisasi tidak berhasil ditambahkan! ' . $th->getMessage()]);
@@ -84,13 +84,32 @@ class SpecializationController extends Controller
     {
         try {
             $specialization = Specialization::find($id);
-            if ($specialization->delete()) {
-                // return response()->json(['header'=> 'SUKSES', 'message' => 'Data berhasil dihapus!']);
-                return redirect()->route('admin.specialization.index')->with(['header'=> 'SUKSES', 'message' => 'Spesialisasi berhasil dihapus!']);
+
+            if (!$specialization) {
+                return redirect()->route('admin.spesialisasi.index')->with([
+                    'header'=> 'GAGAL',
+                    'message' => 'Spesialisasi tidak ditemukan.'
+                ]);
             }
+
+            if ($specialization->delete()) {
+                return redirect()->route('admin.spesialisasi.index')->with([
+                    'header'=> 'SUKSES',
+                    'message' => 'Spesialisasi berhasil dihapus!'
+                ]);
+            } else {
+                return redirect()->route('admin.spesialisasi.index')->with([
+                    'header'=> 'GAGAL',
+                    'message' => 'Gagal menghapus spesialisasi.'
+                ]);
+            }
+
         } catch (\Throwable $th) {
-            // return response()->json(['header'=> 'GAGAL', 'message' => 'Data tidak dapat dihapus! ' . $th->getMessage()]);
-            return redirect()->route('admin.specialization.index')->with(['header'=> 'GAGAL', 'message' => 'Spesialisasi tidak dapat dihapus! ' . $th->getMessage()]);
+            return redirect()->route('admin.spesialisasi.index')->with([
+                'header'=> 'GAGAL',
+                'message' => 'Terjadi kesalahan: ' . $th->getMessage()
+            ]);
         }
     }
+
 }

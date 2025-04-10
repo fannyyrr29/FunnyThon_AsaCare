@@ -18,8 +18,9 @@ class DoctorController extends Controller
      */
     public function index()
     {
-        $doctors = Doctor::with(['specializations', 'actions', 'hospital'])->get();
+        $doctors = Doctor::with(['specialization', 'actions', 'hospital'])->get();
         // $doctors = Doctor::with('doctorSpecialization.specialization', 'doctorSpecialization.action')->get();
+        // return response()->json(compact('doctors'));
         // return response()->json(compact('doctors'));
         return view('admins.doctor', compact('doctors'));
     }
@@ -32,6 +33,8 @@ class DoctorController extends Controller
         $hospitals = Hospital::all();
         $speacializations = Specialization::all();
         $actions = Action::all();
+
+        
         return view('admins.insertDoctor', compact('hospitals', 'specializations', 'actions'));
     }
 
