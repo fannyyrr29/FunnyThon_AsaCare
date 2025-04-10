@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.doctorApp')
 
 @section('header_title', 'Home')
 @section('header', 'AsaCare')
