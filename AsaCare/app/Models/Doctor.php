@@ -29,11 +29,11 @@ class Doctor extends Model
         return $this->belongsTo(Hospital::class, 'hospital_id');
     }
 
-    public function specialization()
+    public function specializations()
     {
-        // ambil spesialisasi dari relasi pertama saja
-        return $this->hasOneThrough(Specialization::class, DoctorSpecialization::class, 'doctor_id', 'id', 'id', 'specialization_id');
+        return $this->belongsToMany(Specialization::class, 'doctor_specializations', 'doctor_id', 'specialization_id');
     }
+
 
     public function actions()
     {
