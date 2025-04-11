@@ -9,11 +9,11 @@ class Message extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['consultation_id', 'sender_id', 'receiver_id', 'message'];
+    protected $fillable = ['consultation_id', 'sender_id', 'message'];
 
     protected $casts = [
         'consultation_id' => 'integer',
-        'medical_record_id'
+        'sender_id' => 'integer'
     ];
 
 
@@ -21,4 +21,8 @@ class Message extends Model
         return $this->belongsTo(Consultation::class, 'consultation_id');
     }
     
+    public function sender(){
+        return $this->belongsTo(User::class, 'sender_id', 'id');
+    }
+
 }

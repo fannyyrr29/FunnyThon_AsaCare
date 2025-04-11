@@ -44,4 +44,9 @@ class MedicalRecord extends Model
         return $this->hasMany(Reminder::class);
     }
 
+    public function consultations()
+    {
+        return $this->hasMany(Consultation::class, 'medical_record_id', 'id');
+    }
+
 }

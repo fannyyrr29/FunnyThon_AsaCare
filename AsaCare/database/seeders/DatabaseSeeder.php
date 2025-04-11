@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
+use App\Models\Consultation;
 use App\Models\EmergencyCall;
 use Illuminate\Database\Seeder;
 
@@ -36,7 +37,9 @@ class DatabaseSeeder extends Seeder
             FamilySeeder::class,
             ReminderSeeder::class,
             ConditionSeeder::class,
-            ReminderTimeSeeder::class
+            ReminderTimeSeeder::class,
+            ConsultationSeeder::class,
+            MessageSeeder::class
         ]);
     }
 }

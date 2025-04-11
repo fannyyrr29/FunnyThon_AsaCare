@@ -81,14 +81,30 @@
                         <a href="{{url('/listChat')}}" class="me-3 fs-4 text-decoration-none text-dark">
                             <span class="glyphicon glyphicon-chevron-left"></span>
                         </a>
-                        <h5 class="mb-0 fw-bold">{{ $chat_id }}</h5>
+                        <h5 class="mb-0 fw-bold">{{ $consultation_id }}</h5>
                     </div>
 
                     <!-- Messages -->
                     <div class="chat-messages">
-                        {{-- @foreach ($collection as $item)
-                            
-                        @endforeach --}}
+                        @foreach ($messages as $message)
+                            @if ($message->sender->id == Auth::id())
+                                <div class="d-flex align-items-start justify-content-end mb-3">
+                                    <div class="p-3 chat-message-right me-2">
+                                        <p class="mb-0 small">{{$message->message}}</p>
+                                    </div>
+                                    <img src=""
+                                        alt="avatar" class="avatar" />
+                                </div>
+                            @else
+                                <div class="d-flex align-items-start mb-3">
+                                    <img src=""
+                                        alt="avatar" class="avatar me-2" />
+                                    <div class="p-3 chat-message-left">
+                                        <p class="mb-0 small">{{$message->message}}</p>
+                                    </div>
+                                </div>
+                            @endif
+                        @endforeach
                         
                         {{-- <!-- Chat kiri -->
                             <div class="d-flex align-items-start mb-3">
@@ -111,10 +127,11 @@
                     </div>
 
                     <!-- Input -->
-                    <form action="">
+                    <form action="" method="POST">
                         <div class="chat-input d-flex align-items-center gap-2">
 
-                            <input type="hidden" name="chat_id" id="chat_id" value="{{ $chat_id }}">
+                            <input type="hidden" name="consultation_id" id="consultation_id" value="{{ $consultation_id }}">
+                            <input type="hidden" name="sender_id" id="sender_id" value="{{ Auth::id() }}">
                             <input type="text" class="form-control" name="message" id="message"
                                 placeholder="Type message..." autocomplete="off">
                             {{-- <a class="ms-1 text-muted" href="#!">
@@ -136,19 +153,19 @@
         const pusher = new Pusher('{{ config('broadcasting.connections.pusher.key') }}', {
             cluster: 'ap1'
         });
-        const chat_id = $('#chat_id').val();
-        const channel = pusher.subscribe(chat_id);
+        const consultation_id = $('#consultation_id').val();
+        const channel = pusher.subscribe(consultation_id);
 
         // Receive messages
         channel.bind('chat', function(data) {
-            $.post('/konsultasi/receive', {
+            $.post('/message/receive', {
                 _token: '{{ csrf_token() }}',
-                chat_id: data.chat_id,
+                consultation_id: data.consultation_id,
                 message: data.message,
             }).done(function(res) {
                 const receivedMessageHtml = `
                 <div class="d-flex align-items-start mb-3">
-                    <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava5-bg.webp" alt="avatar" class="avatar me-2" />
+                    <img src="" alt="avatar" class="avatar me-2" />
                     <div class="p-3 chat-message-left">
                         <p class="mb-0 small">${data.message}</p>
                     </div>
@@ -164,14 +181,15 @@
             event.preventDefault();
 
             $.ajax({
-                url: "/konsultasi/broadcast",
+                url: "/message/broadcast",
                 method: 'POST',
                 headers: {
                     'X-Socket-Id': pusher.connection.socket_id
                 },
                 data: {
                     _token: '{{ csrf_token() }}',
-                    chat_id: $('#chat_id').val(),
+                    consultation_id: $('#consultation_id').val(),
+                    sender_id: $('#sender_id').val(),
                     message: $("form #message").val(),
                 }
             }).done(function(res) {
@@ -181,7 +199,7 @@
                    <div class="p-3 chat-message-right me-2">
                        <p class="mb-0 small">${$("form #message").val()}</p>
                    </div>
-                   <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava6-bg.webp" alt="avatar" class="avatar" />
+                   <img src="" alt="avatar" class="avatar" />
                </div>`;
 
                 $(".chat-messages").append(sentMessageHtml);

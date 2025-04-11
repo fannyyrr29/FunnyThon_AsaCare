@@ -87,5 +87,17 @@ class User extends Authenticatable
     public function doctor(){
         return $this->belongsTo(Doctor::class, 'user_id', 'id');
     }
+
+    public function userConsultation(){
+        return $this->belongsTo(Consultation::class, 'user_id', 'id');
+    }
+
+    public function doctorConsultation(){
+        return $this->belongsTo(Consultation::class, 'doctor_id', 'id');
+    }
+
+    public function userMessage(){
+        return $this->belongsTo(Consultation::class, 'sender_id', 'id');
+    }
     
 }

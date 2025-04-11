@@ -9,8 +9,10 @@ use App\Http\Controllers\Admin\SpecializationController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\SocialiteController;
+use App\Http\Controllers\Doctor\ConsultationController;
 use App\Http\Controllers\Doctor\DasboardController;
 use App\Http\Controllers\Doctor\MedicalRecordController as DoctorMedicalRecordController;
+use App\Http\Controllers\Doctor\MessageController;
 use App\Http\Controllers\User\HomeController;
 use App\Http\Controllers\User\InviteController;
 use Illuminate\Support\Facades\Route;
@@ -43,7 +45,7 @@ Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 
 
 // Route untuk User 
-Route::middleware(['auth', 'role:User'])->prefix('user')->group(function(){
+Route::middleware(['auth', 'role:User'])->prefix('user')->group(function () {
     //Untuk menampilkan home
     Route::get('/', [HomeController::class, 'index'])->name('user.home');
     //Untuk show profile di halaman edit
@@ -83,79 +85,85 @@ Route::middleware(['auth', 'role:User'])->prefix('user')->group(function(){
     Route::post('/update', [ReminderController::class, 'updateStatus'])->name('user.updateReminder');
 });
 
-Route::middleware(['auth', 'role:Admin'])->prefix('admin')->group(function(){
+Route::middleware(['auth', 'role:Admin'])->prefix('admin')->group(function () {
     //untuk show dashboard
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
     Route::resource('hospital', HospitalController::class)->names('admin.rumahsakit');
     Route::resource('doctor', DoctorController::class)->names('admin.dokter');
-    Route::resource('action', ActionController::class)->names('admin.layanan'); 
+    Route::resource('action', ActionController::class)->names('admin.layanan');
     Route::resource('user', UserController::class)->names('admin.user');
     Route::resource('specialization', SpecializationController::class)->names('admin.spesialisasi');
     Route::resource('medicalRecord', MedicalRecordController::class)->names('admin.riwayatKesehatan');
 });
 
-Route::middleware(['auth', 'role:Dokter'])->prefix('doctor')->group(function(){
+Route::middleware(['auth', 'role:Dokter'])->prefix('doctor')->group(function () {
     Route::get('/', [DasboardController::class, 'index'])->name('doctor.index');
     Route::resource('medicalRecord', DoctorMedicalRecordController::class);
+    Route::resource('consultation', ConsultationController::class)->names('doctor.consultation');
+
+    Route::post('/message/{consultation_id}', [MessageController::class, 'index'])->name('doctor.message');
 });
 
+Route::post('/message/broadcast', [MessageController::class, 'broadcast']);
+Route::post('/message/receive', [MessageController::class, 'receive']);
 
-Route::get('/homecare', function(){
+
+Route::get('/homecare', function () {
     return view('users/home');
 });
 
-Route::get('/family', function(){
+Route::get('/family', function () {
     return view('users/family');
 });
 
-Route::get('/reminderObat', function(){
+Route::get('/reminderObat', function () {
     return view('users/reminderObat');
 });
 
-Route::get('/telp', function(){
+Route::get('/telp', function () {
     return view('users/telp');
 });
 
-Route::get('/tokoObat', function(){
+Route::get('/tokoObat', function () {
     return view('users/tokoObat');
 });
 
-Route::get('/ringkasanBayar', function(){
+Route::get('/ringkasanBayar', function () {
     return view('users/ringkasanBayar');
 });
 
-Route::get('/reservasi', function(){
+Route::get('/reservasi', function () {
     return view('users/reservasi');
 });
 
 
-Route::get('/riwayat', function(){
+Route::get('/riwayat', function () {
     return view('users/riwayat');
 });
-Route::get('/riwayatBeliObat', function(){
+Route::get('/riwayatBeliObat', function () {
     return view('users/riwayatBeliObat');
 });
-Route::get('/menuObat', function(){
+Route::get('/menuObat', function () {
     return view('users/menuObat');
 });
 
-Route::get('/setReminder', function(){
+Route::get('/setReminder', function () {
     return view('users/setReminder');
 });
 
-Route::get('/editProfile', function(){
+Route::get('/editProfile', function () {
     return view('users/editProfile');
 });
 
-Route::get('/listChat', function(){
+Route::get('/listChat', function () {
     return view('doctors/listChat');
 });
 
-Route::get('/konsultasi/{chat_id}', [PusherController::class, 'index']);
+// Route::get('/konsultasi/{chat_id}', [PusherController::class, 'index']);
 
-Route::post('/konsultasi/broadcast', [PusherController::class, 'broadcast']);
+// Route::post('/konsultasi/broadcast', [PusherController::class, 'broadcast']);
 
-Route::post('/konsultasi/receive', [PusherController::class, 'receive']);
+// Route::post('/konsultasi/receive', [PusherController::class, 'receive']);
 
 Route::get('/auth/redirect', [SocialiteController::class, 'redirect']);
 
