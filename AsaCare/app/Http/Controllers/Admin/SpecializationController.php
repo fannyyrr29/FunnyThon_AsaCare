@@ -69,7 +69,7 @@ class SpecializationController extends Controller
             $specialization = Specialization::find($id);
             $specialization->name = $request->name;
             if ($specialization->save()) {
-                return redirect()->route('admins.specialization.index')->with(['header' => 'SUKSES', 'message' => 'Spesialisasi berhasil diubah!']);
+                return redirect()->route('admin.spesialisasi.index')->with(['header' => 'SUKSES', 'message' => 'Spesialisasi berhasil diubah!']);
             }
         } catch (\Throwable $th) {
             return redirect()->back()->withErrors(['header' => 'GAGAL', 'message' => 'Spesialisasi tidak berhasil diubah! ' . $th->getMessage()]);

@@ -4,6 +4,16 @@
 
 @section('content')
     <main class="app-main">
+
+        @if (session('header'))
+            @php
+                $header = session('header') === 'SUKSES' ? 'success' : 'danger';
+            @endphp
+            <div class="alert alert-{{ $header }}">
+                <p><strong>{{ session('header') }}</strong> {{ session('message') }}</p>
+            </div>
+        @endif
+
         <!--begin::App Content Header-->
         <div class="app-content-header">
             <!--begin::Container-->
@@ -33,9 +43,8 @@
                             <td>{{ $specialization->id }}</td>
                             <td>{{ $specialization->name }}</td>
                             <td>
-                                <form class="formHapusSpesialisasi"
-                                    data-url="{{ route('admin.spesialisasi.destroy', $specialization->id) }}">
-                                    <input type="hidden" name="id" value="{{ $specialization->id }}">
+                                <form class="formEditSpesialisasi" method="GET"
+                                    action="{{ route('admin.spesialisasi.edit', $specialization->id) }}">
                                     <button class="btn btn-warning"><i class="fa fa-edit"></i></button>
                                 </form>
                             </td>

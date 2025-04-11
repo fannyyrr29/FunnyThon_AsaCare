@@ -59,6 +59,11 @@
                             <i class="bi bi-list"></i>
                         </a>
                     </li>
+                    <li>
+                        <form action="{{ route('logout') }}" method="get">
+                            <button type="submit" class="btn btn-success">LOGOUT</button>
+                        </form>
+                    </li>
                 </ul>
                 <!--end::Start Navbar Links-->
             </div>
