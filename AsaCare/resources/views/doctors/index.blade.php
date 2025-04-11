@@ -9,8 +9,7 @@
 
         {{-- Profile Dokter --}}
         <div class="mb-4 position-relative" style="z-index: 2;">
-            <img src="https://rsjpparamarta.com/images/dr-annisa-tri-kusuma-spn-TQ.png" alt="Foto Dokter"
-                class="rounded-circle" width="120" height="120">
+            <img src="assets/images/{{$user->profile}}" alt="Foto Dokter" class="rounded-circle img-crop">
             <h5 class="mt-3 mb-1">{{ $doctor->name }}</h5>
             <p class="text-muted mb-1">{{ $specialization->name }}</p>
             <div>

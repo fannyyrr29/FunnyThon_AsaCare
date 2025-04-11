@@ -26,6 +26,12 @@
             background-color: #fdf6ec !important;
         }
 
+        .img-crop {
+            object-fit: cover;
+            width: 200px;
+            height: 200px;
+        }
+
         .navbar {
             background-color: #A2191F !important;
             color: white !important;

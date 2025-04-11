@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Doctor;
 
 use App\Http\Controllers\Controller;
 use App\Models\Specialization;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -18,11 +19,12 @@ class DasboardController extends Controller
         if (Auth::check()) {
             $doctor = DB::table('users as u')->join('doctors as d', 'd.user_id', '=', 'u.id')->join('doctor_has_specializations as ds', 'ds.doctor_id', '=', 'd.id')->where('u.id', Auth::id())->first();
             $specialization = Specialization::find($doctor->specialization_id);
-            return view('doctors.index', compact('doctor', 'specialization'));
+            $user = User::find($doctor->user_id);
+            return view('doctors.index', compact('doctor', 'specialization', 'user'));
         } else {
             return response()->json(['error' => 'User not authenticated'], 401);
         }
-        
+
     }
 
     /**

@@ -72,7 +72,7 @@
                 <!--begin::Brand Link-->
                 <a href="./index.html" class="brand-link">
                     <!--begin::Brand Image-->
-                    <img src="/assets/images/logo.png" alt="AsaCare Logo" class="brand-image opacity-100" />
+                    <img src="/assets/images/logo no-text.png" alt="AsaCare Logo" class="brand-image opacity-100" />
                     <!--end::Brand Image-->
                     <!--begin::Brand Text-->
                     <span class="brand-text fw-light">AsaCare</span>
