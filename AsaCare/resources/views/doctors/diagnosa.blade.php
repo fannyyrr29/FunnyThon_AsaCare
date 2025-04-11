@@ -10,13 +10,14 @@
         <div class="mb-3">
             <label class="form-label fw-bold">Pasien</label>
             <select class="form-select">
+                <!-- loop data pasien -->
                 <option>Sri Haryati</option>
             </select>
         </div>
 
         <!-- Diagnosa -->
         <div class="mb-3">
-            <label class="form-label fw-bold">Diagnosa</label>
+            <label class="form-label fw-bold">Diagnosa</label>            
             <textarea class="form-control" rows="4"></textarea>
         </div>
 
@@ -35,6 +36,7 @@
                     <input type="number" class="form-control text-center" style="width: 70px;" value="2">
                     <select class="form-select" style="width: 120px;">
                         <option>Pil</option>
+                        <option>Sendok</option>
                     </select>
                 </div>
             </div>
