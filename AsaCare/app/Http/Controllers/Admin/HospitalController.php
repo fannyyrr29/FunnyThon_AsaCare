@@ -22,7 +22,7 @@ class HospitalController extends Controller
      */
     public function create()
     {
-        return view('admins.insertHospital');
+        return view('admins.tambahRumahSakit');
     }
 
     /**
@@ -35,7 +35,7 @@ class HospitalController extends Controller
         $hospital->address = $request->address;
         $hospital->phone_number = $request->phone_number;
         if ($hospital->save()) {
-            return redirect()->back()->with(['header' => 'SUKSES', 'message' => "Data Rumah Sakit berhasil ditambahkan!"]);
+            return redirect()->route('admin.rumahsakit.index')->with(['header' => 'SUKSES', 'message' => "Data Rumah Sakit berhasil ditambahkan!"]);
         }
         return redirect()->back()->withErrors(['header' => 'GAGAL', 'message' => 'Data Rumah sakit tidak dapat ditambahkan!']);
     }
@@ -54,7 +54,7 @@ class HospitalController extends Controller
     public function edit(string $id)
     {
         $hospital = Hospital::find($id);
-        return view('admins.edit', compact('hospital'));
+        return view('admins.ubahRumahSakit', compact('hospital'));
 
     }
 
@@ -69,7 +69,7 @@ class HospitalController extends Controller
         $hospital->phone_number = $request->phone_number;
         $hospital->updated_at = now();
         if ($hospital->save()) {
-            return redirect()->back()->with(['header' => 'SUKSES', 'message' => "Data Rumah Sakit berhasil diubah!"]);
+            return redirect()->route('admin.rumahsakit.index')->with(['header' => 'SUKSES', 'message' => "Data Rumah Sakit berhasil diubah!"]);
         }
         return redirect()->back()->withInput()->withErrors(['header' => 'GAGAL', 'message' => "Data Rumah Sakit tidak berhasil diubah!"]);
 
@@ -82,7 +82,7 @@ class HospitalController extends Controller
     {
         $hospital = Hospital::find($id);
         if ($hospital->delete()) {
-            return redirect()->back()->with(['header' => 'SUKSES', 'message' => "Data Rumah Sakit berhasil dihapus!"]);
+            return redirect()->route('admin.rumahsakit.index')->with(['header' => 'SUKSES', 'message' => "Data Rumah Sakit berhasil dihapus!"]);
         }
         return redirect()->back()->withErrors(['header' => 'GAGAL', 'message' => "Data Rumah Sakit tidak dapat dihapus!"]);
     }

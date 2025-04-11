@@ -6,13 +6,15 @@
     <main class="app-main">
 
         @if (session('header'))
-            @php
-                $header = session('header') === 'SUKSES' ? 'success' : 'danger';
-            @endphp
-            <div class="alert alert-{{ $header }}">
+            <div class="alert alert-success">
                 <p><strong>{{ session('header') }}</strong> {{ session('message') }}</p>
             </div>
+        @elseif ($errors->has('header') && $errors->has('message'))
+            <div class="alert alert-danger">
+                <p><strong>{{ $errors->first('header') }}</strong> {{ $errors->first('message') }}</p>
+            </div>
         @endif
+
 
         <!--begin::App Content Header-->
         <div class="app-content-header">
@@ -27,7 +29,8 @@
         <div class="app-content">
             <!--begin::Container-->
             <div class="container-fluid">
-                <form class="d-flex justify-content-end mb-3" action="{{ route('admin.spesialisasi.create') }}" method="get">
+                <form class="d-flex justify-content-end mb-3" action="{{ route('admin.spesialisasi.create') }}"
+                    method="get">
                     <button class="btn btn-primary" type="submit"><i class="fa fa-plus" aria-hidden="true"></i>
                         &nbsp;TAMBAH</button>
                 </form>

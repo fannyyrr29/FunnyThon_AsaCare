@@ -3,19 +3,25 @@
 @section('title', 'Dashboard')
 
 @section('content')
-    <main class="app-main">
+    <main class="app-main mt-3">
+        @if (session('header'))
+            <div class="alert alert-success">
+                <p><strong>{{ session('header') }}</strong> {{ session('message') }}</p>
+            </div>
+        @elseif ($errors->has('header') && $errors->has('message'))
+            <div class="alert alert-danger">
+                <p><strong>{{ $errors->first('header') }}</strong> {{ $errors->first('message') }}</p>
+            </div>
+        @endif
         <!--begin::App Content Header-->
         <div class="app-content-header">
             <!--begin::Container-->
             <div class="container-fluid">
                 <!--begin::Row-->
-                <div class="row">
-                    <div class="col-sm-6">
-                        <span class="input-group-append">
-                            <button type="button" class="btn btn-primary">+ Tambah</button>
-                        </span>
-                    </div>
-                </div>
+                <form action="{{ route('admin.dokter.create') }}" method="get">
+                    @csrf
+                    <button type="submit" class="btn btn-primary">+ Tambah</button>
+                </form>
                 <!--end::Row-->
             </div>
             <!--end::Container-->
@@ -43,7 +49,8 @@
                                             <th>Rating</th>
                                             <th>Rumah Sakit</th>
                                             <th>Spesialisasi</th>
-                                            <th>Aksi</th>
+                                            <th>Aksi Ubah</th>
+                                            <th>Aksi Hapus</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -57,7 +64,23 @@
                                                 <td>
                                                     {{ $doctor->specialization->name }}
                                                 </td>
-                                                <td><button class="btn-primary"><i class="fa fa-trash"></i></button></td>
+                                                <td>
+                                                    <form action="{{ route('admin.dokter.edit', $doctor->id) }}"
+                                                        method="get">
+                                                        @csrf
+                                                        <button type="submit" class="btn btn-warning"><i
+                                                                class="fa fa-edit"></i></button>
+                                                    </form>
+                                                </td>
+                                                <td>
+                                                    <form action="{{ route('admin.dokter.destroy', $doctor->id) }}"
+                                                        method="post">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit" class="btn btn-danger"><i
+                                                                class="fa fa-trash"></i></button>
+                                                    </form>
+                                                </td>
                                             </tr>
                                         @endforeach
                                     </tbody>
