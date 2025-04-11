@@ -52,6 +52,22 @@ class LoginController extends Controller
         return response()->json(['message' => 'Akun tidak ditemukan!'], 401);
     }
 
+    protected function redirectTo()
+    {
+        $role = auth()->user()->role;
+
+        if ($role === 'Admin') {
+            return '/admin/dashboard';
+        } elseif ($role === 'User') {
+            return '/user';
+        } elseif ($role === 'Dokter') {
+            return '/doctor';
+        }
+
+        return '/login'; // default jika role tidak dikenali
+    }
+
+
 
     public function logout(Request $request){
         Auth::logout();

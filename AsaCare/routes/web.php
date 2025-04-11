@@ -39,7 +39,7 @@ Route::get('/', [LoginController::class, 'index'])->middleware('guest');
 //hanya bisa diakses oleh user yang belum terautentikasi
 Route::get('/login', [LoginController::class, 'index'])->middleware('guest');
 Route::post('/login', [LoginController::class, 'authenticate'])->name('login');
-Route::get('/logout', [LoginController::class, 'logout']);
+Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 
 
 // Route untuk User 

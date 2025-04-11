@@ -54,13 +54,13 @@
                                                 <td>{{ $doctor->experience_year }}</td>
                                                 <td>{{ $doctor->rating }}</td>
                                                 <td>{{ $doctor->hospital->name }}</td>
-                                                @if ($doctor->doctor_specializations)
-                                                    @foreach ($doctor->doctor_specializations as $specialization)
-                                                        <td>{{ $specialization->specialization->name }}</td>
-                                                    @endforeach
-                                                @else
-                                                    <td>-</td>
-                                                @endif
+                                                <td>
+                                                    <ul>
+                                                        @foreach ($doctor->specializations as $specialization)
+                                                            <li>{{ $specialization->name }}</li>
+                                                        @endforeach
+                                                    </ul>
+                                                </td>
                                                 <td><button class="btn-primary"><i class="fa fa-trash"></i></button></td>
                                             </tr>
                                         @endforeach

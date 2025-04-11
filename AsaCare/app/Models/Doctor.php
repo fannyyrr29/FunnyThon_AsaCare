@@ -31,7 +31,7 @@ class Doctor extends Model
 
     public function specializations()
     {
-        return $this->belongsToMany(Specialization::class, 'doctor_specializations', 'doctor_id', 'specialization_id');
+        return $this->belongsToMany(Specialization::class, 'doctor_has_specializations', 'doctor_id', 'specialization_id');
     }
 
 
@@ -40,10 +40,10 @@ class Doctor extends Model
         return $this->belongsToMany(Action::class, 'doctor_has_specializations', 'doctor_id', 'action_id');
     }
 
-    public function doctorSpecializations()
-    {
-        return $this->hasMany(DoctorSpecialization::class);
-    }
+    // public function doctorSpecialization()
+    // {
+    //     return $this->hasMany(DoctorSpecialization::class);
+    // }
     
     public function user(){
         return $this->belongsTo(User::class, 'user_id', 'id');

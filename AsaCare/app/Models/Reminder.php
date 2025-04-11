@@ -35,12 +35,19 @@ class Reminder extends Model
 
     public function times()
     {
-        return $this->belongsToMany(Time::class, 'reminder_times', 'reminders_user_id', 'times_id')
-                    ->withPivot('reminders_medical_record_id', 'reminders_drug_id');
+        return $this->belongsToMany(Time::class, 'reminder_times', 'reminder_id', 'time_id');
     }
+
     public function reminderTimes()
     {
         return $this->hasMany(ReminderTime::class);
     }
+
+    public function drug()
+    {
+        return $this->belongsTo(Drug::class, 'drug_id');
+    }
+
+
 
 }
