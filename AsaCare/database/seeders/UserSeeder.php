@@ -122,7 +122,7 @@ class UserSeeder extends Seeder
                 'profile' => 'profile4.jpg',
                 'email' => 'dedi.prasetyo@example.com',
                 'email_verified_at' => now(),
-                'password' => Hash::make('hashed_password_4'),
+                'password' => Hash::make('user123'),
                 'google_id' => 'google_id_4',
                 'google_token' => 'google_token_4',
                 'google_refresh_token' => 'google_refresh_token_4',

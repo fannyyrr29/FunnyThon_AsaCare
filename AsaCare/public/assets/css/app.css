@@ -1,3 +1,7 @@
+*{
+    font-family: 'Poppins', sans-serif;
+}
+
 body {
     background-color: #FDF6EC;
     max-height: 80vh;

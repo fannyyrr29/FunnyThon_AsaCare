@@ -39,20 +39,20 @@
         </div>
 
         {{-- Tombol Menu --}}
-        <div class="row w-100 flex-column align-items-center" style="z-index: 2;">
-            <div class="col-12 mb-3">
+        <div class="row w-50 d-flex flex-column flex-md-row align-items-center justify-content-center gap-3"
+            style="z-index: 2;">
+            <div class="col-12 col-md-5">
                 <form action="{{ route('medicalRecord.index') }}" method="get">
-                    <button type="submit" class="btn-red w-50 mx-auto d-block text-center p-3">
-                        <img src="{{ asset('assets/images/diagnosa.png') }}" alt="Beli Obat" style="width: 80px;">
+                    <button type="submit" class="btn-red w-100 d-flex flex-column align-items-center p-3">
+                        <img src="{{ asset('assets/images/diagnosa.png') }}" alt="Diagnosa" style="width: 80px;">
                         <h4 class="mt-2">Diagnosa</h4>
                     </button>
                 </form>
-
             </div>
-            <div class="col-12 mb-3">
+            <div class="col-12 col-md-5">
                 <form action="" method="get">
-                    <button class="btn-red w-50 mx-auto d-block text-center p-3">
-                        <img src="{{ asset('assets/images/chat.png') }}" alt="Pengingat Obat" style="width: 80px;">
+                    <button class="btn-red w-100 d-flex flex-column align-items-center p-3">
+                        <img src="{{ asset('assets/images/chat.png') }}" alt="Chat Konsultasi" style="width: 80px;">
                         <h4 class="mt-2">Chat Konsultasi</h4>
                     </button>
                 </form>

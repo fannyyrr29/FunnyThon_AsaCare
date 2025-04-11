@@ -8,6 +8,7 @@
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;700&display=swap" rel="stylesheet">
 
     {{-- PWA --}}
     <meta name="theme-color" content="#6777ef" />
@@ -24,12 +25,28 @@
 <body>
     {{-- HEADER --}}
     <div class="header d-flex align-items-center px-3 py-3" style="background-color: #A2191F; color: white;">
-        @hasSection('back_button')
-            <button onclick="window.history.back()" class="btn btn-link text-white me-2 p-0">
-                <i class="fas fa-arrow-left"></i>
-            </button>
+
+        {{-- Logo AsaCare hanya muncul di halaman 'user' --}}
+        @if(Request::is('user'))
+            <a class="navbar-brand d-flex align-items-center text-white text-decoration-none me-auto"
+                href="/">
+                <img src="{{ asset('assets/images/logo no-text.png') }}" alt="Logo" width="32" height="32" class="me-2">
+                <span>AsaCare</span>
+            </a>
         @endif
-        <h5 class="mb-0">@yield('header_title', 'AsaCare')</h5>
+
+        {{-- Tampilkan header_title jika bukan halaman 'user' --}}
+        @if(!Request::is('user'))
+            <img src="{{ asset('assets/images/logo no-text.png') }}" alt="Logo" width="32" height="32" class="me-2">
+            <h5 class="mb-0 flex-grow-1">@yield('header_title')</h5>
+        @endif
+
+        {{-- Tombol Logout hanya muncul di halaman 'user' --}}
+        @if(Request::is('user'))
+            <form class="ms-auto" action="{{ route('logout') }}">
+                <button class="btn btn-outline-light" type="submit">LOGOUT</button>
+            </form>
+        @endif
     </div>
 
     {{-- MAIN CONTENT --}}
