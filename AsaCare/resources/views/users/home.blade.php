@@ -14,7 +14,7 @@
                     <h5 class="mb-1">Halo, <strong style="color:#A6192E;">Sri Haryati</strong></h5>
                     <p class="mb-0 text-muted"><i class="fas fa-map-marker-alt"></i> Jalan Merdeka No. 123</p>
                 </div>
-                <a href="{{ route('user.editProfile') }}" class="btn-red-general">
+                <a href="{{ route('user.showProfile') }}" class="btn-red-general">
                     <i class="fas fa-edit"></i> Edit Profil
                 </a>
             </div>
@@ -61,7 +61,8 @@
         <div class="row text-center">
             <div class="col-4">
                 <button class="mood-btn" onclick="changeMood(this)" data-mood="healthy">
-                    <img src="{{ asset('assets/images/smile.png') }}" width="50" class="rounded d-block mx-auto mb-2" alt="...">
+                    <img src="{{ asset('assets/images/smile.png') }}" width="50" class="rounded d-block mx-auto mb-2"
+                        alt="...">
                     Sehat
                 </button>
             </div>
@@ -74,7 +75,8 @@
             </div>
             <div class="col-4">
                 <button class="mood-btn" onclick="changeMood(this)" data-mood="sick">
-                    <img src="{{ asset('assets/images/angry.png') }}" width="50" class="rounded d-block mx-auto mb-2" alt="...">
+                    <img src="{{ asset('assets/images/angry.png') }}" width="50" class="rounded d-block mx-auto mb-2"
+                        alt="...">
                     Sakit
                 </button>
             </div>

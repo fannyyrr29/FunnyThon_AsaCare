@@ -5,64 +5,66 @@
 @section('back_button', true)
 
 @section('content')
-<div class="card shadow" style="max-width: 400px; margin: auto; border-radius: 10px; padding: 20px;">
-            <div class="card-body">
-                <form id="daftarForm">
-                    <div class="mb-3">
-                        <label for="email" class="form-label">Email</label>
-                        <input type="email" class="form-control" id="email" placeholder="@gmail.com" disabled>
-                        <small class="text-danger" id="emailError"></small>
-                    </div>
+    <div class="card shadow" style="max-width: 400px; margin: auto; border-radius: 10px; padding: 20px;">
+        <div class="card-body">
+            <form action="{{ route('user.editProfile') }}" method="POST">
+                @csrf
+                <div class="mb-3">
+                    <label for="email" class="form-label">Email</label>
+                    <input type="email" class="form-control" id="email" placeholder="{{$user->email}}" disabled>
+                    <small class="text-danger" id="emailError"></small>
+                </div>
 
-                    <div class="mb-3">
-                        <label for="nik" class="form-label">NIK</label>
-                        <input type="text" class="form-control" id="nik" placeholder="Masukkan NIK" maxlength="16">
-                        <small class="text-danger" id="nikError"></small>
-                    </div>
+                <div class="mb-3">
+                    <label for="nik" class="form-label">NIK</label>
+                    <input type="text" class="form-control" id="nik" placeholder="Masukkan NIK" maxlength="16">
+                    <small class="text-danger" id="nikError"></small>
+                </div>
 
-                    <div class="mb-3">
-                        <label for="nama" class="form-label">Nama</label>
-                        <input type="text" class="form-control" id="nama" placeholder="Masukkan nama">
-                        <small class="text-danger" id="namaError"></small>
-                    </div>
+                <div class="mb-3">
+                    <label for="nama" class="form-label">Nama</label>
+                    <input type="text" class="form-control" id="nama" placeholder="Masukkan nama">
+                    <small class="text-danger" id="namaError"></small>
+                </div>
 
-                    <div class="mb-3">
-                        <label class="form-label">Jenis Kelamin</label>
-                        <div>
-                            <input type="radio" class="form-check-input" name="gender" id="laki" value="Laki-laki">
-                            <label class="form-check-label me-3" for="laki">Laki - laki</label>
-                            <input type="radio" class="form-check-input" name="gender" id="perempuan" value="Perempuan">
-                            <label class="form-check-label" for="perempuan">Perempuan</label>
-                        </div>
-                        <small class="text-danger" id="genderError"></small>
+                <div class="mb-3">
+                    <label class="form-label">Jenis Kelamin</label>
+                    <div>
+                        <input type="radio" class="form-check-input" name="gender" id="laki" value="Laki-laki">
+                        <label class="form-check-label me-3" for="laki">Laki - laki</label>
+                        <input type="radio" class="form-check-input" name="gender" id="perempuan" value="Perempuan">
+                        <label class="form-check-label" for="perempuan">Perempuan</label>
                     </div>
+                    <small class="text-danger" id="genderError"></small>
+                </div>
 
-                    <div class="mb-3">
-                        <label for="tanggal_lahir" class="form-label">Tanggal Lahir</label>
-                        <input type="date" class="form-control" id="tanggal_lahir">
-                        <small class="text-danger" id="tanggalLahirError"></small>
+                <div class="mb-3">
+                    <label for="tanggal_lahir" class="form-label">Tanggal Lahir</label>
+                    <input type="date" class="form-control" id="tanggal_lahir">
+                    <small class="text-danger" id="tanggalLahirError"></small>
+                </div>
+
+                <div class="mb-3">
+                    <label for="phone" class="form-label">Nomor Telepon</label>
+                    <div class="input-group">
+                        <span class="input-group-text">+62</span>
+                        <input type="tel" class="form-control" id="phone" placeholder="Masukkan nomor telepon">
                     </div>
+                    <small class="text-danger" id="phoneError"></small>
+                </div>
 
-                    <div class="mb-3">
-                        <label for="phone" class="form-label">Nomor Telepon</label>
-                        <div class="input-group">
-                            <span class="input-group-text">+62</span>
-                            <input type="tel" class="form-control" id="phone" placeholder="Masukkan nomor telepon">
-                        </div>
-                        <small class="text-danger" id="phoneError"></small>
-                    </div>
+                <div class="mb-3">
+                    <label for="alamat" class="form-label">Alamat Rumah</label>
+                    <textarea class="form-control" id="alamat" rows="3" placeholder="Masukkan alamat rumah"></textarea>
+                    <small class="text-danger" id="alamatError"></small>
+                </div>
 
-                    <div class="mb-3">
-                        <label for="alamat" class="form-label">Alamat Rumah</label>
-                        <textarea class="form-control" id="alamat" rows="3" placeholder="Masukkan alamat rumah"></textarea>
-                        <small class="text-danger" id="alamatError"></small>
-                    </div>
-
-                    <button type="submit" class="btn w-100 text-white fw-bold"
-                        style="background-color: #a52a2a;">Simpan</button>
-                </form>
-            </div>
+                <button type="submit" class="btn w-100 text-white fw-bold"
+                    style="background-color: #a52a2a;">Simpan</button>
+            </form>
         </div>
+        </form>
+    </div>
 
 @endsection
 

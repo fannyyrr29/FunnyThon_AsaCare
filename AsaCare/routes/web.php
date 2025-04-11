@@ -47,7 +47,8 @@ Route::middleware(['auth', 'role:User'])->prefix('user')->group(function(){
     //Untuk menampilkan home
     Route::get('/', [HomeController::class, 'index'])->name('user.home');
     //Untuk show profile di halaman edit
-    Route::get('/showProfile/{id}', [HomeController::class, 'showProfile'])->name('user.profile');
+    // Route::get('/showProfile/{id}', [HomeController::class, 'showProfile'])->name('user.profile');
+    Route::get('/showProfile', [HomeController::class, 'showProfile'])->name('user.showProfile');
     //Untuk menyimpan perubahan di db
     Route::post('/editProfil', [HomeController::class, 'editProfile'])->name('user.editProfile');
     //Menampilkan List Kontak

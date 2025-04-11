@@ -26,18 +26,27 @@ class HomeController extends Controller
         return view('users.home');
     }
 
+    // public function showProfile(string $id){
+    //     $user = User::find($id);
+    //     if ($user) {
+    //         // return response()->json(compact('user'));
+    //         return view('users.editProfile', compact('user'));
+    //     }
+    //     // return response()->json(['error' => 'Pengguna tidak ditemukan!'], 404);
+    //     return redirect()->back()->withErrors(['Error' => "Tidak dapat mengubah profil"], 404);
+    // }
 
-    public function showProfile(string $id){
-        $user = User::find($id);
+    public function showProfile()
+    {
+        $user = auth()->user(); 
         if ($user) {
-            // return response()->json(compact('user'));
             return view('users.editProfile', compact('user'));
         }
-        // return response()->json(['error' => 'Pengguna tidak ditemukan!'], 404);
-        return redirect()->back()->withErrors(['Error' => "Tidak dapat mengubah profil"], 404);
+        return redirect()->back()->withErrors(['Error' => "Tidak dapat mengubah profil"]);
     }
 
-    public function editProfile(Request $request){
+    public function editProfile(Request $request)
+    {
         $user = User::find($request->id);
         if (!$user) {
             return redirect()->back()->withErrors(['Error' => "Pengguna tidak ditemukan!"]);
@@ -57,7 +66,8 @@ class HomeController extends Controller
 
     }
 
-    public function showAction(){
+    public function showAction()
+    {
         $actions = Action::all();
         if ($actions) {
             # code...
@@ -66,7 +76,8 @@ class HomeController extends Controller
         return redirect()->back()->withErrors(['Error' => "Tidak ditemukan layanan!"]);
     }
 
-    public function showEmergencyCall(string $id){
+    public function showEmergencyCall(string $id)
+    {
         $call = EmergencyCall::where('user_id', '=', $id)->get();
 
         // Check if the collection is empty
@@ -82,8 +93,16 @@ class HomeController extends Controller
     {
         $medicalRecords = DB::table('medical_records as mr')
             ->join('drug_records as dr', 'mr.id', '=', 'dr.medical_record_id')
-            ->select('mr.id', 'mr.diagnose', 'mr.description', 'mr.date', 'mr.rating', 'mr.doctor_id', 
-                    'dr.drug_id', 'dr.amount')
+            ->select(
+                'mr.id',
+                'mr.diagnose',
+                'mr.description',
+                'mr.date',
+                'mr.rating',
+                'mr.doctor_id',
+                'dr.drug_id',
+                'dr.amount'
+            )
             ->where('mr.user_id', '=', $id)
             ->get();
 
@@ -96,7 +115,7 @@ class HomeController extends Controller
             $doctor = Doctor::find($mr->doctor_id);
             if ($doctor) {
                 array_push($doctors, $doctor);
-            }else{
+            } else {
                 return response()->json(['message' => "Dokter tidak ditemukan!"], 404);
             }
         }
@@ -107,7 +126,7 @@ class HomeController extends Controller
             if ($drug) {
                 # code...
                 array_push($drugs, $drug);
-            }else{
+            } else {
                 return response()->json(['message' => "Obat tidak ditemukan!"], 404);
 
             }
@@ -115,7 +134,8 @@ class HomeController extends Controller
         return view('users.riwayat', compact('medicalRecords', 'doctors', 'drugs'));
     }
 
-    public function showDrug(){
+    public function showDrug()
+    {
         $drugs = Drug::all();
         if ($drugs) {
             # code...
@@ -124,7 +144,8 @@ class HomeController extends Controller
         return redirect()->back()->withErrors(['Error' => "Tidak ditemukan data obat!"]);
 
     }
-    public function addMood(Request $request){
+    public function addMood(Request $request)
+    {
         try {
             $condition = new Condition();
             $condition->condition = $request->condition;
@@ -134,40 +155,44 @@ class HomeController extends Controller
                 return response()->json(['header' => 'SUKSES', 'message' => 'Data berhasil diinputkan!']);
             }
         } catch (\Throwable $th) {
-            return response()->json(['header' => 'ERROR', 'message' => 'Data gagal diinputkan! ' . $th->getMessage() ]);
+            return response()->json(['header' => 'ERROR', 'message' => 'Data gagal diinputkan! ' . $th->getMessage()]);
         }
     }
 
-    public function showMood($id){
+    public function showMood($id)
+    {
         $conditions = Condition::where('user_id', '=', $id)->get();
         if ($conditions) {
-            return response()->json(['header'=>'SUKSES', 'conditions' => $conditions]);
+            return response()->json(['header' => 'SUKSES', 'conditions' => $conditions]);
         }
-        return response()->json(['header'=> 'GAGAL', 'message'=> 'Kondisi Pengguna tidak ditemukan!']);
+        return response()->json(['header' => 'GAGAL', 'message' => 'Kondisi Pengguna tidak ditemukan!']);
     }
 
-    public function showActionHomeCare(){
+    public function showActionHomeCare()
+    {
         $homecare = Action::where('type', '=', 'Homecare')->get();
         return view('users.homecare', compact('homecare'));
     }
 
-    public function showActionHospitalCare(){
+    public function showActionHospitalCare()
+    {
         $hospitalCare = Action::where('type', '=', 'Hospitalcare')->get();
         return view('users.homecare', compact('hospitalCare'));
     }
 
-    public function cariLayanan(Request $request){
+    public function cariLayanan(Request $request)
+    {
         $request->validate([
             'name' => 'required|string|max:255',
         ]);
-    
+
         if (!empty($request->name)) {
             $action = Action::where('name', 'like', '%' . $request->input('name') . '%')->get();
         } else {
             $action = collect();
         }
-        
+
         return response()->json(compact('action'));
-        
+
     }
 }
