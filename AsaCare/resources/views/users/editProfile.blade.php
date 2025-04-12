@@ -7,11 +7,27 @@
 @section('content')
     <div class="card shadow" style="max-width: 400px; margin: auto; border-radius: 10px; padding: 20px;">
         <div class="card-body">
-            <form action="{{ route('user.editProfile') }}" method="POST">
+            <form action="{{ route('user.editProfile') }}" method="POST" enctype="multipart/form-data">
                 @csrf
-
                 <input type="hidden" name="user_id" id="user_id" value="{{ $user->id }}">
+                <div class="mb-4 text-center position-relative" style="width: 150px; height: 150px; margin: auto;">
+                    <img id="previewImage"
+                        src="{{ $user->profile
+                            ? asset('assets/images/' . $user->profile)
+                            : asset('assets/images/default-avatar.png') }}"
+                        class="rounded-circle w-100 h-100 object-fit-cover border" alt="Foto Profil">
 
+                    <label for="profile_picture"
+                        class="position-absolute top-0 start-0 w-100 h-100 d-flex justify-content-center align-items-center rounded-circle"
+                        style="background-color: rgba(0, 0, 0, 0.5); color: white; cursor: pointer;">
+                        <div>
+                            <i class="bi bi-camera-fill fs-4"></i>
+                            <div>Update Profile Picture</div>
+                        </div>
+                    </label>
+                    <input type="file" id="profile_picture" name="profile_picture" accept="image/*" class="d-none"
+                        onchange="previewImage(event)">
+                </div>
                 <div class="mb-3">
                     <label for="email" class="form-label">Email</label>
                     <input type="email" class="form-control" id="email" placeholder="{{ $user->email }}" disabled>
@@ -20,16 +36,14 @@
 
                 <div class="mb-3">
                     <label for="nik" class="form-label">NIK</label>
-                    <input type="text" class="form-control" id="nik" name="nik"
-                        placeholder="Masukkan NIK" maxlength="16"
-                        value="{{ $user->NIK ?? '' }}">
+                    <input type="text" class="form-control" id="nik" name="nik" placeholder="Masukkan NIK"
+                        maxlength="16" value="{{ $user->NIK ?? '' }}">
                     <small class="text-danger" id="nikError"></small>
                 </div>
-                
+
                 <div class="mb-3">
                     <label for="nama" class="form-label">Nama</label>
-                    <input type="text" class="form-control" id="nama" name="nama"
-                        placeholder="Masukkan nama"
+                    <input type="text" class="form-control" id="nama" name="nama" placeholder="Masukkan nama"
                         value="{{ $user->name ?? '' }}">
                     <small class="text-danger" id="namaError"></small>
                 </div>
@@ -40,17 +54,18 @@
                         <input type="radio" class="form-check-input" name="gender" id="laki" value="L"
                             {{ $user->gender == 'L' || empty($user->gender) ? 'checked' : '' }}>
                         <label class="form-check-label me-3" for="laki">Laki - laki</label>
-                
+
                         <input type="radio" class="form-check-input" name="gender" id="perempuan" value="P"
                             {{ $user->gender == 'P' ? 'checked' : '' }}>
                         <label class="form-check-label" for="perempuan">Perempuan</label>
                     </div>
                     <small class="text-danger" id="genderError"></small>
                 </div>
-                
+
                 <div class="mb-3">
                     <label for="tanggal_lahir" class="form-label">Tanggal Lahir</label>
-                    <input type="date" class="form-control" name = "tanggal_lahir" id="tanggal_lahir" value="{{$user->birthdate ?? \Carbon\Carbon::today()->format('Y-m-d')}}">
+                    <input type="date" class="form-control" name = "tanggal_lahir" id="tanggal_lahir"
+                        value="{{ $user->birthdate ?? \Carbon\Carbon::today()->format('Y-m-d') }}">
                     <small class="text-danger" id="tanggalLahirError"></small>
                 </div>
 
@@ -59,8 +74,7 @@
                     <div class="input-group">
                         <span class="input-group-text">+62</span>
                         <input type="tel" class="form-control" id="phone" name="phone"
-                            placeholder="Masukkan nomor telepon"
-                            value="{{ $user->phone_number ?? '' }}">
+                            placeholder="Masukkan nomor telepon" value="{{ $user->phone_number ?? '' }}">
                     </div>
                     <small class="text-danger" id="phoneError"></small>
                 </div>
@@ -75,7 +89,6 @@
                     style="background-color: #a52a2a;">Simpan</button>
             </form>
         </div>
-        </form>
     </div>
 
 @endsection

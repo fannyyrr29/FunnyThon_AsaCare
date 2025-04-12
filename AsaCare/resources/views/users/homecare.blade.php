@@ -8,7 +8,7 @@
         <!-- nanti isinya di foreach dari tabel actions type: HOMECARE pesan, type:hospital booking -->
 
         <div class="card">
-            <img src="{{ asset('assets/images/pemeriksaan.jpg') }}" alt="Pemeriksaan Kesehatan Rutin">
+            <img src="{{ asset('assets/images/layanan/pemeriksaan.jpg') }}" alt="Pemeriksaan Kesehatan Rutin">
             <div class="card-body">
                 <div class="card-title">Pemeriksaan Kesehatan Rutin</div>
                 <div class="card-text">Cek tekanan darah, gula darah, kolesterol</div>
@@ -25,7 +25,7 @@
 
 
         <div class="card">
-            <img src="{{ asset('assets/images/luka.jpg') }}" alt="Perawatan Luka">
+            <img src="{{ asset('/assets/images/layanan/luka.jpg') }}" alt="Perawatan Luka">
             <div class="card-body">
                 <div class="card-title">Perawatan Luka</div>
                 <div class="card-text">Luka diabetes, luka pasca operasi</div>
@@ -33,7 +33,7 @@
         </div>
 
         <div class="card">
-            <img src="{{ asset('assets/images/fisioterapi.jpg') }}" alt="Fisioterapi di rumah">
+            <img src="{{ asset('/assets/images/layanan/fisioterapi.jpg') }}" alt="Fisioterapi di rumah">
             <div class="card-body">
                 <div class="card-title">Fisioterapi di rumah</div>
                 <div class="card-text">Pemulihan pasca stroke, terapi sendi</div>
