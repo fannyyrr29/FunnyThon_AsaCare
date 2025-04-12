@@ -29,7 +29,7 @@
         {{-- Logo AsaCare hanya muncul di halaman 'user' --}}
         @if(Request::is('user'))
             <a class="navbar-brand d-flex align-items-center text-white text-decoration-none me-auto"
-                href="/">
+                href="/user">
                 <img src="{{ asset('assets/images/logo no-text.png') }}" alt="Logo" width="32" height="32" class="me-2">
                 <span>AsaCare</span>
             </a>

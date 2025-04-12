@@ -8,10 +8,12 @@ use App\Models\Condition;
 use App\Models\Doctor;
 use App\Models\Drug;
 use App\Models\EmergencyCall;
+use App\Models\Family;
 use App\Models\MedicalRecord;
 use App\Models\User;
 use Database\Seeders\DrugSeeder;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Symfony\Component\HttpFoundation\RateLimiter\RequestRateLimiterInterface;
 
@@ -38,7 +40,7 @@ class HomeController extends Controller
 
     public function showProfile()
     {
-        $user = auth()->user(); 
+        $user = auth()->user();
         if ($user) {
             return view('users.editProfile', compact('user'));
         }
@@ -47,17 +49,21 @@ class HomeController extends Controller
 
     public function editProfile(Request $request)
     {
-        $user = User::find($request->id);
+        $user = User::find($request->user_id);
         if (!$user) {
             return redirect()->back()->withErrors(['Error' => "Pengguna tidak ditemukan!"]);
         }
 
-        $user->name = $request->name;
-        $user->address = $request->address;
+        $user->NIK = $request->nik;
+        $user->name = $request->nama;
+        $user->gender = $request->gender;
+        $user->birthdate = $request->tanggal_lahir;
+        $user->phone_number = $request->phone;
+        $user->address = $request->alamat;
 
         if ($user->save()) {
-            return response()->json(['status' => 'Update Sukses']);
-            // return redirect()->route('user.home')->with('Sukses', 'Profil telah diubah!');
+            // return response()->json(['status' => 'Update Sukses']);
+            return redirect()->route('user.home')->with('Sukses', 'Profil telah diubah!');
         }
 
         return response()->json(['status' => 'Update Gagal']);
@@ -107,7 +113,7 @@ class HomeController extends Controller
             ->get();
 
         if ($medicalRecords->isEmpty()) {
-            return response()->json(['message' => "Data tidak ditemukan!"], 404);
+            // return response()->json(['message' => "Data tidak ditemukan!"], 404);
         }
 
         $doctors = [];
@@ -116,7 +122,7 @@ class HomeController extends Controller
             if ($doctor) {
                 array_push($doctors, $doctor);
             } else {
-                return response()->json(['message' => "Dokter tidak ditemukan!"], 404);
+                // return response()->json(['message' => "Dokter tidak ditemukan!"], 404);
             }
         }
 
@@ -127,8 +133,7 @@ class HomeController extends Controller
                 # code...
                 array_push($drugs, $drug);
             } else {
-                return response()->json(['message' => "Obat tidak ditemukan!"], 404);
-
+                // return response()->json(['message' => "Obat tidak ditemukan!"], 404);
             }
         }
         return view('users.riwayat', compact('medicalRecords', 'doctors', 'drugs'));
@@ -142,7 +147,6 @@ class HomeController extends Controller
             return response()->json(compact('drugs'));
         }
         return redirect()->back()->withErrors(['Error' => "Tidak ditemukan data obat!"]);
-
     }
     public function addMood(Request $request)
     {
@@ -193,6 +197,15 @@ class HomeController extends Controller
         }
 
         return response()->json(compact('action'));
+    }
 
+    public function showFamily()
+    {
+        $families = Family::where(function ($query) {
+            $query->where('sender_id', Auth::id())
+            ->orWhere('receiver_id', Auth::id());
+        })->get();
+
+        return view('users.family', compact('families'));
     }
 }

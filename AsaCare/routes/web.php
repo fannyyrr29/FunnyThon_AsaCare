@@ -64,6 +64,10 @@ Route::middleware(['auth', 'role:User'])->prefix('user')->group(function () {
     Route::get('/layanan', [HomeController::class, 'showAction'])->name('user.layanan');
     //untuk input kondisi
     Route::post('/addMood', [HomeController::class, 'addMood'])->name('user.mood');
+
+    Route::get('/family', [HomeController::class, 'showFamily'])->name('user.family');
+
+
     //untuk cari teman
     Route::post('/findFriend', [InviteController::class, 'searchFriend'])->name('user.search');
     //untuk accept pertemanan 
@@ -115,9 +119,9 @@ Route::get('/homecare', function () {
     return view('users/home');
 });
 
-Route::get('/family', function () {
-    return view('users/family');
-});
+// Route::get('/family', function () {
+//     return view('users/family');
+// });
 
 Route::get('/reminderObat', function () {
     return view('users/reminderObat');

@@ -37,7 +37,7 @@ class SocialiteController extends Controller
 
             Auth::login($user);
 
-            return redirect()->route('user.home');
+            return redirect()->route('user.showProfile');
         }
         Auth::login($registeredUser);
 
