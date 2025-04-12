@@ -9,9 +9,9 @@
 
         {{-- Profile Dokter --}}
         <div class="mb-4 position-relative" style="z-index: 2;">
-            <img src="assets/images/{{$user->profile}}" alt="Foto Dokter" class="rounded-circle img-crop">
+            <img src="assets/images/{{ $user->profile }}" alt="Foto Dokter" class="rounded-circle img-crop">
             <h5 class="mt-3 mb-1">{{ $doctor->name }}</h5>
-            <p class="text-muted mb-1">{{ $specialization->name }}</p>
+            <p class="text-muted mb-1">{{ $doctor->specialization->name }}</p>
             <div>
                 @php
                     $rating = $doctor->rating; // Misalnya, $doctor->rating adalah 3.5
