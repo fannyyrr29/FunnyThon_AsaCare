@@ -64,17 +64,23 @@ Route::middleware(['auth', 'role:User'])->prefix('user')->group(function () {
     Route::get('/layanan', [HomeController::class, 'showAction'])->name('user.layanan');
     //untuk input kondisi
     Route::post('/addMood', [HomeController::class, 'addMood'])->name('user.mood');
-    Route::get('/family', [HomeController::class, 'showFamily'])->name('user.family');
-
-
+    //Untuk menampilkan teman
+    Route::get('/family', [InviteController::class, 'index'])->name('user.family');
+    //untuk add pertemanan 
+    Route::post('/addFriend', [InviteController::class, 'addFriend'])->name('user.add');
     //untuk cari teman
     Route::post('/findFriend', [InviteController::class, 'searchFriend'])->name('user.search');
-    //untuk accept pertemanan 
-    Route::post('/addFriend', [InviteController::class, 'addFriend'])->name('user.add');
+    //untuk accept pertemanan
+    Route::post('/acceptFriend', [InviteController::class, 'acceptFriend'])->name('user.accept');
     //dipanggil ketika user menekan button checkout
     Route::post('/keranjang', [DrugController::class, 'checkout'])->name('user.checkout');
     //untuk menolak pertemanan
     Route::post('/tolak', [InviteController::class, 'reject'])->name('user.reject');
+
+    //untuk hapus pertemanan
+    Route::post('/delete', [InviteController::class, 'delete'])->name('user.delete');
+    //untuk menampilkan Kondisi dari User
+    Route::post('/kondisi/{id}', [HomeController::class, 'showMood'])->name('user.showMood');
     //untuk search HomeCare
     Route::get('/homecare', [HomeController::class, 'showActionHomeCare'])->name('user.showHomeCare');
     //untuk search HospitalCare
@@ -102,10 +108,9 @@ Route::middleware(['auth', 'role:Admin'])->prefix('admin')->group(function () {
 Route::middleware(['auth', 'role:Dokter'])->prefix('doctor')->group(function () {
     Route::get('/', [DasboardController::class, 'index'])->name('doctor.index');
     Route::resource('medicalRecord', DoctorMedicalRecordController::class);
-    Route::resource('consultation', ConsultationController::class);
+    Route::resource('consultation', ConsultationController::class)->names('doctor.consultation');
 
-    Route::post('/message', [MessageController::class, 'index'])->name('doctor.message');
-
+    Route::post('/message/{consultation_id}', [MessageController::class, 'index'])->name('doctor.message');
 });
 
 Route::post('/message/broadcast', [MessageController::class, 'broadcast']);

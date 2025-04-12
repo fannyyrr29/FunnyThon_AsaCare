@@ -9,6 +9,8 @@ class Family extends Model
 {
     use HasFactory;
 
+    protected $table = 'families';
+
     protected $fillable = ['sender_id','receiver_id','status'];
     protected $casts = [
         'sender_id' => 'integer',

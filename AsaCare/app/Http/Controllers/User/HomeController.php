@@ -129,7 +129,7 @@ class HomeController extends Controller
             ->get();
 
         if ($medicalRecords->isEmpty()) {
-            // return response()->json(['message' => "Data tidak ditemukan!"], 404);
+            return response()->json(['message' => "Data tidak ditemukan!"], 404);
         }
 
         $doctors = [];
@@ -160,7 +160,7 @@ class HomeController extends Controller
         $drugs = Drug::all();
         if ($drugs) {
             # code...
-            return response()->json(compact('drugs'));
+            return view('users.menuObat', compact('drugs'));
         }
         return redirect()->back()->withErrors(['Error' => "Tidak ditemukan data obat!"]);
     }
@@ -243,6 +243,8 @@ class HomeController extends Controller
             $query->where('sender_id', Auth::id())
                 ->orWhere('receiver_id', Auth::id());
         })->get();
+
+        // return response()->json(compact('families'));
 
         return view('users.family', compact('families'));
     }
