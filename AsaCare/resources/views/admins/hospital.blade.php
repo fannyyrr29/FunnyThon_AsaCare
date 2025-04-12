@@ -4,6 +4,16 @@
 
 @section('content')
     <main class="app-main">
+        @if (session('header'))
+            <div class="alert alert-success">
+                <p><strong>{{ session('header') }}</strong> {{ session('message') }}</p>
+            </div>
+        @elseif ($errors->has('header') && $errors->has('message'))
+            <div class="alert alert-danger">
+                <p><strong>{{ $errors->first('header') }}</strong> {{ $errors->first('message') }}</p>
+            </div>
+        @endif
+
         <!--begin::App Content Header-->
         <div class="app-content-header">
             <!--begin::Container-->
@@ -12,7 +22,10 @@
                 <div class="row">
                     <div class="col-sm-6">
                         <span class="input-group-append">
-                            <button type="button" class="btn btn-primary">+ Tambah</button>
+                            <form action="{{ route('admin.rumahsakit.create') }}" method="get">
+                                <button type="submit" class="btn btn-primary"><i class="fa fa-plus">
+                                    </i>Tambah</button>
+                            </form>
                         </span>
                     </div>
                 </div>
@@ -40,7 +53,8 @@
                                             <th>Rumah Sakit</th>
                                             <th>Alamat</th>
                                             <th>Nomor Telepon</th>
-                                            <th>Aksi</th>
+                                            <th>Aksi UBAH</th>
+                                            <th>Aksi Hapus</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -49,7 +63,27 @@
                                                 <td>{{ $hospital->name }}</td>
                                                 <td>{{ $hospital->address }}</td>
                                                 <td>{{ $hospital->phone_number }}</td>
-                                                <td><button type="button" class="btn btn-danger"><i class="fa fa-trash"></i></button></td>
+                                                <td>
+                                                    <form action="{{ route('admin.rumahsakit.edit', $hospital->id) }}"
+                                                        method="get">
+                                                        @csrf
+                                                        <button type="submit" class="btn btn-warning">
+                                                            <i class="fa fa-edit">
+                                                            </i>
+                                                        </button>
+                                                    </form>
+
+                                                </td>
+                                                <td>
+                                                    <form action="{{ route('admin.rumahsakit.destroy', $hospital->id) }}"
+                                                        method="post">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit" class="btn btn-danger"> <i
+                                                                class="fa fa-trash"></i></button>
+                                                    </form>
+                                                </td>
+
                                             </tr>
                                         @endforeach
                                     </tbody>

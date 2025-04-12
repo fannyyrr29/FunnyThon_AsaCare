@@ -5,17 +5,16 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class DoctorSpecialization extends Model
+class DoctorAction extends Model
 {
     use HasFactory;
-    protected $table = 'doctor_has_specializations';
+    protected $table = 'doctor_has_actions';
     protected $fillable = [
-        'doctor_id', 'specialization_id', 'action_id'
+        'doctor_id', 'action_id'
     ];
 
     protected $casts = [
         'doctor_id' => 'integer',
-        'specialization_id' => 'integer', 
         'action_id' => 'integer'
     ];
 

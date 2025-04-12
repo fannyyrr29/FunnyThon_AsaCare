@@ -5,11 +5,14 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Action;
 use App\Models\Doctor;
-use App\Models\DoctorSpecialization;
+use App\Models\DoctorAction;
 use App\Models\Hospital;
+use App\Models\MedicalRecord;
 use App\Models\Specialization;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Validation\Rule;
 
 class DoctorController extends Controller
 {
@@ -18,8 +21,9 @@ class DoctorController extends Controller
      */
     public function index()
     {
-        $doctors = Doctor::with(['specializations', 'actions', 'hospital'])->get();
+        $doctors = Doctor::with(['specialization', 'actions', 'hospital'])->get();
         // $doctors = Doctor::with('doctorSpecialization.specialization', 'doctorSpecialization.action')->get();
+        // return response()->json(compact('doctors'));
         // return response()->json(compact('doctors'));
         return view('admins.doctor', compact('doctors'));
     }
@@ -30,9 +34,12 @@ class DoctorController extends Controller
     public function create()
     {
         $hospitals = Hospital::all();
-        $speacializations = Specialization::all();
+        $specializations = Specialization::all();
         $actions = Action::all();
-        return view('admins.insertDoctor', compact('hospitals', 'specializations', 'actions'));
+        $users = User::all();
+
+        
+        return view('admins.tambahDokter', compact('hospitals', 'specializations', 'actions', 'users'));
     }
 
     /**
@@ -44,9 +51,9 @@ class DoctorController extends Controller
             'name' => 'required|string',
             'license_number' => 'required|string|unique:doctors,license_number',
             'experience_year' => 'required|integer',
-            'rating' => 'required|numeric',
             'hospital_id' => 'required|exists:hospitals,id',
-            'specialization' => 'required|exists:specializations,id',
+            'specialization_id' => 'required|exists:specializations,id',
+            'user_id' => 'required|exists:users,id',
             'actions' => 'required|array',
         ]);
 
@@ -57,25 +64,25 @@ class DoctorController extends Controller
             $doctor->name = $request->name;
             $doctor->license_number = $request->license_number;
             $doctor->experience_year = $request->experience_year;
-            $doctor->rating = $request->rating;
             $doctor->hospital_id = $request->hospital_id;
+            $doctor->user_id = $request->user_id;
+            $doctor->specialization_id = $request->specialization_id;
             $doctor->created_at = now();
 
             if ($doctor->save()) {
                 foreach ($request->actions as $actionId) {
-                    DoctorSpecialization::create([
+                    DoctorAction::create([
                         'doctor_id' => $doctor->id,
-                        'specialization_id' => $request->specialization,
                         'action_id' => $actionId,
                     ]);
                 }
 
                 DB::commit();
-                return redirect()->back()->with(['header' => 'SUKSES', 'message' => "Berhasil menambahkan dokter!"]);
+                return redirect()->route('admin.dokter.index')->with(['header' => 'SUKSES', 'message' => "Berhasil menambahkan dokter!"]);
             }
 
             DB::rollBack();
-            return redirect()->back()->withErrors(['header' => 'GAGAL', 'message' => "Dokter tidak dapat disimpan."]);
+            return redirect()->route('admin.dokter.index')->withErrors(['header' => 'GAGAL', 'message' => "Dokter tidak dapat disimpan."]);
 
         } catch (\Throwable $th) {
             DB::rollBack();
@@ -100,16 +107,18 @@ class DoctorController extends Controller
      */
     public function edit(string $id)
     {
-        $doctor = Doctor::with('doctorSpecializations.specialization', 'doctorSpecializations.action')->findOrFail($id);
-
+        $doctor = Doctor::with('specialization', 'actions')->findOrFail($id);
+        $actions = Action::all();
+        $specializations = Specialization::all();
+        $hospitals = Hospital::all();
         // Ambil spesialisasi (ambil dari satu baris pertama, karena satu dokter hanya punya 1 spesialisasi)
-        $specialization = $doctor->doctorSpecializations->first()->specialization ?? null;
+        // $specialization = $doctor->doctorSpecializations->first()->specialization ?? null;
 
         // Ambil semua action_id
-        $actions = $doctor->doctorSpecializations->pluck('action')->unique('id');
+        // $actions = $doctor->doctorSpecializations->pluck('action')->unique('id');
 
-        return response()->json(compact('doctor', 'specialization', 'actions'));
-        // return view('admins.editDoctor', compact('doctor', 'specialization', 'actions'));
+        // return response()->json(compact('doctor', 'actions', 'specializations'));
+        return view('admins.ubahDokter', compact('doctor', 'actions', 'specializations', 'hospitals'));
     }
 
     /**
@@ -119,11 +128,13 @@ class DoctorController extends Controller
     {
         $request->validate([
             'name' => 'required|string',
-            'license_number' => 'required|string|unique:doctors,license_number,' . $id,
+            'license_number' => [
+                'required',
+                'string',
+                Rule::unique('doctors')->ignore((int) $id, 'id')
+            ],
             'experience_year' => 'required|integer',
-            'rating' => 'required|numeric',
             'hospital_id' => 'required|exists:hospitals,id',
-            'specialization' => 'required|exists:specializations,id',
             'actions' => 'required|array|distinct',
             'actions.*' => 'exists:actions,id',
         ]);
@@ -140,19 +151,19 @@ class DoctorController extends Controller
 
             if ($doctor->save()) {
                 // Hapus relasi lama dulu
-                DoctorSpecialization::where('doctor_id', $doctor->id)->delete();
+                DoctorAction::where('doctor_id', $doctor->id)->delete();
 
                 // Insert relasi baru
                 foreach ($request->actions as $actionId) {
-                    DoctorSpecialization::create([
+                    DoctorAction::create([
                         'doctor_id' => $doctor->id,
-                        'specialization_id' => $request->specialization,
                         'action_id' => $actionId,
                     ]);
                 }
 
                 DB::commit();
-                return redirect()->back()->with(['header' => 'SUKSES', 'message' => "Berhasil mengubah data dokter!"]);
+                // return response()->json(['header' => 'SUKSES', 'message' => "Berhasil mengubah data dokter!"]);
+                return redirect()->route('admin.dokter.index')->with(['header' => 'SUKSES', 'message' => "Berhasil mengubah data dokter!"]);
             }
 
             DB::rollBack();
@@ -160,6 +171,7 @@ class DoctorController extends Controller
 
         } catch (\Throwable $th) {
             DB::rollBack();
+            // return response()->json(['header' => 'SUKSES', 'message' => "Berhasil mengubah data dokter!"]);
             return redirect()->back()->withErrors([
                 'header' => 'GAGAL',
                 'message' => "Tidak dapat mengubah data dokter: " . $th->getMessage()
@@ -174,10 +186,10 @@ class DoctorController extends Controller
     public function destroy(string $id)
     {
         $doctor = Doctor::find($id);
-        $query = DoctorSpecialization::where('doctor_id', $doctor->id)->delete();
+        $query = DoctorAction::where('doctor_id', $doctor->id)->delete();
         if ($query) {
             if ($doctor->delete()) {
-                return redirect()->back()->with(['header' => 'SUKSES', 'message' => "Berhasil menghapus data dokter!"]);
+                return redirect()->route('admin.dokter.index')->with(['header' => 'SUKSES', 'message' => "Berhasil menghapus data dokter!"]);
             }
         }
         return redirect()->back()->withErrors(['header' => 'GAGAL', 'message' => "Data dokter tidak dapat dihapus!"]);

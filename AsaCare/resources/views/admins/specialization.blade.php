@@ -4,19 +4,23 @@
 
 @section('content')
     <main class="app-main">
+
+        @if (session('header'))
+            <div class="alert alert-success">
+                <p><strong>{{ session('header') }}</strong> {{ session('message') }}</p>
+            </div>
+        @elseif ($errors->has('header') && $errors->has('message'))
+            <div class="alert alert-danger">
+                <p><strong>{{ $errors->first('header') }}</strong> {{ $errors->first('message') }}</p>
+            </div>
+        @endif
+
+
         <!--begin::App Content Header-->
         <div class="app-content-header">
             <!--begin::Container-->
             <div class="container-fluid">
-                <!--begin::Row-->
-                <div class="row">
-                    <div class="col-sm-6">
-                        <span class="input-group-append">
-                            <button type="button" class="btn btn-primary">+ Tambah</button>
-                        </span>
-                    </div>
-                </div>
-                <!--end::Row-->
+                <h3 class="mb-0">Spesialisasi Dokter</h3>
             </div>
             <!--end::Container-->
         </div>
@@ -25,36 +29,45 @@
         <div class="app-content">
             <!--begin::Container-->
             <div class="container-fluid">
-                <!--begin::Row-->
-                <div class="row">
-                    <!-- Start col -->
-                    <div class="connectedSortable">
-                        <div class="card mb-4">
-                            <div class="card-header">
-                                <h3 class="card-title">Data Spesialisasi Dokter</h3>
-                            </div>
-                            <div class="card-body">
-                                <table class="table table-striped table-bordered">
-                                    <thead>
-                                        <tr>
-                                            <th>Nama</th>
-                                            <th>Aksi</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @foreach ($specializations as $s)
-                                            <tr>
-                                                <td>{{ $s->name }}</td>
-                                                <td><button class="btn-primary"><i class="fa fa-trash"></i></button></td>
-                                            </tr>
-                                        @endforeach
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                    <!--end::Container-->
-                </div>
-                <!--end::App Content-->
+                <form class="d-flex justify-content-end mb-3" action="{{ route('admin.spesialisasi.create') }}"
+                    method="get">
+                    <button class="btn btn-primary" type="submit"><i class="fa fa-plus" aria-hidden="true"></i>
+                        &nbsp;TAMBAH</button>
+                </form>
+                <table class="table table-striped">
+                    <tr>
+                        <th>Id</th>
+                        <th>Nama</th>
+                        <th>Ubah</th>
+                        <th>Hapus</th>
+                    </tr>
+                    @foreach ($specializations as $specialization)
+                        <tr>
+                            <td>{{ $specialization->id }}</td>
+                            <td>{{ $specialization->name }}</td>
+                            <td>
+                                <form class="formEditSpesialisasi" method="GET"
+                                    action="{{ route('admin.spesialisasi.edit', $specialization->id) }}">
+                                    <button class="btn btn-warning"><i class="fa fa-edit"></i></button>
+                                </form>
+                            </td>
+                            <td>
+                                <form class="formHapusSpesialisasi" method="POST"
+                                    action="{{ route('admin.spesialisasi.destroy', $specialization->id) }}">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-danger">
+                                        <i class="fa fa-trash"></i>
+                                    </button>
+                                </form>
+                            </td>
+
+                        </tr>
+                    @endforeach
+                </table>
+            </div>
+            <!--end::Container-->
+        </div>
+        <!--end::App Content-->
     </main>
 @endsection

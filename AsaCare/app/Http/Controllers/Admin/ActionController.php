@@ -49,14 +49,16 @@ class ActionController extends Controller
                 $filename = Str::slug($request->name) . '.' . $file->getClientOriginalExtension();
 
                 // Simpan file ke folder public/images (atau ubah sesuai kebutuhanmu)
-                $file->move(public_path('images/layanan'), $filename);
+                $file->move(public_path('assets/images/layanan'), $filename);
 
                 // Simpan nama file ke database
                 $action->image = $filename;
+            }else{
+                $action->image = $request->old_image;
             }
 
             if ($action->save()) {
-                return redirect()->back()->with(['header' => 'SUKSES', 'message' => 'Layanan berhasil ditambahkan!']);
+                return redirect()->route('admin.layanan.index')->with(['header' => 'SUKSES', 'message' => 'Layanan berhasil ditambahkan!']);
             }
         } catch (\Throwable $th) {
             return redirect()->back()->withInput()->withErrors(['header' => 'GAGAL', 'message' => 'Layanan tidak dapat ditambahkan! ' . $th->getMessage()]);
@@ -78,7 +80,7 @@ class ActionController extends Controller
     public function edit(string $id)
     {
         $action = Action::find($id);
-        return view('admins.editLayanan', compact('action'));
+        return view('admins.ubahLayanan', compact('action'));
 
     }
 
@@ -91,7 +93,7 @@ class ActionController extends Controller
             $action = Action::find($id);
 
             if (!$action) {
-                return redirect()->back()->withErrors([
+                return redirect()->route('admin.layanan.edit')->withErrors([
                     'header' => 'GAGAL',
                     'message' => 'Layanan tidak ditemukan!'
                 ]);
@@ -99,6 +101,8 @@ class ActionController extends Controller
 
             $action->name = $request->name;
             $action->description = $request->description;
+            $action->price = $request->price;
+            $action->type = $request->type;
 
             // Jika user mengupload gambar baru
             if ($request->hasFile('image')) {
@@ -106,25 +110,27 @@ class ActionController extends Controller
 
                 $filename = Str::slug($request->name) . '.' . $file->getClientOriginalExtension();
 
-                $file->move(public_path('images/layanan'), $filename);
+                $file->move(public_path('assets/images/layanan'), $filename);
 
                 $action->image = $filename;
+            }else{
+                $action->image = $request->old_image;
             }
 
             // Simpan semua perubahan (termasuk jika tidak ada gambar baru)
             if ($action->save()) {
-                return redirect()->back()->with([
+                return redirect()->route('admin.layanan.index')->with([
                     'header' => 'SUKSES',
                     'message' => 'Layanan berhasil diubah!'
                 ]);
             }
 
-            return redirect()->back()->withErrors([
+            return redirect()->route('admin.layanan.index')->withErrors([
                 'header' => 'GAGAL',
                 'message' => 'Gagal menyimpan perubahan layanan.'
             ]);
         } catch (\Throwable $th) {
-            return redirect()->back()->withInput()->withErrors([
+            return redirect()->route('admin.layanan.edit')->withInput()->withErrors([
                 'header' => 'GAGAL',
                 'message' => 'Layanan tidak dapat diubah! ' . $th->getMessage()
             ]);
@@ -140,26 +146,26 @@ class ActionController extends Controller
         $action = Action::find($id);
 
         if (!$action) {
-            return redirect()->route('action.index')->with([
+            return redirect()->route('admin.layanan.index')->with([
                 'header' => 'GAGAL',
                 'message' => 'Layanan tidak ditemukan!'
             ]);
         }
 
         // Hapus file gambar (jika ada)
-        if ($action->image && file_exists(public_path('images/layanan/' . $action->image))) {
-            unlink(public_path('images/layanan/' . $action->image));
+        if ($action->image && file_exists(public_path('assets/images/layanan/' . $action->image))) {
+            unlink(public_path('assets/images/layanan/' . $action->image));
         }
 
         // Hapus data dari database
         if ($action->delete()) {
-            return redirect()->route('action.index')->with([
+            return redirect()->route('admin.layanan.index')->with([
                 'header' => 'SUKSES',
                 'message' => 'Layanan berhasil dihapus!'
             ]);
         }
 
-        return redirect()->route('action.index')->with([
+        return redirect()->route('admin.layanan.index')->with([
             'header' => 'GAGAL',
             'message' => 'Layanan tidak dapat dihapus!'
         ]);

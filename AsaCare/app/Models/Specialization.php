@@ -12,7 +12,7 @@ class Specialization extends Model
         'name'
     ];
 
-    public function doctors(){
-        return $this->belongsToMany(Doctor::class, 'doctor_has_specialization', 'specialization_id', 'doctor_id')->withPivot('action_id')->withTimestamps();
+    public function doctor(){
+        return $this->hasMany(Doctor::class);
     }
 }

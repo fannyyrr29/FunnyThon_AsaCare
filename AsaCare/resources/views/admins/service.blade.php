@@ -8,11 +8,22 @@
         <div class="app-content-header">
             <!--begin::Container-->
             <div class="container-fluid">
+                @if (session('header'))
+                    <div class="alert alert-success">
+                        <p><strong>{{ session('header') }}</strong> {{ session('message') }}</p>
+                    </div>
+                @elseif ($errors->has('header') && $errors->has('message'))
+                    <div class="alert alert-danger">
+                        <p><strong>{{ $errors->first('header') }}</strong> {{ $errors->first('message') }}</p>
+                    </div>
+                @endif
                 <!--begin::Row-->
                 <div class="row">
                     <div class="col-sm-6">
                         <span class="input-group-append">
-                            <button type="button" class="btn btn-primary">+ Tambah</button>
+                            <form action="{{ route('admin.layanan.create') }}" method="get">
+                                <button type="submit" class="btn btn-primary">+ Tambah</button>
+                            </form>
                         </span>
                     </div>
                 </div>
@@ -42,7 +53,8 @@
                                             <th>Image</th>
                                             <th>Jenis Layanan</th>
                                             <th>Harga</th>
-                                            <th>Aksi</th>
+                                            <th>Aksi Edit</th>
+                                            <th>Aksi Hapus</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -51,16 +63,26 @@
                                                 <td>{{ $action->name }}</td>
                                                 <td>{{ $action->description }}</td>
                                                 <td>
-                                                    <img src="{{ asset('assets/images/' . $action->image) }}" alt="Image"
-                                                        width="50" height=auto data-bs-toggle="modal"
+                                                    <img src="{{ asset('assets/images/layanan/' . $action->image) }}"
+                                                        alt="Image" width="50" height=auto data-bs-toggle="modal"
                                                         data-bs-target="#imageModal{{ $action->id }}"
                                                         style="cursor:pointer;">
                                                 </td>
 
                                                 <td>{{ $action->type }}</td>
                                                 <td>{{ $action->price }}</td>
-                                                <td><button type="button" class="btn btn-danger"><i
-                                                            class="fa fa-trash"></i></button></td>
+                                                <td>
+                                                    <form action="{{ route('admin.layanan.edit', $action->id) }}"
+                                                        method="get">@csrf <button class="btn btn-warning"
+                                                            type="submit"><i class="fa fa-edit"></i></button></form>
+                                                </td>
+                                                <td>
+                                                    <form action="{{ route('admin.layanan.destroy', $action->id) }}"
+                                                        method="post">@csrf @method('DELETE') <button
+                                                            class="btn btn-danger" type="submit"><i
+                                                                class="fa fa-trash"></i></button>
+                                                    </form>
+                                                </td>
                                             </tr>
                                         @endforeach
                                         @foreach ($actions as $action)
@@ -72,13 +94,14 @@
                                                 <div class="modal-dialog modal-dialog-centered">
                                                     <div class="modal-content">
                                                         <div class="modal-header">
-                                                            <h5 class="modal-title" id="imageModalLabel{{ $action->id }}">
+                                                            <h5 class="modal-title"
+                                                                id="imageModalLabel{{ $action->id }}">
                                                                 Preview Gambar</h5>
                                                             <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                                 aria-label="Tutup"></button>
                                                         </div>
                                                         <div class="modal-body text-center">
-                                                            <img src="{{ asset('assets/images/' . $action->image) }}"
+                                                            <img src="{{ asset('assets/images/layanan/' . $action->image) }}"
                                                                 alt="Gambar" class="img-fluid">
                                                         </div>
                                                     </div>

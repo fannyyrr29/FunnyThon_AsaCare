@@ -16,11 +16,12 @@ return new class extends Migration
             $table->string('name', 45);
             $table->string('license_number', 45);
             $table->integer('experience_year');
-            $table->double('rating');
-            $table->foreignId('hospital_id')->constrained()->onDelete('cascade');
-            $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->double('rating')->nullable();
+            $table->foreignId('specialization_id')->constrained()->on('specializations')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreignId('hospital_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
+            $table->foreignId('user_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
             $table->timestamps();
-        });
+        }); 
     }
 
     /**

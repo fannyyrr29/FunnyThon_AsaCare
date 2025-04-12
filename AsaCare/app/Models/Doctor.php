@@ -10,12 +10,13 @@ class Doctor extends Model
     use HasFactory;
 
     protected $fillable = [
-        'name', 'license_number', 'experience_year', 'rating', 'hospital_id', 'user_id'
+        'name', 'license_number', 'experience_year', 'rating', 'hospital_id', 'user_id', 'specialization_id'
     ];
 
     protected $casts = [
         'experience_year' => 'integer',
         'rating' => 'double', 
+        'specialization_id' => 'integer',
         'hospital_id' => 'integer', 
         'user_id' => 'integer'
     ];
@@ -29,15 +30,16 @@ class Doctor extends Model
         return $this->belongsTo(Hospital::class, 'hospital_id');
     }
 
-    public function specializations()
+    public function specialization()
     {
-        return $this->belongsToMany(Specialization::class, 'doctor_has_specializations', 'doctor_id', 'specialization_id');
+        return $this->belongsTo(Specialization::class, 'specialization_id');
+        // return $this->belongsToMany(Specialization::class, 'doctor_has_specializations', 'doctor_id', 'specialization_id');
     }
 
 
     public function actions()
     {
-        return $this->belongsToMany(Action::class, 'doctor_has_specializations', 'doctor_id', 'action_id');
+        return $this->belongsToMany(Action::class, 'doctor_has_actions', 'doctor_id', 'action_id');
     }
 
     // public function doctorSpecialization()

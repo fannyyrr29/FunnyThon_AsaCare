@@ -202,6 +202,23 @@ class MedicalRecordController extends Controller
                 'rating' => $request->rating ?? null,
             ]);
     
+            // Hapus medical actions lama
+            MedicalAction::where('medical_record_id', $medicalRecord->id)->delete();
+
+            // Simpan medical actions baru
+            if ($request->has('action_ids')) {
+                foreach ($request->action_ids as $actionId) {
+                    $action = Action::find($actionId);
+                    if (!$action) continue;
+
+                    MedicalAction::create([
+                        'medical_record_id' => $medicalRecord->id,
+                        'action_id' => $action->id,
+                    ]);
+                }
+            }
+
+
             $totalHargaObat = 0;
     
             // Hapus drug_records lama

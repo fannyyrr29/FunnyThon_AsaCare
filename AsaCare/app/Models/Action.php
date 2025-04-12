@@ -21,4 +21,8 @@ class Action extends Model
         return $this->belongsToMany(MedicalRecord::class, 'medical_actions', 'action_id', 'medical_record_id');
     }
 
+    public function doctors(){
+        return $this->belongsToMany(Doctor::class, 'doctor_has_actions', 'action_id', 'doctor_id');
+    }
+
 }

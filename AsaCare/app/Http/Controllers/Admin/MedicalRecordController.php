@@ -7,6 +7,7 @@ use App\Models\Action;
 use App\Models\Doctor;
 use App\Models\Drug;
 use App\Models\DrugRecord;
+use App\Models\MedicalAction;
 use App\Models\MedicalRecord;
 use App\Models\Reminder;
 use App\Models\ReminderTime;
@@ -40,7 +41,7 @@ class MedicalRecordController extends Controller
      */
     public function create()
     {
-        $users = User::all();
+        $users = User::where('role', '=', 'User')->get();
         $doctors = Doctor::all();
         $drugs = Drug::all();           // Untuk dropdown pemilihan obat
         $actions = Action::all();       // Untuk checklist tindakan medis
@@ -60,14 +61,27 @@ class MedicalRecordController extends Controller
 
             // 1. Simpan Medical Record
             $medicalRecord = new MedicalRecord();
-            $medicalRecord->diagnose = $request->diagnose;
-            $medicalRecord->description = $request->description;
+            $medicalRecord->diagnose = $request->diagnosa;
+            $medicalRecord->description = $request->deskripsi;
             $medicalRecord->date = now();
             $medicalRecord->user_id = $request->user_id;
             $medicalRecord->doctor_id = $request->doctor_id;
             $medicalRecord->rating = $request->rating ?? null;
             $medicalRecord->total = 0;
             $medicalRecord->save();
+
+            // Simpan medical actions baru
+            if ($request->has('action_ids')) {
+                foreach ($request->action_ids as $actionId) {
+                    $action = Action::find($actionId);
+                    if (!$action) continue;
+
+                    MedicalAction::create([
+                        'medical_record_id' => $medicalRecord->id,
+                        'action_id' => $action->id,
+                    ]);
+                }
+            }
 
             $totalHargaObat = 0;
 
@@ -115,7 +129,7 @@ class MedicalRecordController extends Controller
                         $tanggal = now()->addDays($i)->toDateString();
                         foreach ($timeMappings[$dose] as $timeId) {
                             ReminderTime::insert([
-                                'reminders_id' => $reminder->id,
+                                'reminder_id' => $reminder->id,
                                 'time_id' => $timeId,
                                 'date' => $tanggal,
                                 'status' => 1,
@@ -131,10 +145,10 @@ class MedicalRecordController extends Controller
             $medicalRecord->save();
 
             DB::commit();
-            return response()->json(['header' => 'SUKSES', 'message' => 'Data rekam medis berhasil disimpan']);
+            return redirect()->route('admin.riwayatKesehatan.index')->with(['header' => 'SUKSES', 'message' => 'Data rekam medis berhasil disimpan']);
         } catch (\Throwable $th) {
             DB::rollBack();
-            return response()->json(['header' => 'GAGAL', 'message' => 'Terjadi kesalahan: ' . $th->getMessage()]);
+            return redirect()->route('admin.riwayatKesehatan.index')->withErrors(['header' => 'GAGAL', 'message' => 'Terjadi kesalahan: ' . $th->getMessage()]);
         }
     }
 
@@ -153,42 +167,64 @@ class MedicalRecordController extends Controller
     public function edit(string $id)
     {
         $medicalRecord = MedicalRecord::with([
+            'reminders.drug',
             'drugRecords.drug',          // Ambil detail obat dari drug_records
             'reminders.reminderTimes',  // Ambil reminder dan waktu-waktunya
             'actions',                  // Kalau kamu punya tindakan medis yang direlasikan
         ])->find($id);
 
         if (!$medicalRecord) {
-            return redirect()->back()->with(['header' => 'GAGAL', 'message' => 'Data rekam medis tidak ditemukan!']);
+            // return redirect()->back()->with(['header' => 'GAGAL', 'message' => 'Data rekam medis tidak ditemukan!']);
+            return response()->json(['header' => 'GAGAL', 'message' => 'Data rekam medis tidak ditemukan!']);
+
         }
 
         // Opsional: bisa juga ambil semua obat, jam, dll jika kamu ingin dropdown di view
         $allDrugs = Drug::all();
         $allTimes = Time::all();
         $allActions = Action::all();
+        $allUsers = User::all();
+        $allDoctors = Doctor::all();
 
-        return view('admins.ubahRiwayatKesehatan', compact('medicalRecord', 'allDrugs', 'allTimes', 'allActions'));
+        // return response()->json(compact('medicalRecord', 'allDrugs', 'allTimes', 'allActions'));
+        return view('admins.ubahRiwayatKesehatan', compact('allDoctors','medicalRecord', 'allDrugs', 'allTimes', 'allActions', 'allUsers'));
     }
+
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, string $id)
     {
         try {
             DB::beginTransaction();
-    
             $medicalRecord = MedicalRecord::findOrFail($id);
     
             // Update medical record
             $medicalRecord->update([
-                'diagnose' => $request->diagnose,
-                'description' => $request->description,
+                'diagnose' => $request->diagnosa,
+                'description' => $request->deskripsi,
                 'date' => now(),
                 'user_id' => $request->user_id,
-                'doctor_id' => $request->doctor_id,
+                'doctor_id' =>  $request->doctor_id,
                 'rating' => $request->rating ?? null,
             ]);
+
+            // Hapus medical actions lama
+            MedicalAction::where('medical_record_id', $medicalRecord->id)->delete();
+
+            // Simpan medical actions baru
+            if ($request->has('action_ids')) {
+                foreach ($request->action_ids as $actionId) {
+                    $action = Action::find($actionId);
+                    if (!$action) continue;
+
+                    MedicalAction::create([
+                        'medical_record_id' => $medicalRecord->id,
+                        'action_id' => $action->id,
+                    ]);
+                }
+            }
     
             $totalHargaObat = 0;
     
@@ -258,13 +294,13 @@ class MedicalRecordController extends Controller
             $medicalRecord->update(['total' => $totalHargaObat]);
     
             DB::commit();
-            return response()->json([
+            return redirect()->route('admin.riwayatKesehatan.index')->with([
                 'header' => 'SUKSES',
                 'message' => 'Data rekam medis berhasil diperbarui.'
             ]);
         } catch (\Throwable $th) {
             DB::rollBack();
-            return response()->json([
+            return redirect()->route('admin.riwayatKesehatan.edit', $medicalRecord->id)->withErrors([
                 'header' => 'GAGAL',
                 'message' => 'Terjadi kesalahan: ' . $th->getMessage(),
             ]);
@@ -306,10 +342,12 @@ class MedicalRecordController extends Controller
 
             DB::commit();
 
-            return response()->json(['header' => 'SUKSES', 'message' => 'Data rekam medis beserta relasinya berhasil dihapus!']);
+            // return response()->json(['header' => 'SUKSES', 'message' => 'Data rekam medis beserta relasinya berhasil dihapus!']);
+            return redirect()->route('admin.riwayatKesehatan.index')->with(['header' => 'SUKSES', 'message' => 'Data rekam medis beserta relasinya berhasil dihapus!']);
         } catch (\Throwable $th) {
             DB::rollBack();
-            return response()->json(['header' => 'GAGAL', 'message' => 'Data rekam medis tidak dapat dihapus! ' . $th->getMessage()]);
+            // return response()->json(['header' => 'GAGAL', 'message' => 'Data rekam medis tidak dapat dihapus! ' . $th->getMessage()]);   
+            return redirect()->route('admin.riwayatKesehatan.index')->with(['header' => 'GAGAL', 'message' => 'Data rekam medis tidak dapat dihapus! ' . $th->getMessage()]);
         }
     }
 

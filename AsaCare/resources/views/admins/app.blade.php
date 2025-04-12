@@ -41,6 +41,9 @@
         integrity="sha256-+uGLJmmTKOqBr+2E6KDYs/NRsHxSkONXFHUL0fy2O/4=" crossorigin="anonymous" />
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+
+    @yield('style')
 </head>
 <!--end::Head-->
 <!--begin::Body-->
@@ -58,6 +61,11 @@
                         <a class="nav-link" data-lte-toggle="sidebar" href="#" role="button">
                             <i class="bi bi-list"></i>
                         </a>
+                    </li>
+                    <li>
+                        <form action="{{ route('logout') }}" method="get">
+                            <button type="submit" class="btn btn-success">LOGOUT</button>
+                        </form>
                     </li>
                 </ul>
                 <!--end::Start Navbar Links-->
@@ -266,6 +274,9 @@
         );
         sales_chart.render();
     </script>
+    {{-- jquery --}}
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
     <!-- jsvectormap -->
     <script src="https://cdn.jsdelivr.net/npm/jsvectormap@1.5.3/dist/js/jsvectormap.min.js"
         integrity="sha256-/t1nN2956BT869E6H4V1dnt0X5pAQHPytli+1nTZm2Y=" crossorigin="anonymous"></script>
@@ -391,6 +402,8 @@
             console.error("Service workers are not supported.");
         }
     </script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    @yield('script')
     <!--end::Script-->
 </body>
 <!--end::Body-->
