@@ -10,11 +10,13 @@ use Illuminate\Support\Facades\Auth;
 
 class MessageController extends Controller
 {
-    public function index($consultation_id)
+    public function index(Request $request)
     {
+        $consultation_id = $request->input('consultation_id');
+        $user_name = $request->input('user_name');
         $messages = Message::with(['sender'])->get();
         if($messages){
-            return view('doctors.chat', compact('messages', 'consultation_id'));
+            return view('doctors.chat', compact('messages', 'consultation_id', 'user_name'));
             // return response()->json($messages);
         }
         return view('doctors.chat');

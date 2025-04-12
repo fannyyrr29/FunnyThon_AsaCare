@@ -101,9 +101,10 @@ Route::middleware(['auth', 'role:Admin'])->prefix('admin')->group(function () {
 Route::middleware(['auth', 'role:Dokter'])->prefix('doctor')->group(function () {
     Route::get('/', [DasboardController::class, 'index'])->name('doctor.index');
     Route::resource('medicalRecord', DoctorMedicalRecordController::class);
-    Route::resource('consultation', ConsultationController::class)->names('doctor.consultation');
+    Route::resource('consultation', ConsultationController::class);
 
-    Route::post('/message/{consultation_id}', [MessageController::class, 'index'])->name('doctor.message');
+    Route::post('/message', [MessageController::class, 'index'])->name('doctor.message');
+
 });
 
 Route::post('/message/broadcast', [MessageController::class, 'broadcast']);
