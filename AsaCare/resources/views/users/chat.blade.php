@@ -78,10 +78,10 @@
 
                     <!-- Header -->
                     <div class="chat-header d-flex align-items-center">
-                        <a href="{{route('consultation.index')}}" class="me-3 fs-4 text-decoration-none text-dark">
+                        <a href="{{route('user.home')}}" class="me-3 fs-4 text-decoration-none text-dark">
                             <span class="glyphicon glyphicon-chevron-left"></span>
                         </a>
-                        <h5 class="mb-0 fw-bold">{{ $user_name }}</h5>
+                        <h5 class="mb-0 fw-bold">{{ $doctor_name }}</h5>
                     </div>
 
                     <!-- Messages -->
@@ -126,7 +126,7 @@
                     <form action="" method="POST">
                         <div class="chat-input d-flex align-items-center gap-2">
 
-                            <input type="hidden" name="user_name" id="user_name" value="{{ $user_name }}">
+                            <input type="hidden" name="doctor_name" id="doctor_name" value="{{ $doctor_name }}">
                             <input type="hidden" name="consultation_id" id="consultation_id" value="{{ $consultation_id }}">
                             <input type="hidden" name="sender_id" id="sender_id" value="{{ Auth::id() }}">
                             <input type="text" class="form-control" name="message" id="message"
@@ -155,7 +155,7 @@
 
         // Receive messages
         channel.bind('chat', function(data) {
-            $.post('/message/receive', {
+            $.post('/message/user/receive', {
                 _token: '{{ csrf_token() }}',
                 consultation_id: data.consultation_id,
                 message: data.message,
@@ -177,7 +177,7 @@
             event.preventDefault();
 
             $.ajax({
-                url: "/message/broadcast",
+                url: "/message/user/broadcast",
                 method: 'POST',
                 headers: {
                     'X-Socket-Id': pusher.connection.socket_id

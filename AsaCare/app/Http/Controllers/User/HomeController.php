@@ -74,7 +74,7 @@ class HomeController extends Controller
         $user->name = $request->nama;
         $user->gender = $request->gender;
         $user->birthdate = $request->tanggal_lahir;
-        $user->phone_number = $request->phone;
+        $user->phone_number = "0".$request->phone;
         $user->address = $request->alamat;
 
         if ($user->save()) {
@@ -152,7 +152,8 @@ class HomeController extends Controller
                 // return response()->json(['message' => "Obat tidak ditemukan!"], 404);
             }
         }
-        return view('users.riwayat', compact('medicalRecords', 'doctors', 'drugs'));
+        // return view('users.riwayat', compact('medicalRecords', 'doctors', 'drugs'));
+        return response()->json(compact('medicalRecords', 'doctors', 'drugs'));
     }
 
     public function showDrug()
@@ -247,5 +248,13 @@ class HomeController extends Controller
         // return response()->json(compact('families'));
 
         return view('users.family', compact('families'));
+    }
+
+    public function showDoctor()
+    {
+        $doctors = User::with(['doctor.specialization'])->where('role', 'Dokter')->get();
+
+        return view('users.pilihDokter', compact('doctors'));
+        // return response()->json(compact('doctors'));
     }
 }

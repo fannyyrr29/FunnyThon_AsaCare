@@ -19,6 +19,7 @@ use App\Http\Controllers\User\InviteController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PusherController;
 use App\Http\Controllers\User\DrugController;
+use App\Http\Controllers\User\MessageController as UserMessageController;
 use App\Http\Controllers\User\ReminderController;
 use Pusher\Pusher;
 
@@ -62,6 +63,11 @@ Route::middleware(['auth', 'role:User'])->prefix('user')->group(function () {
     Route::get('/obat', [HomeController::class, 'showDrug'])->name('user.drug');
     //Untuk menampilkan layanan
     Route::get('/layanan', [HomeController::class, 'showAction'])->name('user.layanan');
+
+    Route::get('/pilihDokter', [HomeController::class, 'showDoctor'])->name('user.pilihDokter');
+
+    Route::post('/message', [UserMessageController::class, 'index'])->name('user.message');
+    
     //untuk input kondisi
     Route::post('/addMood', [HomeController::class, 'addMood'])->name('user.mood');
     //Untuk menampilkan teman
@@ -92,6 +98,8 @@ Route::middleware(['auth', 'role:User'])->prefix('user')->group(function () {
     //untuk update status reminder
     Route::post('/update', [ReminderController::class, 'updateStatus'])->name('user.updateReminder');
 });
+Route::post('/message/user/broadcast', [UserMessageController::class, 'broadcast']);
+Route::post('/message/user/receive', [UserMessageController::class, 'receive']);
 
 Route::middleware(['auth', 'role:Admin'])->prefix('admin')->group(function () {
     //untuk show dashboard
@@ -120,6 +128,7 @@ Route::post('/message/receive', [MessageController::class, 'receive']);
 Route::get('/homecare', function () {
     return view('users/home');
 });
+
 
 Route::get('/family', function () {
     return view('users/family');

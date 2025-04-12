@@ -74,7 +74,7 @@
                     <div class="input-group">
                         <span class="input-group-text">+62</span>
                         <input type="tel" class="form-control" id="phone" name="phone"
-                            placeholder="Masukkan nomor telepon" value="{{ $user->phone_number ?? '' }}">
+                            placeholder="Masukkan nomor telepon" value="{{ substr($user->phone_number, 1) ?? '' }}">
                     </div>
                     <small class="text-danger" id="phoneError"></small>
                 </div>
