@@ -20,19 +20,13 @@
                 @csrf
                 @method('PUT')
                 <div class="form-floating mb-3">
-                    <input class="form-control" type="text" name="license_number" value="{{ $doctor->license_number }}"
-                        readonly>
+                    <input class="form-control" type="text" name="license_number" value="{{ $doctor->license_number }}">
                     <label class="form-label" for="">Nomor Lisensi</label>
                 </div>
 
                 <div class="form-floating mb-3">
                     <input type="text" name="name" id="name" class="form-control" value="{{ $doctor->name }}">
                     <label class="form-label" for="name">Nama</label>
-                </div>
-                <div class="form-floating mb-3">
-                    <input type="text" name="license_number" id="license_number" class="form-control"
-                        value="{{ $doctor->license_number }}">
-                    <label class="form-label" for="license_number">Nomor Lisensi</label>
                 </div>
                 <div class="form-floating mb-3">
                     <input type="text" name="rating" id="rating" class="form-control" value="{{ $doctor->rating }}"
@@ -45,11 +39,22 @@
                     <label class="form-label" for="experience_year">Pengalaman (Tahun)</label>
                 </div>
                 <div class="form-floating mb-3">
-                    <select class="form-select" name="hospital_id" id="hospital">
+                    <select class="form-select" name="specialization_id" id="specialization">
                         @foreach ($specializations as $specialization)
                             <option value="{{ $specialization->id }}"
                                 {{ $doctor->specialization->id == $specialization->id ? 'selected' : '' }}>
                                 {{ $specialization->name }}
+                            </option>
+                        @endforeach
+                    </select>
+                    <label class="form-label" for="specialization">Spesialisasi</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <select class="form-select" name="hospital_id" id="hospital">
+                        @foreach ($hospitals as $hospital)
+                            <option value="{{ $hospital->id }}"
+                                {{ $doctor->hospital->id == $hospital->id ? 'selected' : '' }}>
+                                {{ $hospital->name }}
                             </option>
                         @endforeach
                     </select>

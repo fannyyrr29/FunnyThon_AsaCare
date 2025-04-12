@@ -5,6 +5,9 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 
 class UserController extends Controller
 {
@@ -22,7 +25,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view('admins.membuatUser');
+        return view('admins.tambahUser');
     }
 
     /**
@@ -39,18 +42,34 @@ class UserController extends Controller
             $user->role = $request->role;
             $user->gender = $request->gender;
             $user->birthdate = $request->birthdate;
-            $user->profile = $request->profile;
             $user->email = $request->email;
             $user->password = $request->password;
             $user->created_at = now();
-            if ($user->save()) {
-                return redirect()->route('admin.user.index')->with(['header'=> 'SUKSES', 'message' => 'Data berhasil ditambahkan!']);
-            }
-            
-        } catch (\Throwable $th) {
-            return redirect()->back()->withInput()->withErrors(['header'=> 'GAGAL', 'message' => 'Data tidak dapat ditambahkan! ' . $th]);
-        } 
 
+            // Proses upload profile (jika ada)
+            if ($request->hasFile('profile')) {
+                $file = $request->file('profile');
+                $filename = Str::slug($request->name) . '_' . time() . '.' . $file->getClientOriginalExtension();
+
+                $destination = public_path('assets/images/profile');
+
+                $file->move($destination, $filename);
+                $user->profile = $filename;
+            }
+
+            if ($user->save()) {
+                return redirect()->route('admin.user.index')->with([
+                    'header' => 'SUKSES',
+                    'message' => 'Data berhasil ditambahkan!'
+                ]);
+            }
+
+        } catch (\Throwable $th) {
+            return redirect()->route('admin.user.create')->withInput()->withErrors([
+                'header' => 'GAGAL',
+                'message' => 'Data tidak dapat ditambahkan! ' . $th->getMessage()
+            ]);
+        }
     }
 
     /**
@@ -77,6 +96,21 @@ class UserController extends Controller
     {
         try {
             $user = User::find($id);
+
+            if (!$user) {
+                return redirect()->route('admin.user.edit', $id)->withErrors([
+                    'header' => 'GAGAL',
+                    'message' => 'User tidak ditemukan!'
+                ]);
+            }
+
+            // Validasi dasar
+            $request->validate([
+                'nik' => 'required',
+                'name' => 'required',
+                'email' => 'required|email',
+            ]);
+
             $user->NIK = $request->nik;
             $user->name = $request->name;
             $user->phone_number = $request->phone_number;
@@ -84,23 +118,43 @@ class UserController extends Controller
             $user->role = $request->role;
             $user->gender = $request->gender;
             $user->birthdate = $request->birthdate;
-            $user->profile = $request->profile;
             $user->email = $request->email;
-            $user->password = $request->password;
             $user->updated_at = now();
-        if ($user->save()) {
-            // return response()->json(['header'=> 'SUKSES', 'message' => 'Data berhasil diubah!']);
-            return redirect()->route('admin.user.index')->with(['header'=> 'SUKSES', 'message' => 'Data berhasil ditambahkan!']);
-        }
+
+            if ($request->filled('password')) {
+                $user->password = Hash::make($request->password);
+            }else{
+                $user->password = $request->old_password;
+            }
+
+            if ($request->hasFile('profile')) {
+                $file = $request->file('profile');
+                $filename = Str::slug($request->name) . '_' . time() . '.' . $file->getClientOriginalExtension();
+
+                $destination = public_path('assets/images/profile');
+
+                if ($user->profile && File::exists($destination . '/' . $user->profile)) {
+                    File::delete($destination . '/' . $user->profile);
+                }
+
+                $file->move($destination, $filename);
+                $user->profile = $filename;
+            }
+
+            if ($user->save()) {
+                return redirect()->route('admin.user.index')->with([
+                    'header' => 'SUKSES',
+                    'message' => 'Data berhasil diubah!'
+                ]);
+            }
+
         } catch (\Throwable $th) {
-            // return response()->json(['header'=> 'GAGAL', 'message' => 'Data tidak dapat diubah! ' . $th->getMessage()]);
-
-            return redirect()->back()->withInput()->withErrors(['header'=> 'GAGAL', 'message' => 'Data tidak dapat ditambahkan! ' . $th->getMessage()]);
+            return redirect()->route('admin.user.edit', $id)->withInput()->withErrors([
+                'header' => 'GAGAL',
+                'message' => 'Data tidak dapat diubah! ' . $th->getMessage()
+            ]);
         }
-        
-
     }
-
     /**
      * Remove the specified resource from storage.
      */

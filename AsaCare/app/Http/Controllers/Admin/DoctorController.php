@@ -7,6 +7,7 @@ use App\Models\Action;
 use App\Models\Doctor;
 use App\Models\DoctorAction;
 use App\Models\Hospital;
+use App\Models\MedicalRecord;
 use App\Models\Specialization;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -109,6 +110,7 @@ class DoctorController extends Controller
         $doctor = Doctor::with('specialization', 'actions')->findOrFail($id);
         $actions = Action::all();
         $specializations = Specialization::all();
+        $hospitals = Hospital::all();
         // Ambil spesialisasi (ambil dari satu baris pertama, karena satu dokter hanya punya 1 spesialisasi)
         // $specialization = $doctor->doctorSpecializations->first()->specialization ?? null;
 
@@ -116,7 +118,7 @@ class DoctorController extends Controller
         // $actions = $doctor->doctorSpecializations->pluck('action')->unique('id');
 
         // return response()->json(compact('doctor', 'actions', 'specializations'));
-        return view('admins.ubahDokter', compact('doctor', 'actions', 'specializations'));
+        return view('admins.ubahDokter', compact('doctor', 'actions', 'specializations', 'hospitals'));
     }
 
     /**
