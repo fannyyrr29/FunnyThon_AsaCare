@@ -15,6 +15,15 @@ class DrugController extends Controller
         return view('users.checkout', compact('chartArray'));
     }
 
+    public function index(){
+        $drugs = Drug::all();
+        return view('users.tokoObat', compact('drugs'));
+    }
+
+    public function showTokoObat(){
+        return view('users.transaksi');
+    }
+
     public function order(Request $request)
     {
         $validatedData = $request->validate([
