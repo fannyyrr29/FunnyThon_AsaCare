@@ -4,6 +4,15 @@
 
 @section('content')
     <div class="container mt-3">
+        @if (session('header'))
+            <div class="alert alert-success">
+                <p><strong>{{ session('header') }}</strong> {{ session('message') }}</p>
+            </div>
+        @elseif ($errors->has('header') && $errors->has('message'))
+            <div class="alert alert-danger">
+                <p><strong>{{ $errors->first('header') }}</strong> {{ $errors->first('message') }}</p>
+            </div>
+        @endif
         <div class="card">
             <h2 class="text-center mt-3">Tambah Rumah Sakit</h2>
             <div class="card-body">

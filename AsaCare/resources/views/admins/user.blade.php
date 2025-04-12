@@ -82,7 +82,8 @@
                                                 </td>
                                                 <td>
                                                     <form class="formHapusSpesialisasi" method="POST"
-                                                        action="{{ route('admin.user.destroy', $user->id) }}">
+                                                        action="{{ route('admin.user.destroy', $user->id) }}"
+                                                        onsubmit="return confirm('Apakah Anda yakin ingin menghapus pengguna ini?');">
                                                         @csrf
                                                         @method('DELETE')
                                                         <button type="submit" class="btn btn-danger">

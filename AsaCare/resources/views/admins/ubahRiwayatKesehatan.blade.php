@@ -5,9 +5,13 @@
 
 @section('content')
     <div class="container-fluid">
-        @if ($errors->any())
-            <div class="alert alert-danger mt-3">
-                <p><strong>{{ $session['header'] }}</strong> {{ $session['message'] }}</p>
+        @if (session('header'))
+            <div class="alert alert-success">
+                <p><strong>{{ session('header') }}</strong> {{ session('message') }}</p>
+            </div>
+        @elseif ($errors->has('header') && $errors->has('message'))
+            <div class="alert alert-danger">
+                <p><strong>{{ $errors->first('header') }}</strong> {{ $errors->first('message') }}</p>
             </div>
         @endif
 

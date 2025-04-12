@@ -20,7 +20,7 @@
         <div class="app-content-header">
             <!--begin::Container-->
             <div class="container-fluid">
-                <h3 class="mb-0">Spesialisasi Dokter</h3>
+                <h3 class="mb-0">Obat</h3>
             </div>
             <!--end::Container-->
         </div>
@@ -29,8 +29,7 @@
         <div class="app-content">
             <!--begin::Container-->
             <div class="container-fluid">
-                <form class="d-flex justify-content-end mb-3" action="{{ route('admin.spesialisasi.create') }}"
-                    method="get">
+                <form class="d-flex justify-content-end mb-3" action="{{ route('admin.obat.create') }}" method="get">
                     <button class="btn btn-primary" type="submit"><i class="fa fa-plus" aria-hidden="true"></i>
                         &nbsp;TAMBAH</button>
                 </form>
@@ -38,23 +37,33 @@
                     <tr>
                         <th>Id</th>
                         <th>Nama</th>
+                        <th>Harga</th>
+                        <th>Quantity</th>
+                        <th>Dosis</th>
+                        <th>Tipe</th>
+                        <th>Periode</th>
                         <th>Ubah</th>
                         <th>Hapus</th>
                     </tr>
-                    @foreach ($specializations as $specialization)
+                    @foreach ($drugs as $drug)
                         <tr>
-                            <td>{{ $specialization->id }}</td>
-                            <td>{{ $specialization->name }}</td>
+                            <td>{{ $drug->id }}</td>
+                            <td>{{ $drug->name }}</td>
+                            <td>{{ $drug->price }}</td>
+                            <td>{{ $drug->quantity }}</td>
+                            <td>{{ $drug->dosis }}</td>
+                            <td>{{ $drug->type }}</td>
+                            <td>{{ $drug->periode }}</td>
                             <td>
                                 <form class="formEditSpesialisasi" method="GET"
-                                    action="{{ route('admin.spesialisasi.edit', $specialization->id) }}">
+                                    action="{{ route('admin.obat.edit', $drug->id) }}">
                                     <button class="btn btn-warning"><i class="fa fa-edit"></i></button>
                                 </form>
                             </td>
                             <td>
                                 <form class="formHapusSpesialisasi" method="POST"
-                                    action="{{ route('admin.spesialisasi.destroy', $specialization->id) }}"
-                                    onsubmit="return confirm('Apakah Anda yakin ingin menghapus spesialisasi ini?');">
+                                    action="{{ route('admin.obat.destroy', $drug->id) }}"
+                                    onsubmit="return confirm('Apakah Anda yakin ingin menghapus obat ini?');">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="btn btn-danger">

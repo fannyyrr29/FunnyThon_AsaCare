@@ -3,16 +3,15 @@
 @section('title', 'Tambah Dokter')
 
 @section('content')
-    @if ($errors->any())
-        <div class="alert alert-danger mt-3">
-            <ul class="mb-0">
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
+    @if (session('header'))
+        <div class="alert alert-success">
+            <p><strong>{{ session('header') }}</strong> {{ session('message') }}</p>
+        </div>
+    @elseif ($errors->has('header') && $errors->has('message'))
+        <div class="alert alert-danger">
+            <p><strong>{{ $errors->first('header') }}</strong> {{ $errors->first('message') }}</p>
         </div>
     @endif
-
     <div class="card mt-3">
         <h2 class="text-center mt-3">Tambah Dokter</h2>
         <div class="card-body">

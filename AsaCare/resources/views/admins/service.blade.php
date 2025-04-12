@@ -78,9 +78,10 @@
                                                 </td>
                                                 <td>
                                                     <form action="{{ route('admin.layanan.destroy', $action->id) }}"
-                                                        method="post">@csrf @method('DELETE') <button
-                                                            class="btn btn-danger" type="submit"><i
-                                                                class="fa fa-trash"></i></button>
+                                                        method="post"
+                                                        onsubmit="return confirm('Apakah Anda yakin ingin menghapus layanan ini?');">
+                                                        @csrf @method('DELETE') <button class="btn btn-danger"
+                                                            type="submit"><i class="fa fa-trash"></i></button>
                                                     </form>
                                                 </td>
                                             </tr>

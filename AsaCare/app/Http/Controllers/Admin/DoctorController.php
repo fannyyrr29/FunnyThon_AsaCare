@@ -148,6 +148,7 @@ class DoctorController extends Controller
             $doctor->experience_year = $request->experience_year;
             $doctor->rating = $request->rating;
             $doctor->hospital_id = $request->hospital_id;
+            $doctor->specialization_id = $request->specialization_id;
 
             if ($doctor->save()) {
                 // Hapus relasi lama dulu
