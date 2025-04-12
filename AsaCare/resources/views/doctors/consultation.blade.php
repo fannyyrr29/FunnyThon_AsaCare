@@ -84,53 +84,48 @@
                 <div class="chat-container">
                     <!-- Header -->
                     <div class="chat-header">
-                        <input type="search" class="form-control" placeholder="Cari kontak..." />
+                        <input type="search" class="form-control" id="searchInput" placeholder="Cari kontak..." />
                     </div>
 
                     <!-- Body chat list -->
                     <div class="chat-body">
                         <!-- Contoh chat -->
                         @foreach ($consultations as $consultation)
-                            <form action="{{ route('doctor.message', $consultation->id) }}" method="post">
+                            <form action="{{ route('doctor.message') }}" method="POST">
                                 @csrf
+                                <input type="hidden" name="consultation_id" value="{{ $consultation->id }}">
+                                <input type="hidden" name="user_name" value="{{ $consultation->user->name }}">
                                 <button type="submit" style="all: unset; cursor: pointer; width: 100%;">
                                     <div class="chat-item">
                                         <img src="assets/images/{{ $consultation->user->profile }}" alt="Avatar" />
                                         <div class="chat-info">
-                                            <h6>{{ $consultation->user->name }}</h6>
+                                            <h6 class="chat-name">{{ $consultation->user->name }}</h6>
                                         </div>
                                     </div>
                                 </button>
                             </form>
                         @endforeach
-
-                        {{-- <a href="{{ url('/konsultasi/1') }}">
-                            <div class="chat-item">
-                                <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava1-bg.webp"
-                                    alt="Avatar" />
-                                <div class="chat-info">
-                                    <h6>John Doe</h6>
-                                    <p>Hello, are you there?</p>
-                                </div>
-                            </div>
-                        </a>
-                        <a href="{{ url('/konsultasi/2') }}">
-                            <div class="chat-item">
-                                <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava1-bg.webp"
-                                    alt="Avatar" />
-                                <div class="chat-info">
-                                    <h6>John Doe</h6>
-                                    <p>Hello, are you there?</p>
-                                </div>
-                            </div>
-                        </a> --}}
-
-                        <!-- Tambah item lainnya -->
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
+    <script>
+        document.getElementById('searchInput').addEventListener('input', function() {
+            const searchTerm = this.value.toLowerCase();
+            const chatItems = document.querySelectorAll('.chat-item');
+
+            chatItems.forEach(function(item) {
+                const name = item.querySelector('.chat-name').textContent.toLowerCase();
+                if (name.includes(searchTerm)) {
+                    item.closest('form').style.display = ''; // tampilkan
+                } else {
+                    item.closest('form').style.display = 'none'; // sembunyikan
+                }
+            });
+        });
+    </script>
 </body>
 
 </html>

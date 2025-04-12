@@ -12,9 +12,10 @@ class ConsultationController extends Controller
     public function index()
     {
         $consultations = Consultation::where('doctor_id', Auth::id())->with('user')->get();
-        if($consultations){
-            return view('doctors.consultation', compact('consultations'));
-        }
-        return redirect()->back()->withErrors(['header' => "GAGAL", 'message' => "Tidak dapat menampilkan consultation!"]);
+        return view('doctors.consultation', compact('consultations'));
+        // if($consultations){
+        //     return view('doctors.consultation', compact('consultations'));
+        // }
+        // return redirect()->back()->withErrors(['header' => "GAGAL", 'message' => "Tidak dapat menampilkan consultation!"]);
     }
 }

@@ -43,7 +43,31 @@
     </ul>
 
     <div class="tab-content mt-3" id="myTabContent">
-        <div class="tab-pane fade show active" id="pending" role="tabpanel" aria-labelledby="pending-tab">
+        @foreach ($families as $family)
+            @if ($family->status==1)
+                <div class="tab-pane fade" id="approved" role="tabpanel" aria-labelledby="approved-tab">
+                    <div class="profile-card d-flex align-items-center">
+                        <img src="{{'/assets/images/'. $family->sender_id == Auth::id() ? $family->receiver->profile : $family->sender->profile}}"
+                            alt="Profile" class="rounded-circle" width="60" height="60">
+                        <div class="ms-3">
+                            <h5 class="mb-1"><strong style="color:#A6192E;">{{ $family->sender_id == Auth::id() ? $family->receiver->name : $family->sender->name }}</strong></h5>
+                            <p class="mb-0 text-muted"><i class="fas fa-map-marker-alt"></i> {{ $family->sender_id == Auth::id() ? $family->receiver->address : $family->sender->address }}</p>
+                        </div>
+                    </div>
+                </div>
+            @else
+                <div class="tab-pane fade show active" id="pending" role="tabpanel" aria-labelledby="pending-tab">
+                    <div class="profile-card">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <!-- data akun yang direquest -->
+                            <p class="mb-0">{{ $family->sender_id == Auth::id() ? $family->receiver->email : $family->sender->email }}</p>
+                            <a class="btn custom-btn" href="#">Hapus</a>
+                        </div>
+                    </div>
+                </div>
+            @endif
+        @endforeach
+        {{-- <div class="tab-pane fade show active" id="pending" role="tabpanel" aria-labelledby="pending-tab">
             <div class="profile-card">
                 <div class="d-flex justify-content-between align-items-center">
                     <!-- data akun yang direquest -->
@@ -62,7 +86,7 @@
                     <p class="mb-0 text-muted"><i class="fas fa-map-marker-alt"></i> Jalan Merdeka No. 123</p>
                 </div>
             </div>
-        </div>
+        </div> --}}
     </div>
 
     <div class="add-button position-fixed bottom-0 end-0 m-3 bg-danger text-white rounded-circle d-flex justify-content-center align-items-center"

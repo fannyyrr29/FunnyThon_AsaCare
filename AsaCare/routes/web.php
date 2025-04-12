@@ -64,6 +64,10 @@ Route::middleware(['auth', 'role:User'])->prefix('user')->group(function () {
     Route::get('/layanan', [HomeController::class, 'showAction'])->name('user.layanan');
     //untuk input kondisi
     Route::post('/addMood', [HomeController::class, 'addMood'])->name('user.mood');
+
+    Route::get('/family', [HomeController::class, 'showFamily'])->name('user.family');
+
+
     //untuk cari teman
     Route::post('/findFriend', [InviteController::class, 'searchFriend'])->name('user.search');
     //untuk accept pertemanan 
@@ -101,9 +105,10 @@ Route::middleware(['auth', 'role:Admin'])->prefix('admin')->group(function () {
 Route::middleware(['auth', 'role:Dokter'])->prefix('doctor')->group(function () {
     Route::get('/', [DasboardController::class, 'index'])->name('doctor.index');
     Route::resource('medicalRecord', DoctorMedicalRecordController::class);
-    Route::resource('consultation', ConsultationController::class)->names('doctor.consultation');
+    Route::resource('consultation', ConsultationController::class);
 
-    Route::post('/message/{consultation_id}', [MessageController::class, 'index'])->name('doctor.message');
+    Route::post('/message', [MessageController::class, 'index'])->name('doctor.message');
+
 });
 
 Route::post('/message/broadcast', [MessageController::class, 'broadcast']);
@@ -114,9 +119,9 @@ Route::get('/homecare', function () {
     return view('users/home');
 });
 
-Route::get('/family', function () {
-    return view('users/family');
-});
+// Route::get('/family', function () {
+//     return view('users/family');
+// });
 
 Route::get('/reminderObat', function () {
     return view('users/reminderObat');

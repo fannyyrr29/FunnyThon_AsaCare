@@ -7,12 +7,14 @@
 @section('content')
     <!-- Kartu Profil -->
     <div class="profile-card d-flex align-items-center">
-        <img src="https://media-cdn.tripadvisor.com/media/photo-s/19/85/23/30/my-grandma-on-a-trip.jpg" alt="Profile">
+        <img src="{{ '/assets/images/' . Auth::user()->profile }}" alt="Profile">
         <div class="ms-3 w-100">
             <div class="d-flex justify-content-between align-items-start">
                 <div>
-                    <h5 class="mb-1">Halo, <strong style="color:#A6192E;">Sri Haryati</strong></h5>
-                    <p class="mb-0 text-muted"><i class="fas fa-map-marker-alt"></i> Jalan Merdeka No. 123</p>
+                    <h5 class="mb-1">Halo, <strong
+                            style="color:#A6192E;">{{ Auth::user()->name ?? Auth::user()->email }}</strong></h5>
+                    <p class="mb-0 text-muted"><i class="fas fa-map-marker-alt"></i>
+                        {{ Auth::user()->address ?? 'Tentukan alamat' }} </p>
                 </div>
                 <a href="{{ route('user.showProfile') }}" class="btn-red-general">
                     <i class="fas fa-edit"></i> Edit Profil
@@ -31,29 +33,37 @@
     <h6 class="text-center mt-4">Silahkan pilih salah satu opsi di bawah ini!</h6>
     <div class="container mt-2">
         <div class="row text-center g-3">
-            <div class="col-md-4 col-6">
-                <button class="btn-red w-100">
-                    <img class="bg-red img-fluid" src="{{ asset('assets/images/home.png') }}" alt="...">
-                    <br>Layanan Rumah
-                </button>
+            <div class="col-md-6 col-6">
+                <a href="{{ route('user.layanan') }}" class="text-reset text-decoration-none">
+                    <button class="btn-red w-100">
+                        <img class="bg-red img-fluid" src="{{ asset('assets/images/home.png') }}" alt="...">
+                        <br>Layanan Rumah
+                    </button>
+                </a>
             </div>
-            <div class="col-md-4 col-6">
-                <button class="btn-red w-100">
-                    <img class="bg-red img-fluid" src="{{ asset('assets/images/obat.png') }}" alt="...">
-                    <br>Obat-obatan
-                </button>
+            <div class="col-md-6 col-6">
+                <a href="{{ route('user.drug') }}" class="text-reset text-decoration-none">
+                    <button class="btn-red w-100">
+                        <img class="bg-red img-fluid" src="{{ asset('assets/images/obat.png') }}" alt="...">
+                        <br>Obat-obatan
+                    </button>
+                </a>
             </div>
-            <div class="col-md-4 col-6">
-                <button class="btn-red w-100">
-                    <img class="bg-red img-fluid" src="{{ asset('assets/images/family.png') }}" alt="...">
-                    <br>Keluarga
-                </button>
+            <div class="col-md-6 col-6">
+                <a href="{{ route('user.family') }}" class="text-reset text-decoration-none">
+                    <button class="btn-red w-100">
+                        <img class="bg-red img-fluid" src="{{ asset('assets/images/family.png') }}" alt="...">
+                        <br>Keluarga
+                    </button>
+                </a>
             </div>
-            <div class="col-md-4 col-6">
-                <button class="btn-red w-100">
-                    <img class="bg-red img-fluid" src="{{ asset('assets/images/history.png') }}" alt="...">
-                    <br>Riwayat Medis
-                </button>
+            <div class="col-md-6 col-6">
+                <a href="{{ route('user.medicalrecord', ['id' => Auth::id()]) }}" class="text-reset text-decoration-none">
+                    <button class="btn-red w-100">
+                        <img class="bg-red img-fluid" src="{{ asset('assets/images/history.png') }}" alt="...">
+                        <br>Riwayat Medis
+                    </button>
+                </a>
             </div>
         </div>
         <!-- Bagaimana kabar hari ini -->
@@ -86,7 +96,7 @@
         <div class="add-button" data-bs-toggle="modal" data-bs-target="#searchModal">
             <img src="{{ asset('assets/images/telp.png') }}" class="rounded d-block mx-auto" width="24" alt="...">
         </div>
-@endsection
+    @endsection
 
     @push('scripts')
         <script>

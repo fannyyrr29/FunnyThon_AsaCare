@@ -78,10 +78,10 @@
 
                     <!-- Header -->
                     <div class="chat-header d-flex align-items-center">
-                        <a href="{{url('/listChat')}}" class="me-3 fs-4 text-decoration-none text-dark">
+                        <a href="{{route('consultation.index')}}" class="me-3 fs-4 text-decoration-none text-dark">
                             <span class="glyphicon glyphicon-chevron-left"></span>
                         </a>
-                        <h5 class="mb-0 fw-bold">{{ $consultation_id }}</h5>
+                        <h5 class="mb-0 fw-bold">{{ $user_name }}</h5>
                     </div>
 
                     <!-- Messages -->
