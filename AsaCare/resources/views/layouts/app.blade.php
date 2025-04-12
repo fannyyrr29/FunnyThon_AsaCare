@@ -27,22 +27,23 @@
     <div class="header d-flex align-items-center px-3 py-3" style="background-color: #A2191F; color: white;">
 
         {{-- Logo AsaCare hanya muncul di halaman 'user' --}}
-        @if(Request::is('user'))
-            <a class="navbar-brand d-flex align-items-center text-white text-decoration-none me-auto"
-                href="/user">
-                <img src="{{ asset('assets/images/logo no-text.png') }}" alt="Logo" width="32" height="32" class="me-2">
+        @if (Request::is('user'))
+            <a class="navbar-brand d-flex align-items-center text-white text-decoration-none me-auto" href="/user">
+                <img src="{{ asset('assets/images/logo no-text.png') }}" alt="Logo" width="32" height="32"
+                    class="me-2">
                 <span>AsaCare</span>
             </a>
         @endif
 
         {{-- Tampilkan header_title jika bukan halaman 'user' --}}
-        @if(!Request::is('user'))
-            <img src="{{ asset('assets/images/logo no-text.png') }}" alt="Logo" width="32" height="32" class="me-2">
+        @if (!Request::is('user'))
+            <img src="{{ asset('assets/images/logo no-text.png') }}" alt="Logo" width="32" height="32"
+                class="me-2">
             <h5 class="mb-0 flex-grow-1">@yield('header_title')</h5>
         @endif
 
         {{-- Tombol Logout hanya muncul di halaman 'user' --}}
-        @if(Request::is('user'))
+        @if (Request::is('user'))
             <form class="ms-auto" action="{{ route('logout') }}">
                 <button class="btn btn-outline-light" type="submit">LOGOUT</button>
             </form>
@@ -57,6 +58,8 @@
     {{-- JS --}}
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="{{ asset('/sw.js') }}"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
+        crossorigin="anonymous"></script>
 
     @stack('scripts')
 </body>
