@@ -119,9 +119,9 @@ Route::get('/homecare', function () {
     return view('users/home');
 });
 
-// Route::get('/family', function () {
-//     return view('users/family');
-// });
+Route::get('/', function () {
+    return view('users/pilihDokter');
+});
 
 Route::get('/reminderObat', function () {
     return view('users/reminderObat');
