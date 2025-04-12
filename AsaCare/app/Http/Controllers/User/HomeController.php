@@ -54,6 +54,22 @@ class HomeController extends Controller
             return redirect()->back()->withErrors(['Error' => "Pengguna tidak ditemukan!"]);
         }
 
+        if ($request->hasFile('profile_picture')) {
+            $image = $request->file('profile_picture');
+            $extension = $image->getClientOriginalExtension();
+
+            $fileName = $user->id . '.' . $extension;
+            $destinationPath = public_path('assets/images/');
+
+            if ($user->profile && file_exists($destinationPath . $user->profile)) {
+                unlink($destinationPath . $user->profile);
+            }
+
+            $image->move($destinationPath, $fileName);
+
+            $user->profile = $fileName;
+        }
+
         $user->NIK = $request->nik;
         $user->name = $request->nama;
         $user->gender = $request->gender;
@@ -203,7 +219,7 @@ class HomeController extends Controller
     {
         $families = Family::where(function ($query) {
             $query->where('sender_id', Auth::id())
-            ->orWhere('receiver_id', Auth::id());
+                ->orWhere('receiver_id', Auth::id());
         })->get();
 
         return view('users.family', compact('families'));
