@@ -26,47 +26,109 @@
 @section('header_title', 'Home')
 
 @section('content')
+    @if (session('header'))
+        <div class="alert alert-success">
+            <p><strong>{{ session('header') }}</strong> {{ session('message') }}</p>
+        </div>
+    @elseif ($errors->has('header') && $errors->has('message'))
+        <div class="alert alert-danger">
+            <p><strong>{{ $errors->first('header') }}</strong> {{ $errors->first('message') }}</p>
+        </div>
+    @endif
     <div class="search-bar d-flex align-items-center bg-white p-2 rounded mt-3">
         <input type="text" id="searchInput" class="form-control border-0" placeholder="Cari disini" onkeyup="searchItems()">
         <i class="fas fa-search text-muted ms-2"></i>
     </div>
+    <div id="contact">
+        <ul id="list-search" class="list-group">
+        </ul>
+    </div>
 
     <ul class="nav nav-tabs mt-3" id="myTab" role="tablist">
         <li class="nav-item" role="presentation">
-            <a class="nav-link" id="approved-tab" data-bs-toggle="tab" href="#approved" role="tab" aria-controls="approved"
-                aria-selected="false">Approved</a>
+            <a class="nav-link" id="approved-tab" data-bs-toggle="tab" href="#approved" role="tab"
+                aria-controls="approved" aria-selected="false">Diterima</a>
         </li>
         <li class="nav-item" role="presentation">
             <a class="nav-link active" id="pending-tab" data-bs-toggle="tab" href="#pending" role="tab"
-                aria-controls="pending" aria-selected="true">Pending</a>
+                aria-controls="pending" aria-selected="true">Menunggu</a>
+        </li>
+        <li class="nav-item" role="presentation">
+            <a class="nav-link" id="request-tab" data-bs-toggle="tab" href="#request" role="tab" aria-controls="request"
+                aria-selected="true">Permintaan</a>
         </li>
     </ul>
 
     <div class="tab-content mt-3" id="myTabContent">
-        @foreach ($families as $family)
-            @if ($family->status==1)
-                <div class="tab-pane fade" id="approved" role="tabpanel" aria-labelledby="approved-tab">
-                    <div class="profile-card d-flex align-items-center">
-                        <img src="{{'/assets/images/'. $family->sender_id == Auth::id() ? $family->receiver->profile : $family->sender->profile}}"
-                            alt="Profile" class="rounded-circle" width="60" height="60">
+        @if ($families != [])
+            <div class="tab-pane fade" id="approved" role="tabpanel" aria-labelledby="approved-tab">
+                @foreach ($families as $family)
+                    <div class="profile-card d-flex align-items-center mb-2">
+                        <img alt="Profile" class="rounded-circle" width="60" height="60"
+                            src="{{ asset('assets/images/' . ($family->sender_id == Auth::id() ? $family->receiver->profile : $family->sender->profile)) }}">
                         <div class="ms-3">
-                            <h5 class="mb-1"><strong style="color:#A6192E;">{{ $family->sender_id == Auth::id() ? $family->receiver->name : $family->sender->name }}</strong></h5>
-                            <p class="mb-0 text-muted"><i class="fas fa-map-marker-alt"></i> {{ $family->sender_id == Auth::id() ? $family->receiver->address : $family->sender->address }}</p>
+                            <h5 class="mb-1" style="color:#A6192E;">
+                                {{ $family->sender_id == Auth::id() ? $family->receiver->name : $family->sender->name }}
+                            </h5>
+                            <p class="mb-0 text-muted"><i class="fas fa-map-marker-alt"></i>
+                                {{ $family->sender_id == Auth::id() ? $family->receiver->address : $family->sender->address }}
+                            </p>
                         </div>
                     </div>
-                </div>
-            @else
-                <div class="tab-pane fade show active" id="pending" role="tabpanel" aria-labelledby="pending-tab">
+                @endforeach
+            </div>
+        @endif
+        @if ($pending != [])
+            <div class="tab-pane fade show active" id="pending" role="tabpanel" aria-labelledby="pending-tab">
+                @foreach ($pending as $p)
                     <div class="profile-card">
                         <div class="d-flex justify-content-between align-items-center">
                             <!-- data akun yang direquest -->
-                            <p class="mb-0">{{ $family->sender_id == Auth::id() ? $family->receiver->email : $family->sender->email }}</p>
-                            <a class="btn custom-btn" href="#">Hapus</a>
+                            <div class="mb-0">
+                                <p><strong>{{ $p->name }}</strong></p>
+                                <p>{{ $p->email }}</p>
+                            </div>
+                            <form action="{{ route('user.delete') }}" method="post">
+                                @csrf
+                                <input type="hidden" name="sender_id" value="{{ Auth::id() }}">
+                                <input type="hidden" name="receiver_id" value="{{ $p->id }}">
+                                <button class="btn custom-btn" type="submit">Hapus</button>
+                            </form>
                         </div>
                     </div>
-                </div>
-            @endif
-        @endforeach
+                @endforeach
+            </div>
+        @endif
+        @if ($invitor != [])
+            <div class="tab-pane fade show active" id="request" role="tabpanel" aria-labelledby="pending-tab">
+                @foreach ($invitor as $item)
+                    <div class="profile-card">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <!-- data akun yang direquest -->
+                            <div class="mb-0">
+                                <p><strong>{{ $item->name }}</strong></p>
+                                <p>{{ $item->email }}</p>
+                            </div>
+                            <div class="">
+                                <form action="{{ route('user.accept') }}" method="post">
+                                    @csrf
+                                    <input type="hidden" name="sender_id" value="{{ $item->id }}">
+                                    <input type="hidden" name="receiver_id" value="{{ Auth::id() }}">
+                                    <button class="btn btn-success" type="submit">Tambah</button>
+                                </form>
+                                <form action="{{ route('user.delete') }}" method="post">
+                                    @csrf
+                                    <input type="hidden" name="sender_id" value="{{ $item->id }}">
+                                    <input type="hidden" name="receiver_id" value="{{ Auth::id() }}">
+                                    <button class="btn custom-btn" type="submit">Hapus</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+        @endif
+
         {{-- <div class="tab-pane fade show active" id="pending" role="tabpanel" aria-labelledby="pending-tab">
             <div class="profile-card">
                 <div class="d-flex justify-content-between align-items-center">
@@ -119,40 +181,75 @@
 
 @push('scripts')
     <script>
+        let debounceTimer;
+        document.getElementById('searchInput').addEventListener('keyup', function() {
+            clearTimeout(debounceTimer);
+            debounceTimer = setTimeout(searchItems, 300); // tunggu 300ms setelah ketikan terakhir
+        });
+
         function searchItems() {
             let input = document.getElementById("searchInput").value.toLowerCase();
             let items = document.querySelectorAll(".profile-card");
+            const authId = '{{ Auth::id() }}';
+            $.ajax({
+                type: "post",
+                url: "{{ route('user.search') }}",
+                data: {
+                    _token: '{{ csrf_token() }}',
+                    user_id: '<?php echo Auth::id(); ?>',
+                    email: input
+                },
+                success: function(response) {
+                    $('#list-search').empty();
+                    if (response.users.length === 0) {
+                        $('#list-search').append(`<li class="list-group-item text-muted">Tidak ditemukan</li>`);
+                    } else {
+                        response.users.forEach(element => {
+                            $('#list-search').append(`
+                                <li class="list-group-item d-flex gap-2 justify-content-between align-items-center">
+                                    <div>
+                                        <h6>${element.name}</h6>
+                                        <p>${element.email}</p>
+                                    </div>
+                                    <form action="{{ route('user.add') }}" method="POST" class="d-flex align-items-center gap-1">
+                                        @csrf
+                                        <input type="hidden" name="receiver_id" value="${element.id}">
+                                        <input type="hidden" name="sender_id" value="${authId}">
+                                        <button type="submit" class="btn btn-success btn-sm">Tambah</button>
+                                    </form>
+                                </li>
+                            `);
+                        });
 
-            items.forEach(item => {
-                if (item.textContent.toLowerCase().includes(input)) {
-                    item.style.display = "block";
-                } else {
-                    item.style.display = "none";
+                    }
                 }
             });
+
+            console.log(response.users);
+
+
         }
+        // function sendRequest() {
+        //     let emailInput = document.getElementById("emailInput");
+        //     let emailError = document.getElementById("emailError");
+        //     let email = emailInput.value.trim();
+        //     let isValid = true;
 
-        function sendRequest() {
-            let emailInput = document.getElementById("emailInput");
-            let emailError = document.getElementById("emailError");
-            let email = emailInput.value.trim();
-            let isValid = true;
+        //     emailError.innerText = "";
 
-            emailError.innerText = "";
+        //     if (email === "") {
+        //         emailError.innerText = "Email tidak boleh kosong!";
+        //         isValid = false;
+        //     } else if (!email.includes("@") || !email.includes(".")) {
+        //         emailError.innerText = "Format email tidak valid!";
+        //         isValid = false;
+        //     }
 
-            if (email === "") {
-                emailError.innerText = "Email tidak boleh kosong!";
-                isValid = false;
-            } else if (!email.includes("@") || !email.includes(".")) {
-                emailError.innerText = "Format email tidak valid!";
-                isValid = false;
-            }
-
-            if (isValid) {
-                let modalElement = document.getElementById('searchModal');
-                let modalInstance = bootstrap.Modal.getInstance(modalElement);
-                modalInstance.hide();
-            }
-        }
+        //     if (isValid) {
+        //         let modalElement = document.getElementById('searchModal');
+        //         let modalInstance = bootstrap.Modal.getInstance(modalElement);
+        //         modalInstance.hide();
+        //     }
+        // }
     </script>
 @endpush

@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\DoctorController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Doctor\DasboardController as DoctorDashboardController;
 use App\Http\Controllers\Doctor\MedicalRecordController;
+use App\Http\Controllers\User\InviteController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 /*
@@ -33,5 +34,5 @@ Route::post('/login', [LoginController::class, 'authenticate']);
 // Route::get('/medicalRecord', [DoctorMedicalRecordController::class, 'index']);
 // Route::resource('/dashboard', DoctorDashboardController::class);
 // Route::get('/edit/{id}', [MedicalRecordController::class, 'edit']);
-
+Route::post('/findFriend', [InviteController::class, 'searchFriend']);
 Route::get('/dokter', [DoctorController::class, 'index']);

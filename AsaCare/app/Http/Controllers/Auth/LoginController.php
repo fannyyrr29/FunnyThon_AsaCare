@@ -41,6 +41,9 @@ class LoginController extends Controller
                 case 'Dokter':
                     // return response()->json(compact('user'));
                     return redirect()->route('doctor.index');
+                case 'User':
+                    // return response()->json(compact('user'));
+                    return redirect()->route('user.home');
                 default:
                     # code...
                     return redirect()->route('login')->withInput()->withErrors(['Error' => 'Peran anda tidak ditemukan!']);
