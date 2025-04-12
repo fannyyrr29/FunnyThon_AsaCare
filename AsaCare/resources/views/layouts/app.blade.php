@@ -17,8 +17,8 @@
 
     @stack('styles')
 
-    <link rel="stylesheet" href="assets/css/app.css">
-    <script src="{{ asset('assets/js/app.js') }}"></script>
+    <link rel="stylesheet" href="/assets/css/app.css">
+    <script src="{{ asset('/assets/js/app.js') }}"></script>
 
 </head>
 
@@ -26,22 +26,21 @@
     {{-- HEADER --}}
     <div class="header d-flex align-items-center px-3 py-3" style="background-color: #A2191F; color: white;">
 
-        {{-- Logo AsaCare hanya muncul di halaman 'user' --}}
         @if(Request::is('user'))
-            <a class="navbar-brand d-flex align-items-center text-white text-decoration-none me-auto"
-                href="/user">
+            <a class="navbar-brand d-flex align-items-center text-white text-decoration-none me-auto" href="/user">
                 <img src="{{ asset('assets/images/logo no-text.png') }}" alt="Logo" width="32" height="32" class="me-2">
                 <span>AsaCare</span>
             </a>
         @endif
 
-        {{-- Tampilkan header_title jika bukan halaman 'user' --}}
         @if(!Request::is('user'))
+            <a href="{{ url()->previous() }}">
+                <i class="fa fa-arrow-left text-white"></i>
+            </a>
             <img src="{{ asset('assets/images/logo no-text.png') }}" alt="Logo" width="32" height="32" class="me-2">
             <h5 class="mb-0 flex-grow-1">@yield('header_title')</h5>
         @endif
 
-        {{-- Tombol Logout hanya muncul di halaman 'user' --}}
         @if(Request::is('user'))
             <form class="ms-auto" action="{{ route('logout') }}">
                 <button class="btn btn-outline-light" type="submit">LOGOUT</button>

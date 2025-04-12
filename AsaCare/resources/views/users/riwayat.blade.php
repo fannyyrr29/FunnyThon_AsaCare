@@ -6,7 +6,7 @@
 
 @section('content')
     <div class="container mt-3">
-        {{-- @foreach ($medicalRecords as $medicalRecord)
+        @foreach ($medicalRecords as $medicalRecord)
             <div class="card-custom">
                 <h5>{{ $medicalRecord->diagnose }}</h5>
                 <p><strong>Catatan:</strong></p>
@@ -22,7 +22,7 @@
                     @endforeach
                 </ul>
             </div>
-        @endforeach --}}
+        @endforeach
         {{-- <div class="card-custom">
             <h5>Hipertensi</h5>
             <p><strong>Catatan:</strong></p>

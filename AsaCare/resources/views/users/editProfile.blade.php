@@ -7,11 +7,25 @@
 @section('content')
     <div class="card shadow" style="max-width: 400px; margin: auto; border-radius: 10px; padding: 20px;">
         <div class="card-body">
-            <form action="{{ route('user.editProfile') }}" method="POST">
-                @csrf
-
+            <form action="{{ route('user.editProfile') }}" method="POST" enctype="multipart/form-data">
+            @csrf
                 <input type="hidden" name="user_id" id="user_id" value="{{ $user->id }}">
-
+                <div class="mb-4 text-center position-relative" style="width: 150px; height: 150px; margin: auto;">
+                    <img id="previewImage" 
+                        src="{{ $user->profile_picture ? asset('assets/images/' . $user->profile_picture) : asset('assets/images/default-avatar.png') }}" 
+                        class="rounded-circle w-100 h-100 object-fit-cover border" 
+                        alt="Foto Profil">
+                    
+                    <label for="profile_picture" 
+                        class="position-absolute top-0 start-0 w-100 h-100 d-flex justify-content-center align-items-center rounded-circle"
+                        style="background-color: rgba(0, 0, 0, 0.5); color: white; cursor: pointer;">
+                        <div>
+                            <i class="bi bi-camera-fill fs-4"></i>
+                            <div>Update Profile Picture</div>
+                        </div>
+                    </label>
+                    <input type="file" id="profile_picture" name="profile_picture" accept="image/*" class="d-none" onchange="previewImage(event)">
+                </div>
                 <div class="mb-3">
                     <label for="email" class="form-label">Email</label>
                     <input type="email" class="form-control" id="email" placeholder="{{ $user->email }}" disabled>
