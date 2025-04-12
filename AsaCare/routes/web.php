@@ -64,7 +64,6 @@ Route::middleware(['auth', 'role:User'])->prefix('user')->group(function () {
     Route::get('/layanan', [HomeController::class, 'showAction'])->name('user.layanan');
     //untuk input kondisi
     Route::post('/addMood', [HomeController::class, 'addMood'])->name('user.mood');
-
     Route::get('/family', [HomeController::class, 'showFamily'])->name('user.family');
 
 
@@ -76,8 +75,6 @@ Route::middleware(['auth', 'role:User'])->prefix('user')->group(function () {
     Route::post('/keranjang', [DrugController::class, 'checkout'])->name('user.checkout');
     //untuk menolak pertemanan
     Route::post('/tolak', [InviteController::class, 'reject'])->name('user.reject');
-    //untuk menampilkan Kondisi dari User
-    Route::post('/kondisi/{id}', [HomeController::class, 'showMood'])->name('user.showMood');
     //untuk search HomeCare
     Route::get('/homecare', [HomeController::class, 'showActionHomeCare'])->name('user.showHomeCare');
     //untuk search HospitalCare
@@ -119,8 +116,8 @@ Route::get('/homecare', function () {
     return view('users/home');
 });
 
-Route::get('/', function () {
-    return view('users/pilihDokter');
+Route::get('/family', function () {
+    return view('users/family');
 });
 
 Route::get('/reminderObat', function () {

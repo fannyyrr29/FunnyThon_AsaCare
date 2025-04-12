@@ -164,29 +164,51 @@ class HomeController extends Controller
         }
         return redirect()->back()->withErrors(['Error' => "Tidak ditemukan data obat!"]);
     }
+    // public function addMood(Request $request)
+    // {
+    //     try {
+    //         $condition = new Condition();
+    //         $condition->condition = $request->condition;
+    //         $condition->date = now()->toDateString();
+    //         $condition->user_id = $request->user_id;
+    //         if ($condition->save()) {
+    //             return response()->json(['header' => 'SUKSES', 'message' => 'Data berhasil diinputkan!']);
+    //         }
+    //     } catch (\Throwable $th) {
+    //         return response()->json(['header' => 'ERROR', 'message' => 'Data gagal diinputkan! ' . $th->getMessage()]);
+    //     }
+    // }
+
     public function addMood(Request $request)
     {
         try {
+            $user = auth()->user();
+
+            if (!$user) {
+                return back()->withErrors(['error' => 'Pengguna tidak terautentikasi!']);
+            }
+
+            $request->validate([
+                'condition' => 'required|string|in:Sehat,Kurang Sehat,Sakit',
+            ]);
+
+            Condition::where('user_id', $user->id)
+                ->whereDate('date', today())
+                ->delete();
+
             $condition = new Condition();
             $condition->condition = $request->condition;
             $condition->date = now()->toDateString();
-            $condition->user_id = $request->user_id;
+            $condition->user_id = $user->id;
+
             if ($condition->save()) {
-                return response()->json(['header' => 'SUKSES', 'message' => 'Data berhasil diinputkan!']);
+                return redirect()->back()->with('success', 'Data berhasil diinputkan!');
             }
         } catch (\Throwable $th) {
-            return response()->json(['header' => 'ERROR', 'message' => 'Data gagal diinputkan! ' . $th->getMessage()]);
+            return back()->withErrors(['error' => 'Data gagal diinputkan! ' . $th->getMessage()]);
         }
     }
 
-    public function showMood($id)
-    {
-        $conditions = Condition::where('user_id', '=', $id)->get();
-        if ($conditions) {
-            return response()->json(['header' => 'SUKSES', 'conditions' => $conditions]);
-        }
-        return response()->json(['header' => 'GAGAL', 'message' => 'Kondisi Pengguna tidak ditemukan!']);
-    }
 
     public function showActionHomeCare()
     {

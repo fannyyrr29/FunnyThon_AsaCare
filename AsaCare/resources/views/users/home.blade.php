@@ -68,35 +68,52 @@
         </div>
         <!-- Bagaimana kabar hari ini -->
         <h6 class="text-center mt-2 mb-2">Bagaimana kabar hari ini?</h6>
+
         <div class="row text-center">
-            <div class="col-4">
-                <button class="mood-btn" onclick="changeMood(this)" data-mood="healthy">
-                    <img src="{{ asset('assets/images/smile.png') }}" width="50" class="rounded d-block mx-auto mb-2"
-                        alt="...">
-                    Sehat
-                </button>
-            </div>
-            <div class="col-4">
-                <button class="mood-btn" onclick="changeMood(this)" data-mood="mid">
-                    <img src="{{ asset('assets/images/neutral.png') }}" width="50" class="rounded d-block mx-auto mb-2"
-                        alt="...">
-                    Netral
-                </button>
-            </div>
-            <div class="col-4">
-                <button class="mood-btn" onclick="changeMood(this)" data-mood="sick">
-                    <img src="{{ asset('assets/images/angry.png') }}" width="50" class="rounded d-block mx-auto mb-2"
-                        alt="...">
-                    Sakit
-                </button>
-            </div>
+            @foreach (Auth::user()->conditions as $condition)
+                <div class="col-4">
+                    <form action="{{ route('user.mood') }}" method="POST">
+                        @csrf
+                        <input type="hidden" name="condition" value="Sehat">
+                        <button type="submit" class="mood-btn {{ $condition->condition === 'Sehat' ? 'mood-healthy' : '' }}">
+                            <img src="{{ asset('assets/images/smile.png') }}" width="50" class="rounded d-block mx-auto mb-2"
+                                alt="...">
+                            Sehat
+                        </button>
+                    </form>
+                </div>
+
+                <div class="col-4">
+                    <form action="{{ route('user.mood') }}" method="POST">
+                        @csrf
+                        <input type="hidden" name="condition" value="Kurang Sehat">
+                        <button type="submit" class="mood-btn {{ $condition->condition === 'Kurang Sehat' ? 'mood-mid' : '' }}">
+                            <img src="{{ asset('assets/images/neutral.png') }}" width="50" class="rounded d-block mx-auto mb-2"
+                                alt="...">
+                            Netral
+                        </button>
+                    </form>
+                </div>
+
+                <div class="col-4">
+                    <form action="{{ route('user.mood') }}" method="POST">
+                        @csrf
+                        <input type="hidden" name="condition" value="Sakit">
+                        <button type="submit" class="mood-btn {{ $condition->condition === 'Sakit' ? 'mood-sick' : '' }}">
+                            <img src="{{ asset('assets/images/angry.png') }}" width="50" class="rounded d-block mx-auto mb-2"
+                                alt="...">
+                            Sakit
+                        </button>
+                    </form>
+                </div>
+            @endforeach
         </div>
 
-        <!-- Tombol Tambah -->
+        <!-- Tombol Telp -->
         <div class="add-button" data-bs-toggle="modal" data-bs-target="#searchModal">
             <img src="{{ asset('assets/images/telp.png') }}" class="rounded d-block mx-auto" width="24" alt="...">
         </div>
-    @endsection
+@endsection
 
     @push('scripts')
         <script>
@@ -107,11 +124,11 @@
 
                 const mood = button.getAttribute('data-mood');
 
-                if (mood === 'healthy') {
+                if (mood === 'Sehat') {
                     button.classList.add('mood-healthy');
-                } else if (mood === 'mid') {
+                } else if (mood === 'Kurang Sehat') {
                     button.classList.add('mood-mid');
-                } else if (mood === 'sick') {
+                } else if (mood === 'Sakit') {
                     button.classList.add('mood-sick');
                 }
             }
