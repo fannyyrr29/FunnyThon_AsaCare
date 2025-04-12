@@ -4,13 +4,13 @@
 
 @section('content')
     <div class="container-fluid mb-3">
-        @if (session('header') && session('message'))
-            @php
-                $alertType = session('header') === 'SUKSES' ? 'success' : 'danger';
-            @endphp
-            <div class="alert alert-{{ $alertType }} alert-dismissible fade show mt-3" role="alert">
-                <strong>{{ session('header') }}:</strong> {{ session('message') }}
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        @if (session('header'))
+            <div class="alert alert-success">
+                <p><strong>{{ session('header') }}</strong> {{ session('message') }}</p>
+            </div>
+        @elseif ($errors->has('header') && $errors->has('message'))
+            <div class="alert alert-danger">
+                <p><strong>{{ $errors->first('header') }}</strong> {{ $errors->first('message') }}</p>
             </div>
         @endif
 

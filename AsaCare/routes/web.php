@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\ActionController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\DoctorController;
+use App\Http\Controllers\Admin\DrugController as AdminDrugController;
 use App\Http\Controllers\Admin\HospitalController;
 use App\Http\Controllers\Admin\MedicalRecordController;
 use App\Http\Controllers\Admin\SpecializationController;
@@ -91,6 +92,7 @@ Route::middleware(['auth', 'role:Admin'])->prefix('admin')->group(function(){
     Route::resource('user', UserController::class)->names('admin.user');
     Route::resource('specialization', SpecializationController::class)->names('admin.spesialisasi');
     Route::resource('medicalRecord', MedicalRecordController::class)->names('admin.riwayatKesehatan');
+    Route::resource('drug', AdminDrugController::class)->names('admin.obat');
 });
 
 Route::middleware(['auth', 'role:Dokter'])->prefix('doctor')->group(function(){

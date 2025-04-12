@@ -76,7 +76,8 @@
                                                 </td>
                                                 <td>
                                                     <form action="{{ route('admin.rumahsakit.destroy', $hospital->id) }}"
-                                                        method="post">
+                                                        method="post"
+                                                        onsubmit="return confirm('Apakah Anda yakin ingin menghapus rumah sakit ini?');">
                                                         @csrf
                                                         @method('DELETE')
                                                         <button type="submit" class="btn btn-danger"> <i

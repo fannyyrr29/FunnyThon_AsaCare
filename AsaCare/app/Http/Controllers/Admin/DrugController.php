@@ -14,7 +14,7 @@ class DrugController extends Controller
     public function index()
     {
         $drugs = Drug::all();
-        return view('admins.obat', compact('drugs'));
+        return view('admins.drug', compact('drugs'));
     }
 
     /**
@@ -40,12 +40,12 @@ class DrugController extends Controller
             $drug->periode = $request->periode;
             if ($drug->save()) {
                 // return response()->json(['header' => 'SUKSES', 'message' => 'Obat berhasil ditambahkan!']);
-                return redirect()->route('admins.obat.index')->with(['header' => 'SUKSES', 'message' => 'Obat berhasil ditambahkan!']);
+                return redirect()->route('admin.obat.index')->with(['header' => 'SUKSES', 'message' => 'Obat berhasil ditambahkan!']);
             }
         } catch (\Throwable $th) {
             //throw $th;
             // return response()->json(['header' => 'GAGAL', 'message' => 'Obat tidak berhasil ditambahkan! ' . $th->getMessage()]);
-            return redirect()->back()->withErrors(['header' => 'GAGAL', 'message' => 'Obat tidak berhasil ditambahkan! ' . $th->getMessage()]);
+            return redirect()->route('admin.obat.create')->withErrors(['header' => 'GAGAL', 'message' => 'Obat tidak berhasil ditambahkan! ' . $th->getMessage()]);
 
         }
         
@@ -83,13 +83,13 @@ class DrugController extends Controller
             $drug->periode = $request->periode;
             if ($drug->save()) {
                 // return response()->json(['header' => 'SUKSES', 'message' => 'Obat berhasil diubah!']);
-                return redirect()->route('admins.obat.index')->with(['header' => 'SUKSES', 'message' => 'Obat berhasil ditambahkan!']);
+                return redirect()->route('admin.obat.index')->with(['header' => 'SUKSES', 'message' => 'Obat berhasil ditambahkan!']);
 
             }
         } catch (\Throwable $th) {
             //throw $th;
             // return response()->json(['header' => 'GAGAL', 'message' => 'Obat tidak berhasil diubah! ' . $th->getMessage()]);
-            return redirect()->back()->withErrors(['header' => 'GAGAL', 'message' => 'Obat tidak berhasil ditambahkan! ' . $th->getMessage()]);
+            return redirect()->route('admin.obat.edit')->withErrors(['header' => 'GAGAL', 'message' => 'Obat tidak berhasil ditambahkan! ' . $th->getMessage()]);
 
         }
         
@@ -105,12 +105,12 @@ class DrugController extends Controller
             $drug = Drug::find($id);
             if ($drug->delete()) {
                 // return response()->json(['header' => 'SUKSES', 'message' => 'Obat berhasil dihapus!']);
-                return redirect()->route('admins.obat.index')->with(['header' => 'SUKSES', 'message' => 'Obat berhasil ditambahkan!']);
+                return redirect()->route('admin.obat.index')->with(['header' => 'SUKSES', 'message' => 'Obat berhasil dihapus!']);
 
             }
         } catch (\Throwable $th) {
             //throw $th;
-            return redirect()->route('admins.obat.index')->withErrors(['header' => 'GAGAL', 'message' => 'Obat tidak berhasil ditambahkan! ' . $th->getMessage()]);
+            return redirect()->route('admin.obat.index')->withErrors(['header' => 'GAGAL', 'message' => 'Obat tidak berhasil dihapus! ' . $th->getMessage()]);
             // return response()->json(['header' => 'GAGAL', 'message' => 'Obat tidak berhasil dihapus! ' . $th->getMessage()]);
         }
     }

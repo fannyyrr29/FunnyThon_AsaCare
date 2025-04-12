@@ -144,6 +144,13 @@
                                 <p>Riwayat Kesehatan</p>
                             </a>
                         </li>
+                        <li class="nav-item">
+                            <a href="{{ route('admin.obat.index') }}"
+                                class="nav-link  {{ request()->routeIs('admin.obat.index') ? 'active' : '' }}">
+                                <i class="nav-icon bi bi-capsule"></i>
+                                <p>Obat</p>
+                            </a>
+                        </li>
                     </ul>
                     <!--end::Sidebar Menu-->
                 </nav>
