@@ -144,15 +144,43 @@
             let itemList = '';
             cartItems.forEach(function(item, index) {
                 itemList += `
-                    <li class="cart-item d-flex justify-content-between align-items-center">
-                        <span>${item.name} (x${item.quantity}) - Rp ${(item.price * item.quantity).toLocaleString('id-ID')}</span>
-                        <button class="btn btn-sm btn-danger remove-item" data-index="${index}">Hapus</button>
-                    </li>
-                `;
+            <li class="cart-item d-flex justify-content-between align-items-center">
+                <span>${item.name} - Rp ${item.price.toLocaleString('id-ID')}</span>
+                <div class="d-flex align-items-center">
+                    <button class="btn btn-sm btn-danger adjust-quantity" data-index="${index}" data-action="decrease">-</button>
+                    <span class="mx-2">${item.quantity}</span>
+                    <button class="btn btn-sm btn-success adjust-quantity" data-index="${index}" data-action="increase">+</button>
+                    <button class="btn btn-sm btn-danger remove-item" data-index="${index}">Hapus</button>
+                </div>
+            </li>
+        `;
             });
 
             $('#cart-items').html(itemList);
         }
+
+        $(document).on('click', '.adjust-quantity', function() {
+            const index = $(this).data('index');
+            const action = $(this).data('action');
+
+            if (action === 'increase') {
+                cartItems[index].quantity += 1;
+            } else if (action === 'decrease' && cartItems[index].quantity > 1) {
+                cartItems[index].quantity -= 1;
+            }
+
+            // Jika quantity menjadi 0, hapus item
+            if (cartItems[index].quantity === 0) {
+                cartItems.splice(index, 1);
+            }
+
+            total = cartItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            $('#total').text("Total: Rp " + total.toLocaleString('id-ID'));
+
+            renderCartItems();
+        });
+
+
 
         $(document).on('click', '.remove-item', function() {
             const index = $(this).data('index');
@@ -167,6 +195,11 @@
 
 
         $('#checkout-form').submit(function(e) {
+            if (cartItems.length === 0) {
+                e.preventDefault();
+                alert('Keranjang belanja Anda kosong. Silakan tambahkan produk terlebih dahulu.');
+                return false;
+            }
             const itemsJson = JSON.stringify(cartItems);
             $('#cart-items-input').val(itemsJson);
         });
