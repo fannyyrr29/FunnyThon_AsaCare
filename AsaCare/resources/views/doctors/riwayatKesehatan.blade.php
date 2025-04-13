@@ -36,7 +36,7 @@
                             <td>{{ $medicalRecord->description }}</td>
                             <td>{{ date('d-m-Y', strtotime($medicalRecord->date)) }}</td>
                             <td>{{ $medicalRecord->rating }}</td>
-                            <td>{{ $medicalRecord->doctor->name }}</td>
+                            <td>{{ $medicalRecord->doctor->name ?? '-' }}</td>
                             <td>{{ $medicalRecord->user->name }}</td>
                             <td><button data-id="{{ $medicalRecord->id }}" class="btn btn-primary tampilObat">Tampilkan
                                     Obat</button></td>
@@ -54,7 +54,8 @@
                                 <form action="{{ route('medicalRecord.destroy', $medicalRecord->id) }}" method="post">
                                     @method('DELETE')
                                     @csrf
-                                    <input class="btn btn-danger btnHapus" type="submit" value="Hapus">
+                                    <input class="btn btn-danger btnHapus" type="submit" value="Hapus"
+                                        onclick="confirm('Apakah anda yakin akan menghapus data ini?')">
                                 </form>
                             </td>
 
@@ -263,28 +264,6 @@
                 $('#actionModal').modal('show');
             });
 
-        });
-
-        $('.btnHapus').click(function() {
-            if (!confirm('Yakin ingin menghapus data ini?')) return;
-
-            const id = $(this).data('id');
-
-            $.ajax({
-                url: `/medicalRecord/${id}`,
-                type: 'POST',
-                data: {
-                    _method: 'DELETE',
-                    _token: '{{ csrf_token() }}'
-                },
-                success: function(response) {
-                    alert('Data berhasil dihapus!');
-                    location.reload();
-                },
-                error: function(xhr) {
-                    alert('Terjadi kesalahan saat menghapus data.');
-                }
-            });
         });
     </script>
 @endsection

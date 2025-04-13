@@ -296,17 +296,15 @@ class MedicalRecordController extends Controller
                 'actions'
             ])->get();
 
-            return view('doctors.riwayatKesehatan', compact('medicalRecords'));
-
-            // return response()->json([
-            //     'header' => 'SUKSES',
-            //     'message' => 'Data rekam medis berhasil diperbarui.'
-            // ]);
+            return redirect()->route('medicalRecord.index')->with([
+                'header' => 'SUKSES',
+                'message' => 'Data rekam medis berhasil diperbarui.'
+            ]);
 
 
         } catch (\Throwable $th) {
             DB::rollBack();
-            return response()->json([
+            return redirect()->route('medicalRecord.index')->withErrors([
                 'header' => 'GAGAL',
                 'message' => 'Terjadi kesalahan: ' . $th->getMessage(),
             ]);
@@ -347,11 +345,11 @@ class MedicalRecordController extends Controller
             DB::commit();
 
             // return response()->json(['header' => 'SUKSES', 'message' => 'Data rekam medis beserta relasinya berhasil dihapus!']);
-            return redirect()->back()->with(['header' => 'SUKSES', 'message' => 'Data rekam medis beserta relasinya berhasil dihapus!']);
+            return redirect()->route('medicalRecord.index')->with(['header' => 'SUKSES', 'message' => 'Data rekam medis beserta relasinya berhasil dihapus!']);
         } catch (\Throwable $th) {
             DB::rollBack();
             // return response()->json(['header' => 'GAGAL', 'message' => 'Data rekam medis tidak dapat dihapus! ' . $th->getMessage()]);   
-            return redirect()->back()->with(['header' => 'GAGAL', 'message' => 'Data rekam medis tidak dapat dihapus! ' . $th->getMessage()]);
+            return redirect()->route('medicalRecord.index')->with(['header' => 'GAGAL', 'message' => 'Data rekam medis tidak dapat dihapus! ' . $th->getMessage()]);
         }
     }
 }

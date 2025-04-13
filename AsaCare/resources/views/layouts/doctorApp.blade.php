@@ -48,7 +48,8 @@
     <nav class="navbar bg-body-tertiary mb-5">
         <div class="container-fluid">
             <a class="navbar-brand d-flex align-items-center" href="{{ route('medicalRecord.index') }}">
-                <img src="{{ asset('assets/images/logo no-text.png') }}" alt="Logo" width="32" height="32" class="me-2">
+                <img src="{{ asset('assets/images/logo no-text.png') }}" alt="Logo" width="32" height="32"
+                    class="me-2">
                 <span>AsaCare</span>
             </a>
             <form class="d-flex" action="{{ route('logout') }}">
@@ -63,6 +64,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="{{ asset('/sw.js') }}"></script>
     <script src="{{ asset('assets/js/app.js') }}"></script>
 
