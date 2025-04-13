@@ -9,8 +9,8 @@
         @if ($medicalRecords)
             @foreach ($medicalRecords as $medicalRecord)
                 <div class="card-custom">
-                    <h5>{{ $medicalRecord['diagnose'] }}</h5>
-                    <h6>Oleh: {{ $medicalRecord['doctor']->name }}</h6>
+                    <h5>{{ $medicalRecord['diagnose'] ? $medicalRecord['diagnose'] : '-' }}</h5>
+                    <h6>Oleh: {{ $medicalRecord['doctor'] ? $medicalRecord['doctor']->name : '-' }}</h6>
                     <p>Pada: {{ \Carbon\Carbon::parse($medicalRecord['date'])->format('d M Y') }}</p>
                     <p><strong>Obat:</strong></p>
                     <ul>
