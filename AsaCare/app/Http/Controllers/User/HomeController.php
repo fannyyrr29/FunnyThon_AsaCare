@@ -140,9 +140,9 @@ class HomeController extends Controller
             ->where('mr.user_id', '=', $id)
             ->get();
 
-        if ($rawRecords->isEmpty()) {
-            return response()->json(['message' => "Data tidak ditemukan!"], 404);
-        }
+        // if ($rawRecords->isEmpty()) {
+        //     return response()->json(['message' => "Data tidak ditemukan!"], 404);
+        // }
 
         // Grouping berdasarkan medical record ID
         $medicalRecords = $rawRecords->groupBy('id')->map(function ($items) {
