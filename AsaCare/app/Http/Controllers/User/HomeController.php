@@ -74,7 +74,7 @@ class HomeController extends Controller
         $user->name = $request->nama;
         $user->gender = $request->gender;
         $user->birthdate = $request->tanggal_lahir;
-        $user->phone_number = "0" . $request->phone;
+        $user->phone_number = "+62" . $request->phone;
         $user->address = $request->alamat;
 
         if ($user->save()) {
@@ -117,7 +117,7 @@ class HomeController extends Controller
         EmergencyCall::create([
             'user_id' => auth()->id(),
             'name' => $request->name,
-            'phone_number' => $request->phone_number,
+            'phone_number' => '+62'.$request->phone_number,
         ]);
 
         return redirect()->back()->with('success', 'Kontak darurat berhasil ditambahkan!');

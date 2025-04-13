@@ -5,6 +5,17 @@
 @section('back_button', true)
 
 @section('content')
+    <div class="contact-card">
+        <div>
+            <h5>Ambulance</h5>
+            <p class="text-muted">119</p>
+        </div>
+        <div class="contact-icon">
+            <a href="tel:119">
+                <img src="{{ asset('assets/images/telp.png') }}" alt="Telepon">
+            </a>
+        </div>
+    </div>
     @if ($emergencycalls->isNotEmpty())
         @foreach ($emergencycalls as $emergencycall)
             <div class="contact-card">
@@ -40,11 +51,16 @@
                     <div class="modal-body">
                         <div class="mb-3">
                             <label for="name" class="form-label">Nama</label>
-                            <input type="text" name="name" class="form-control" required>
+                            <input type="text" name="name" class="form-control"
+                                placeholder="Masukkan nama kontak darurat" required>
                         </div>
                         <div class="mb-3">
                             <label for="phone_number" class="form-label">Nomor Telepon</label>
-                            <input type="tel" name="phone_number" class="form-control" required>
+                            <div class="input-group">
+                                <span class="input-group-text">+62</span>
+                                <input type="tel" name="phone_number" class="form-control"
+                                    placeholder="Masukkan nomor telepon (8xxxx)" required>
+                            </div>
                         </div>
                     </div>
                     <div class="modal-footer">

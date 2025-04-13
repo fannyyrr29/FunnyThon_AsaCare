@@ -20,7 +20,7 @@ class UserSeeder extends Seeder
             [
                 'NIK' => '1234567890123456',
                 'name' => 'Admin1',
-                'phone_number' => '081234567890',
+                'phone_number' => '+6281234567890',
                 'address' => 'Jl. Merdeka No. 1, Surabaya',
                 'role' => 'admin',
                 'birthdate' => '2000-03-20',
@@ -39,7 +39,7 @@ class UserSeeder extends Seeder
             [
                 'NIK' => '1234567890123456',
                 'name' => 'Admin2',
-                'phone_number' => '081234567890',
+                'phone_number' => '+6281234567890',
                 'address' => 'Jl. Merdeka No. 1, Surabaya',
                 'role' => 'admin',
                 'birthdate' => null,
@@ -58,7 +58,7 @@ class UserSeeder extends Seeder
             [
                 'NIK' => '1234567890123456',
                 'name' => 'Andi Setiawan',
-                'phone_number' => '081234567890',
+                'phone_number' => '+6281234567890',
                 'address' => 'Jl. Merdeka No. 1, Surabaya',
                 'role' => 'admin',
                 'birthdate' => null,
@@ -77,7 +77,7 @@ class UserSeeder extends Seeder
             [
                 'NIK' => '1234567890123457',
                 'name' => 'Budi Santoso',
-                'phone_number' => '081234567891',
+                'phone_number' => '+6281234567891',
                 'address' => 'Jl. Pahlawan No. 2, Surabaya',
                 'role' => 'user',
                 'birthdate' => null,
@@ -96,7 +96,7 @@ class UserSeeder extends Seeder
             [
                 'NIK' => '1234567890123458',
                 'name' => 'Citra Dewi',
-                'phone_number' => '081234567892',
+                'phone_number' => '+6281234567892',
                 'address' => 'Jl. Cinta No. 3, Surabaya',
                 'role' => 'user',
                 'birthdate' => null,
@@ -115,7 +115,7 @@ class UserSeeder extends Seeder
             [
                 'NIK' => '1234567890123459',
                 'name' => 'Dedi Prasetyo',
-                'phone_number' => '081234567893',
+                'phone_number' => '+6281234567893',
                 'address' => 'Jl. Kebangsaan No. 4, Surabaya',
                 'role' => 'user',
                 'birthdate' => null,
@@ -134,7 +134,7 @@ class UserSeeder extends Seeder
             [
                 'NIK' => '1234567890123460',
                 'name' => 'Eka Putri',
-                'phone_number' => '081234567894',
+                'phone_number' => '+6281234567894',
                 'address' => 'Jl. Harapan No. 5, Surabaya',
                 'role' => 'user',
                 'birthdate' => null,
@@ -153,7 +153,7 @@ class UserSeeder extends Seeder
             [
                 'NIK' => '1234567890123461',
                 'name' => 'Fajar Setiawan',
-                'phone_number' => '081234567895',
+                'phone_number' => '+6281234567895',
                 'address' => 'Jl. Bunga No. 6, Surabaya',
                 'role' => 'user',
                 'birthdate' => null,
@@ -172,7 +172,7 @@ class UserSeeder extends Seeder
             [
                 'NIK' => '1234567890123462',
                 'name' => 'Gita Sari',
-                'phone_number' => '081234567896',
+                'phone_number' => '+6281234567896',
                 'address' => 'Jl. Cendana No. 7, Surabaya',
                 'role' => 'user',
                 'birthdate' => null,
@@ -191,7 +191,7 @@ class UserSeeder extends Seeder
             [
                 'NIK' => '1234567890123463',
                 'name' => 'Hadi Pratama',
-                'phone_number' => '081234567897',
+                'phone_number' => '+6281234567897',
                 'address' => 'Jl. Anggrek No. 8, Surabaya',
                 'role' => 'user',
                 'birthdate' => null,
@@ -210,7 +210,7 @@ class UserSeeder extends Seeder
             [
                 'NIK' => '1234567890123464',
                 'name' => 'Ika Lestari',
-                'phone_number' => '081234567898',
+                'phone_number' => '+6281234567898',
                 'address' => 'Jl. Melati No. 9, Surabaya',
                 'role' => 'user',
                 'birthdate' => null,
@@ -229,7 +229,7 @@ class UserSeeder extends Seeder
             [
                 'NIK' => '1234567890123465',
                 'name' => 'Joko Widodo',
-                'phone_number' => '081234567899',
+                'phone_number' => '+6281234567899',
                 'address' => 'Jl. Kenanga No. 10, Surabaya',
                 'role' => 'user',
                 'birthdate' => null,
@@ -248,7 +248,7 @@ class UserSeeder extends Seeder
             [
                 'NIK' => '3578900000000013',
                 'name' => 'Dr. Ahmad Fauzi',
-                'phone_number' => '081210000001',
+                'phone_number' => '+6281210000001',
                 'address' => 'Jl. Kesehatan No. 1',
                 'role' => 'Dokter',
                 'birthdate' => '1980-01-15',
@@ -267,7 +267,7 @@ class UserSeeder extends Seeder
             [
                 'NIK' => '3578900000000014',
                 'name' => 'Dr. Budi Santoso',
-                'phone_number' => '081210000002',
+                'phone_number' => '+6281210000002',
                 'address' => 'Jl. Sehat Selalu No. 2',
                 'role' => 'Dokter',
                 'birthdate' => '1979-06-12',
@@ -286,7 +286,7 @@ class UserSeeder extends Seeder
             [
                 'NIK' => '3578900000000015',
                 'name' => 'Dr. Cinta Dewi',
-                'phone_number' => '081210000003',
+                'phone_number' => '+6281210000003',
                 'address' => 'Jl. Kasih Sayang No. 3',
                 'role' => 'Dokter',
                 'birthdate' => '1983-04-10',
@@ -305,7 +305,7 @@ class UserSeeder extends Seeder
             [
                 'NIK' => '3578900000000016',
                 'name' => 'Dr. Dedi Prasetyo',
-                'phone_number' => '081210000016',
+                'phone_number' => '+6281210000016',
                 'address' => 'Jl. Medika No. 16',
                 'role' => 'Dokter',
                 'birthdate' => '1985-03-21',
@@ -324,7 +324,7 @@ class UserSeeder extends Seeder
             [
                 'NIK' => '3578900000000017',
                 'name' => 'Dr. Eka Putri',
-                'phone_number' => '081210000017',
+                'phone_number' => '+6281210000017',
                 'address' => 'Jl. Pertiwi No. 17',
                 'role' => 'Dokter',
                 'birthdate' => '1986-07-10',
@@ -343,7 +343,7 @@ class UserSeeder extends Seeder
             [
                 'NIK' => '3578900000000018',
                 'name' => 'Dr. Fajar Setiawan',
-                'phone_number' => '081210000018',
+                'phone_number' => '+6281210000018',
                 'address' => 'Jl. Mentari No. 18',
                 'role' => 'Dokter',
                 'birthdate' => '1982-11-25',
@@ -362,7 +362,7 @@ class UserSeeder extends Seeder
             [
                 'NIK' => '3578900000000019',
                 'name' => 'Dr. Gita Sari',
-                'phone_number' => '081210000019',
+                'phone_number' => '+6281210000019',
                 'address' => 'Jl. Mawar Putih No. 19',
                 'role' => 'Dokter',
                 'birthdate' => '1987-05-14',
@@ -381,7 +381,7 @@ class UserSeeder extends Seeder
             [
                 'NIK' => '3578900000000020',
                 'name' => 'Dr. Hadi Pratama',
-                'phone_number' => '081210000020',
+                'phone_number' => '+6281210000020',
                 'address' => 'Jl. Surya Harapan No. 20',
                 'role' => 'Dokter',
                 'birthdate' => '1980-10-22',
@@ -400,7 +400,7 @@ class UserSeeder extends Seeder
             [
                 'NIK' => '3578900000000021',
                 'name' => 'Dr. Ika Lestari',
-                'phone_number' => '081210000021',
+                'phone_number' => '+6281210000021',
                 'address' => 'Jl. Anggrek Indah No. 21',
                 'role' => 'Dokter',
                 'birthdate' => '1990-01-05',
@@ -419,7 +419,7 @@ class UserSeeder extends Seeder
             [
                 'NIK' => '3578900000000023',
                 'name' => 'Dr. Kiki Suryadi',
-                'phone_number' => '081210000023',
+                'phone_number' => '+6281210000023',
                 'address' => 'Jl. Damai No. 23',
                 'role' => 'Dokter',
                 'birthdate' => '1991-06-30',
@@ -438,7 +438,7 @@ class UserSeeder extends Seeder
             [
                 'NIK' => '3578900000000024',
                 'name' => 'Dr. Lina Wati',
-                'phone_number' => '081210000024',
+                'phone_number' => '+6281210000024',
                 'address' => 'Jl. Sehat Sentosa No. 24',
                 'role' => 'Dokter',
                 'birthdate' => '1984-04-18',
@@ -457,7 +457,7 @@ class UserSeeder extends Seeder
             [
                 'NIK' => '3578900000000025',
                 'name' => 'Dr. Mira Sari',
-                'phone_number' => '081210000025',
+                'phone_number' => '+6281210000025',
                 'address' => 'Jl. Kesehatan No. 25',
                 'role' => 'Dokter',
                 'birthdate' => '1988-12-07',
@@ -476,7 +476,7 @@ class UserSeeder extends Seeder
             [
                 'NIK' => '3578900000000026',
                 'name' => 'Dr. Oki Prasetyo',
-                'phone_number' => '081210000026',
+                'phone_number' => '+6281210000026',
                 'address' => 'Jl. Damai Lestari No. 27',
                 'role' => 'Dokter',
                 'gender' => 'L',
@@ -495,7 +495,7 @@ class UserSeeder extends Seeder
             [
                 'NIK' => '3578900000000027',
                 'name' => 'Dr. Nani Lestari',
-                'phone_number' => '081210000027',
+                'phone_number' => '+6281210000027',
                 'address' => 'Jl. Teratai No. 26',
                 'role' => 'Dokter',
                 'birthdate' => '1986-08-30',

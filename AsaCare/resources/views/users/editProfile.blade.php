@@ -7,7 +7,7 @@
 @section('content')
     <div class="card shadow" style="max-width: 400px; margin: auto; border-radius: 10px; padding: 20px;">
         <div class="card-body">
-            <form action="{{ route('user.editProfile') }}" method="POST" enctype="multipart/form-data">
+            <form id="daftarForm" action="{{ route('user.editProfile') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <input type="hidden" name="user_id" id="user_id" value="{{ $user->id }}">
                 <div class="mb-4 text-center position-relative" style="width: 150px; height: 150px; margin: auto;">
@@ -74,7 +74,7 @@
                     <div class="input-group">
                         <span class="input-group-text">+62</span>
                         <input type="tel" class="form-control" id="phone" name="phone"
-                            placeholder="Masukkan nomor telepon" value="{{ substr($user->phone_number, 1) ?? '' }}">
+                            placeholder="Masukkan nomor telepon (8xxxx)" value="{{ substr($user->phone_number, 1) ?? '' }}">
                     </div>
                     <small class="text-danger" id="phoneError"></small>
                 </div>
