@@ -10,7 +10,7 @@ class Drug extends Model
     use HasFactory;
 
     protected $fillable = [
-        'name', 'price', 'dosis', 'quantity', 'type', 'periode'
+        'name', 'price', 'dosis', 'quantity', 'type', 'periode', 'image'
     ];
 
     protected $casts = [

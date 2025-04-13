@@ -42,6 +42,7 @@
                         <th>Dosis</th>
                         <th>Tipe</th>
                         <th>Periode</th>
+                        <th>Gambar</th>
                         <th>Ubah</th>
                         <th>Hapus</th>
                     </tr>
@@ -54,6 +55,9 @@
                             <td>{{ $drug->dosis }}</td>
                             <td>{{ $drug->type }}</td>
                             <td>{{ $drug->periode }}</td>
+                            <td><img width="100px;" src="{{ asset('assets/images/obat/' . $drug->image) }}"
+                                    alt="{{ $drug->name }}">
+                            </td>
                             <td>
                                 <form class="formEditSpesialisasi" method="GET"
                                     action="{{ route('admin.obat.edit', $drug->id) }}">

@@ -76,8 +76,10 @@ Route::middleware(['auth', 'role:User'])->prefix('user')->group(function () {
     Route::post('/findFriend', [InviteController::class, 'searchFriend'])->name('user.search');
     //untuk accept pertemanan
     Route::post('/acceptFriend', [InviteController::class, 'acceptFriend'])->name('user.accept');
+    //untuk order obat
+    Route::post('/order', [DrugController::class, 'order'])->name('user.order');
     //dipanggil ketika user menekan button checkout
-    Route::post('/keranjang', [DrugController::class, 'checkout'])->name('user.checkout');
+    Route::get('/keranjang', [DrugController::class, 'checkout'])->name('user.checkout');
     //untuk menolak pertemanan
     Route::post('/tolak', [InviteController::class, 'reject'])->name('user.reject');
     //untuk hapus pertemanan

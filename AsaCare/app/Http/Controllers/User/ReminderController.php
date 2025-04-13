@@ -16,7 +16,7 @@ use Illuminate\View\ViewFinderInterface;
 class ReminderController extends Controller
 {
     public function index($id){
-        $reminders = Reminder::with(['drugRecord', 'drug'])->where('user_id', '=', $id)->where('status', '=', 0)->get();
+        $reminders = Reminder::with(['drugRecord', 'drug'])->where('user_id', '=', $id)->get();
         if ($reminders) {
             // return response()->json(compact('reminders'));
             return view('users.setReminder', compact('reminders'));
