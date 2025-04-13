@@ -104,11 +104,7 @@ class HomeController extends Controller
 
         $emergencycalls = EmergencyCall::where('user_id', '=', $userID)->get();
 
-        if ($emergencycalls->isNotEmpty()) {
-            return view('users.telp', compact('emergencycalls'));
-        }
-
-        return redirect()->back()->with(['Error' => "Tidak dapat menampilkan Kontak Emergency Call"]);
+        return view('users.telp', compact('emergencycalls'));
     }
 
     public function storeEmergencyCall(Request $request)
@@ -155,7 +151,7 @@ class HomeController extends Controller
             $drugList = $items->map(function ($item) {
                 $drug = Drug::find($item->drug_id);
                 if ($drug) {
-                    $drug->amount = $item->amount; 
+                    $drug->amount = $item->amount;
                     return $drug;
                 }
                 return null;

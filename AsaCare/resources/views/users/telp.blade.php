@@ -5,24 +5,28 @@
 @section('back_button', true)
 
 @section('content')
-    @foreach ($emergencycalls as $emergencycall)
-        <div class="contact-card">
-            <div>
-                <h5>{{ $emergencycall->name }}</h5>
-                <p class="text-muted">{{$emergencycall->phone_number}}</p>
+    @if ($emergencycalls->isNotEmpty())
+        @foreach ($emergencycalls as $emergencycall)
+            <div class="contact-card">
+                <div>
+                    <h5>{{ $emergencycall->name }}</h5>
+                    <p class="text-muted">{{ $emergencycall->phone_number }}</p>
+                </div>
+                <div class="contact-icon">
+                    <a href="tel:{{ $emergencycall->phone_number }}">
+                        <img src="{{ asset('assets/images/telp.png') }}" alt="Telepon">
+                    </a>
+                </div>
             </div>
-            <div class="contact-icon">
-                <a href="tel:{{ $emergencycall->phone_number }}">
-                    <img src="{{ asset('assets/images/telp.png') }}" alt="Telepon">
-                </a>
-            </div>
-        </div>
-    @endforeach
+        @endforeach
+    @else
+        <p class="text-center" style="color:rgb(117, 117, 117);">Tidak ada kontak darurat.</p>
+    @endif
 
     <button class="add-button" data-bs-toggle="modal" data-bs-target="#addPhoneModal">
         <i class="fas fa-plus"></i>
     </button>
-    
+
     <!-- Modal -->
     <div class="modal fade" id="addPhoneModal" tabindex="-1" aria-labelledby="addPhoneModalLabel" aria-hidden="true">
         <div class="modal-dialog">

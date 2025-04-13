@@ -115,13 +115,21 @@
 
         </div>
 
-        <div class="col-md-6 col-6">
+        <!-- <div class="col-md-6 col-6">
+                <a href="{{ route('user.call') }}" class="text-reset text-decoration-none">
+                    <button class="btn-red w-100">
+                        <img class="bg-red img-fluid" src="{{ asset('assets/images/telp.png') }}" alt="...">
+                    </button>
+                </a>
+            </div> -->
+        <div class="add-button" >
             <a href="{{ route('user.call') }}" class="text-reset text-decoration-none">
-                <button class="btn-red w-100">
-                    <img class="bg-red img-fluid" src="{{ asset('assets/images/telp.png') }}" alt="...">
+                <button class="btn-red h-100 rounded-circle p-0">
+                    <img src="{{ asset('assets/images/telp.png') }}" width="24" alt="...">
                 </button>
             </a>
         </div>
+
 
 @endsection
 
