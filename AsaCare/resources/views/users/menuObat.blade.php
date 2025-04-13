@@ -24,10 +24,12 @@
                 </form>
             </div>
             <div class="col-12 mb-3">
-                <button class="btn-red w-50 mx-auto d-block">
-                    <img src="{{ asset('assets/images/history.png') }}" alt="Riwayat">
-                    <h4>Riwayat beli obat</h4>
-                </button>
+                <form action="{{ route('user.history') }}" method="get">
+                    <button type="submit" class="btn-red w-50 mx-auto d-block">
+                        <img src="{{ asset('assets/images/history.png') }}" alt="Riwayat">
+                        <h4>Riwayat beli obat</h4>
+                    </button>
+                </form>
             </div>
         </div>
     </div>

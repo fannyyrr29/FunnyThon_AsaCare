@@ -83,7 +83,7 @@
                     <img src="{{ asset('assets/images/obat/' . $drug->image) }}" class="rounded d-block mx-auto"
                         alt="...">
                     <h6>{{ $drug->name }}</h6>
-                    <strong>{{ $drug->price }}</strong>
+                    <strong>Rp {{ number_format($drug->price, 0, ',', '.') }}</strong>
                     <div>
                         <button class="btn-red-general py-2 px-4 tambah" data-name="{{ $drug->name }}"
                             data-price="{{ $drug->price }}" data-id={{ $drug->id }}>

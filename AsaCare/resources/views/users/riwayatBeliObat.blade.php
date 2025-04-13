@@ -6,13 +6,17 @@
 
 @section('content')
     <div class="container mt-3">
-        <div class="card-custom">
-            <p>24 Jan, 18:27</p>
-            <h5>Jl. Merdeka No.7, Surabaya</h5>
-            <ul>
-                <li>Metformin 1 strip</li>
-                <li>Amlodipine 500 mg 2 strip</li>
-            </ul>
-        </div>
+        @foreach ($history as $item)
+            <div class="card-custom">
+                <p>{{ $item->created_at->translatedFormat('d F Y') }}
+                </p>
+                <h5>{{ $item->user->address }}</h5>
+                <ul>
+                    @foreach ($item->drugRecords as $drugRecord)
+                        <li>{{ $drugRecord->drug->name }} - Rp{{ number_format($drugRecord->subtotal, 0, ',', '.') }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endforeach
     </div>
 @endsection

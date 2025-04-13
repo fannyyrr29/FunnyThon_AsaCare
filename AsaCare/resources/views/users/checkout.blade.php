@@ -132,11 +132,12 @@
 
 
                     @foreach ($items as $index => $item)
-                        <input type="hidden" name="drugs[{{ $index }}][id]" value="{{ $drug['id'] }}">
+                        <input type="hidden" name="drugs[{{ $index }}][id]" value="{{ $drugs[$index]['id'] }}">
                         <input type="hidden" name="drugs[{{ $index }}][duration_day]"
                             value="{{ $item['duration_day'] ?? 1 }}">
                         <input type="hidden" name="amount[{{ $index }}]" value="{{ $item['quantity'] }}">
                     @endforeach
+
                     <input type="hidden" name="ongkir" value="{{ $biayaPengiriman }}">
                     <button type="submit" class="btn btn-red-general w-100 py-2">Bayar Sekarang</button>
                 </form>

@@ -79,8 +79,8 @@
                     <input type="hidden" name="condition" value="Sehat">
                     <button type="submit"
                         class="mood-btn {{ optional($latestCondition)->condition === 'Sehat' ? 'mood-healthy' : '' }}">
-                        <img src="{{ asset('assets/images/smile.png') }}" width="50" class="rounded d-block mx-auto mb-2"
-                            alt="...">
+                        <img src="{{ asset('assets/images/smile.png') }}" width="50"
+                            class="rounded d-block mx-auto mb-2" alt="...">
                         Sehat
                     </button>
                 </form>
@@ -92,8 +92,8 @@
                     <input type="hidden" name="condition" value="Kurang Sehat">
                     <button type="submit"
                         class="mood-btn {{ optional($latestCondition)->condition === 'Kurang Sehat' ? 'mood-mid' : '' }}">
-                        <img src="{{ asset('assets/images/neutral.png') }}" width="50" class="rounded d-block mx-auto mb-2"
-                            alt="...">
+                        <img src="{{ asset('assets/images/neutral.png') }}" width="50"
+                            class="rounded d-block mx-auto mb-2" alt="...">
                         Netral
                     </button>
                 </form>
@@ -105,8 +105,8 @@
                     <input type="hidden" name="condition" value="Sakit">
                     <button type="submit"
                         class="mood-btn {{ optional($latestCondition)->condition === 'Sakit' ? 'mood-sick' : '' }}">
-                        <img src="{{ asset('assets/images/angry.png') }}" width="50" class="rounded d-block mx-auto mb-2"
-                            alt="...">
+                        <img src="{{ asset('assets/images/angry.png') }}" width="50"
+                            class="rounded d-block mx-auto mb-2" alt="...">
                         Sakit
                     </button>
                 </form>
@@ -115,12 +115,12 @@
         </div>
 
         <!-- <div class="col-md-6 col-6">
-                                        <a href="{{ route('user.call') }}" class="text-reset text-decoration-none">
-                                            <button class="btn-red w-100">
-                                                <img class="bg-red img-fluid" src="{{ asset('assets/images/telp.png') }}" alt="...">
-                                            </button>
-                                        </a>
-                                    </div> -->
+                                                    <a href="{{ route('user.call') }}" class="text-reset text-decoration-none">
+                                                        <button class="btn-red w-100">
+                                                            <img class="bg-red img-fluid" src="{{ asset('assets/images/telp.png') }}" alt="...">
+                                                        </button>
+                                                    </a>
+                                                </div> -->
         <div class="add-button">
             <a href="{{ route('user.call') }}" class="text-reset text-decoration-none btn-red h-100 rounded-circle p-0">
                 <img src="{{ asset('assets/images/telp.png') }}" width="24" alt="...">
@@ -128,7 +128,7 @@
         </div>
 
 
-@endsection
+    @endsection
 
     @push('scripts')
         <script>

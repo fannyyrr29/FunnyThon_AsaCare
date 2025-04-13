@@ -21,6 +21,7 @@ use App\Http\Controllers\PusherController;
 use App\Http\Controllers\User\DrugController;
 use App\Http\Controllers\User\MessageController as UserMessageController;
 use App\Http\Controllers\User\ReminderController;
+use Illuminate\Routing\Router;
 use Pusher\Pusher;
 
 /*
@@ -107,6 +108,9 @@ Route::middleware(['auth', 'role:User'])->prefix('user')->group(function () {
     Route::post('/createReminder', [ReminderController::class, 'create'])->name('user.createReminder');
     Route::post('/deleteReminder', [ReminderController::class, 'delete'])->name('user.deleteReminder');
     Route::get('/reminder', [ReminderController::class, 'showReminder'])->name('user.showReminder');
+
+    Route::get('/riwayatTransaksiObat', [DrugController::class, 'showHistory'])->name('user.history');
+
 });
 Route::post('/message/user/broadcast', [UserMessageController::class, 'broadcast']);
 Route::post('/message/user/receive', [UserMessageController::class, 'receive']);

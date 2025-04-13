@@ -50,6 +50,7 @@ class DrugController extends Controller
         
 
         $drugArr = $validatedData['drugs'];
+        // return response()->json(compact('drugArr'));
         $medical = new MedicalRecord();
         $medical->date = now()->toDateString();
         $medical->rating = $validatedData['rate'];
@@ -126,5 +127,11 @@ class DrugController extends Controller
         }
         return redirect()->route('user.tokoObat')->withErrors(['header' => 'GAGAL', 'message' => 'Tolong lakukan pemesanan terlebih dahulu!']);
 
+    }
+
+    public function showHistory(){
+        $history = MedicalRecord::with(['drugRecords', 'drugRecords.drug', 'user'])->where('user_id', Auth::id())->where('doctor_id', null)->get();
+        // return response()->json(compact('history'));
+        return view('users.riwayatBeliObat', compact('history'));
     }
 }
