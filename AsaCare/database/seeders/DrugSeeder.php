@@ -19,6 +19,7 @@ class DrugSeeder extends Seeder
                 'price'=>5000,
                 'dosis'=>1,
                 'quantity' => 12,
+                'image' => 'paracetamol.png',
                 'type'=>'tablet',
                 'periode' => 'Hari Tertentu'
             ],
@@ -27,6 +28,7 @@ class DrugSeeder extends Seeder
                 'price'=>15000,
                 'dosis'=>2,
                 'quantity' => 12,
+                'image' => 'amoxilin.png',
                 'type'=>'tablet',
                 'periode' => 'Setiap Hari'
             ],
@@ -35,6 +37,7 @@ class DrugSeeder extends Seeder
                 'price'=>8000,
                 'dosis'=>1,
                 'quantity' => 12,
+                'image' => 'cetirizine.jpeg',
                 'type'=>'tablet',
                 'periode' => 'Hari Tertentu'
 
@@ -44,6 +47,7 @@ class DrugSeeder extends Seeder
                 'price'=>12000,
                 'dosis'=>1,
                 'quantity' => 12,
+                'image' => 'ranitidine.png',
                 'type'=>'tablet',
                 'periode' => 'Setiap Hari'
             ],
@@ -52,6 +56,7 @@ class DrugSeeder extends Seeder
                 'price'=>20000,
                 'dosis'=>1,
                 'quantity' => 12,
+                'image' => 'metformin.jpg',
                 'type'=>'tablet',
                 'periode' => 'Hari Tertentu'
 
@@ -61,6 +66,7 @@ class DrugSeeder extends Seeder
                 'price'=>5000,
                 'dosis'=>1,
                 'quantity' => 10,
+                'image' => 'aspirin.jpeg',
                 'type'=>'tablet',
                 'periode' => 'Setiap Hari'
 
@@ -70,6 +76,7 @@ class DrugSeeder extends Seeder
                 'price'=>48900,
                 'dosis'=>3,
                 'quantity' => 150,
+                'image' => 'mylanta.png',
                 'type'=>'sirup',
                 'periode' => 'Hari Tertentu'
             ],
@@ -78,6 +85,7 @@ class DrugSeeder extends Seeder
                 'price'=>53000,
                 'dosis'=>1,
                 'quantity' => 10,
+                'image' => 'neurobion.png',
                 'type'=>'tablet',
                 'periode' => 'Hari Tertentu'
             ],
@@ -86,6 +94,7 @@ class DrugSeeder extends Seeder
                 'price'=>39400,
                 'dosis'=>1,
                 'quantity' => 6,
+                'image' => 'surbex.jpeg',
                 'type'=>'tablet',
                 'periode' => 'Setiap Hari'
             ],
@@ -94,6 +103,7 @@ class DrugSeeder extends Seeder
                 'price'=>24000,
                 'dosis'=>1,
                 'quantity' => 10,
+                'image'=>'sangobion.png',
                 'type'=>'tablet',
                 'periode' => 'Hari Tertentu'
             ],

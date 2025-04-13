@@ -61,6 +61,10 @@ Route::middleware(['auth', 'role:User'])->prefix('user')->group(function () {
     Route::post('/call', [HomeController::class, 'storeEmergencyCall'])->name('user.emergencyCall.store');
     //Menampilkan riwayat kesehatan user
     Route::get('/medicalRecord/{id}', [HomeController::class, 'showMedicalRecord'])->name('user.medicalrecord');
+    //Untuk menampilkan transaksi
+    Route::get('/transaksi', [DrugController::class, 'index'])->name('user.transaksi');
+    //Untuk menampilkan toko obat
+    Route::get('/tokoObat', [DrugController::class, 'index'])->name('user.tokoObat');
     //Untuk menampilkan obat-obatan
     Route::get('/obat', [HomeController::class, 'showDrug'])->name('user.drug');
     //Untuk menampilkan layanan
@@ -80,11 +84,12 @@ Route::middleware(['auth', 'role:User'])->prefix('user')->group(function () {
     Route::post('/findFriend', [InviteController::class, 'searchFriend'])->name('user.search');
     //untuk accept pertemanan
     Route::post('/acceptFriend', [InviteController::class, 'acceptFriend'])->name('user.accept');
+    //untuk order obat
+    Route::post('/order', [DrugController::class, 'order'])->name('user.order');
     //dipanggil ketika user menekan button checkout
-    Route::post('/keranjang', [DrugController::class, 'checkout'])->name('user.checkout');
+    Route::get('/keranjang', [DrugController::class, 'checkout'])->name('user.checkout');
     //untuk menolak pertemanan
     Route::post('/tolak', [InviteController::class, 'reject'])->name('user.reject');
-
     //untuk hapus pertemanan
     Route::post('/delete', [InviteController::class, 'delete'])->name('user.delete');
     //untuk menampilkan Kondisi dari User
@@ -99,6 +104,9 @@ Route::middleware(['auth', 'role:User'])->prefix('user')->group(function () {
     Route::get('/reminder/{id}', [ReminderController::class, 'index'])->name('user.reminder');
     //untuk update status reminder
     Route::post('/update', [ReminderController::class, 'updateStatus'])->name('user.updateReminder');
+    Route::post('/createReminder', [ReminderController::class, 'create'])->name('user.createReminder');
+    Route::post('/deleteReminder', [ReminderController::class, 'delete'])->name('user.deleteReminder');
+    Route::get('/reminder', [ReminderController::class, 'showReminder'])->name('user.showReminder');
 });
 Route::post('/message/user/broadcast', [UserMessageController::class, 'broadcast']);
 Route::post('/message/user/receive', [UserMessageController::class, 'receive']);
