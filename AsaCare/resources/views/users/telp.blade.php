@@ -5,37 +5,50 @@
 @section('back_button', true)
 
 @section('content')
-    <div class="contact-card">
-        <div>
-            <h5>Rumah Sakit</h5>
-            <p class="text-muted">RSUD Dr. Soetomo</p>
+    @foreach ($emergencycalls as $emergencycall)
+        <div class="contact-card">
+            <div>
+                <h5>{{ $emergencycall->name }}</h5>
+                <p class="text-muted">{{$emergencycall->phone_number}}</p>
+            </div>
+            <div class="contact-icon">
+                <a href="tel:{{ $emergencycall->phone_number }}">
+                    <img src="{{ asset('assets/images/telp.png') }}" alt="Telepon">
+                </a>
+            </div>
         </div>
-        <div class="contact-icon">
-            <img src="{{ asset('assets/images/telp.png') }}" alt="Telepon">
-        </div>
-    </div>
+    @endforeach
 
-    <div class="contact-card">
-        <div>
-            <h5>Ambulance</h5>
-            <p class="text-muted">112</p>
-        </div>
-        <div class="contact-icon">
-            <img src="{{ asset('assets/images/telp.png') }}" alt="Telepon">
-        </div>
-    </div>
-
-    <div class="contact-card">
-        <div>
-            <h5>Dina</h5>
-            <p class="text-muted">Kontak Darurat</p>
-        </div>
-        <div class="contact-icon">
-            <img src="{{ asset('assets/images/telp.png') }}" alt="Telepon">
-        </div>
-    </div>
-
-    <button class="add-button">
-        <img src="assets/images/plus.png" width="24" class="rounded d-block mx-auto" alt="...">
+    <button class="add-button" data-bs-toggle="modal" data-bs-target="#addPhoneModal">
+        <i class="fas fa-plus"></i>
     </button>
+    
+    <!-- Modal -->
+    <div class="modal fade" id="addPhoneModal" tabindex="-1" aria-labelledby="addPhoneModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <form action="{{ route('user.emergencyCall.store') }}" method="POST">
+                @csrf
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="addPhoneModalLabel">Tambah Kontak Darurat</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Tutup"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <label for="name" class="form-label">Nama</label>
+                            <input type="text" name="name" class="form-control" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="phone_number" class="form-label">Nomor Telepon</label>
+                            <input type="tel" name="phone_number" class="form-control" required>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary">Simpan</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
 @endsection

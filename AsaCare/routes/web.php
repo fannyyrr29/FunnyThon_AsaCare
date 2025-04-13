@@ -56,7 +56,9 @@ Route::middleware(['auth', 'role:User'])->prefix('user')->group(function () {
     //Untuk menyimpan perubahan di db
     Route::post('/editProfil', [HomeController::class, 'editProfile'])->name('user.editProfile');
     //Menampilkan List Kontak
-    Route::get('/call/{id}', [HomeController::class, 'showEmergencyCall'])->name('user.call');
+    Route::get('/call', [HomeController::class, 'showEmergencyCall'])->name('user.call');
+    // Menyimpan kontak baru
+    Route::post('/call', [HomeController::class, 'storeEmergencyCall'])->name('user.emergencyCall.store');
     //Menampilkan riwayat kesehatan user
     Route::get('/medicalRecord/{id}', [HomeController::class, 'showMedicalRecord'])->name('user.medicalrecord');
     //Untuk menampilkan obat-obatan

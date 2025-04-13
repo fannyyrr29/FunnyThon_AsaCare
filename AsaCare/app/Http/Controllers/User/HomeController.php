@@ -74,7 +74,7 @@ class HomeController extends Controller
         $user->name = $request->nama;
         $user->gender = $request->gender;
         $user->birthdate = $request->tanggal_lahir;
-        $user->phone_number = "0".$request->phone;
+        $user->phone_number = "0" . $request->phone;
         $user->address = $request->alamat;
 
         if ($user->save()) {
@@ -98,17 +98,33 @@ class HomeController extends Controller
         return redirect()->back()->withErrors(['Error' => "Tidak ditemukan layanan!"]);
     }
 
-    public function showEmergencyCall(string $id)
+    public function showEmergencyCall()
     {
-        $call = EmergencyCall::where('user_id', '=', $id)->get();
+        $userID = auth()->id();
 
-        // Check if the collection is empty
-        if ($call->isNotEmpty()) {
-            // return response()->json(['message' => "Data Berhasil Diambil!", 'calls' => $call]);
-            return view('users.telp', compact('call'));
+        $emergencycalls = EmergencyCall::where('user_id', '=', $userID)->get();
+
+        if ($emergencycalls->isNotEmpty()) {
+            return view('users.telp', compact('emergencycalls'));
         }
+
         return redirect()->back()->with(['Error' => "Tidak dapat menampilkan Kontak Emergency Call"]);
-        // return response()->json(['message' => "Data tidak ditemukan!"], 404);
+    }
+
+    public function storeEmergencyCall(Request $request)
+    {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'phone_number' => 'required|string|max:20',
+        ]);
+
+        EmergencyCall::create([
+            'user_id' => auth()->id(),
+            'name' => $request->name,
+            'phone_number' => $request->phone_number,
+        ]);
+
+        return redirect()->back()->with('success', 'Kontak darurat berhasil ditambahkan!');
     }
 
     public function showMedicalRecord(string $id)

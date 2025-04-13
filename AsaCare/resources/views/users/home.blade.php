@@ -115,10 +115,14 @@
 
         </div>
 
-        <!-- Tombol Telp -->
-        <div class="add-button" data-bs-toggle="modal" data-bs-target="#searchModal">
-            <img src="{{ asset('assets/images/telp.png') }}" class="rounded d-block mx-auto" width="24" alt="...">
+        <div class="col-md-6 col-6">
+            <a href="{{ route('user.call') }}" class="text-reset text-decoration-none">
+                <button class="btn-red w-100">
+                    <img class="bg-red img-fluid" src="{{ asset('assets/images/telp.png') }}" alt="...">
+                </button>
+            </a>
         </div>
+
 @endsection
 
     @push('scripts')
