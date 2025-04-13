@@ -167,8 +167,8 @@ class MedicalRecordController extends Controller
         ])->find($id);
 
         if (!$medicalRecord) {
-            // return redirect()->back()->with(['header' => 'GAGAL', 'message' => 'Data rekam medis tidak ditemukan!']);
-            return response()->json(['header' => 'GAGAL', 'message' => 'Data rekam medis tidak ditemukan!']);
+            return redirect()->back()->withErrors(['header' => 'GAGAL', 'message' => 'Data rekam medis tidak ditemukan!']);
+            // return response()->json(['header' => 'GAGAL', 'message' => 'Data rekam medis tidak ditemukan!']);
 
         }
 
@@ -287,14 +287,6 @@ class MedicalRecordController extends Controller
             $medicalRecord->update(['total' => $totalHargaObat]);
     
             DB::commit();
-
-            $medicalRecords = MedicalRecord::with([
-                'user',
-                'doctor',
-                'drugRecords.drug',
-                'reminders.reminderTimes.time',
-                'actions'
-            ])->get();
 
             return redirect()->route('medicalRecord.index')->with([
                 'header' => 'SUKSES',
