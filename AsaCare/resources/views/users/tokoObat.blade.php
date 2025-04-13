@@ -147,9 +147,9 @@
             <li class="cart-item d-flex justify-content-between align-items-center">
                 <span>${item.name} - Rp ${item.price.toLocaleString('id-ID')}</span>
                 <div class="d-flex align-items-center">
-                    <button class="btn btn-sm btn-danger adjust-quantity" data-index="${index}" data-action="decrease">-</button>
+                    <button class="btn btn-sm btn-outline-danger adjust-quantity" data-index="${index}" data-action="decrease">-</button>
                     <span class="mx-2">${item.quantity}</span>
-                    <button class="btn btn-sm btn-success adjust-quantity" data-index="${index}" data-action="increase">+</button>
+                    <button class="btn btn-sm btn-outline-danger adjust-quantity" data-index="${index}" data-action="increase">+</button>
                     <button class="btn btn-sm btn-danger remove-item" data-index="${index}">Hapus</button>
                 </div>
             </li>
