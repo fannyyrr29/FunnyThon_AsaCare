@@ -135,57 +135,57 @@ Route::post('/message/broadcast', [MessageController::class, 'broadcast']);
 Route::post('/message/receive', [MessageController::class, 'receive']);
 
 
-Route::get('/homecare', function () {
-    return view('users/home');
-});
+// Route::get('/homecare', function () {
+//     return view('users/home');
+// });
 
 
-Route::get('/family', function () {
-    return view('users/family');
-});
+// Route::get('/family', function () {
+//     return view('users/family');
+// });
 
-Route::get('/reminderObat', function () {
-    return view('users/reminderObat');
-});
+// Route::get('/reminderObat', function () {
+//     return view('users/reminderObat');
+// });
 
-Route::get('/telp', function () {
-    return view('users/telp');
-});
+// Route::get('/telp', function () {
+//     return view('users/telp');
+// });
 
-Route::get('/tokoObat', function () {
-    return view('users/tokoObat');
-});
+// Route::get('/tokoObat', function () {
+//     return view('users/tokoObat');
+// });
 
-Route::get('/ringkasanBayar', function () {
-    return view('users/ringkasanBayar');
-});
+// Route::get('/ringkasanBayar', function () {
+//     return view('users/ringkasanBayar');
+// });
 
-Route::get('/reservasi', function () {
-    return view('users/reservasi');
-});
+// Route::get('/reservasi', function () {
+//     return view('users/reservasi');
+// });
 
 
-Route::get('/riwayat', function () {
-    return view('users/riwayat');
-});
-Route::get('/riwayatBeliObat', function () {
-    return view('users/riwayatBeliObat');
-});
-Route::get('/menuObat', function () {
-    return view('users/menuObat');
-});
+// Route::get('/riwayat', function () {
+//     return view('users/riwayat');
+// });
+// Route::get('/riwayatBeliObat', function () {
+//     return view('users/riwayatBeliObat');
+// });
+// Route::get('/menuObat', function () {
+//     return view('users/menuObat');
+// });
 
-Route::get('/setReminder', function () {
-    return view('users/setReminder');
-});
+// Route::get('/setReminder', function () {
+//     return view('users/setReminder');
+// });
 
-Route::get('/editProfile', function () {
-    return view('users/editProfile');
-});
+// Route::get('/editProfile', function () {
+//     return view('users/editProfile');
+// });
 
-Route::get('/listChat', function () {
-    return view('doctors/listChat');
-});
+// Route::get('/listChat', function () {
+//     return view('doctors/listChat');
+// });
 
 // Route::get('/konsultasi/{chat_id}', [PusherController::class, 'index']);
 
