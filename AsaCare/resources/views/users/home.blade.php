@@ -70,43 +70,49 @@
         <h6 class="text-center mt-2 mb-2">Bagaimana kabar hari ini?</h6>
 
         <div class="row text-center">
-            @foreach (Auth::user()->conditions as $condition)
-                <div class="col-4">
-                    <form action="{{ route('user.mood') }}" method="POST">
-                        @csrf
-                        <input type="hidden" name="condition" value="Sehat">
-                        <button type="submit" class="mood-btn {{ $condition->condition === 'Sehat' ? 'mood-healthy' : '' }}">
-                            <img src="{{ asset('assets/images/smile.png') }}" width="50" class="rounded d-block mx-auto mb-2"
-                                alt="...">
-                            Sehat
-                        </button>
-                    </form>
-                </div>
+            @php
+                $latestCondition = Auth::user()->conditions->last(); // Bisa null kalau belum ada data
+            @endphp
 
-                <div class="col-4">
-                    <form action="{{ route('user.mood') }}" method="POST">
-                        @csrf
-                        <input type="hidden" name="condition" value="Kurang Sehat">
-                        <button type="submit" class="mood-btn {{ $condition->condition === 'Kurang Sehat' ? 'mood-mid' : '' }}">
-                            <img src="{{ asset('assets/images/neutral.png') }}" width="50" class="rounded d-block mx-auto mb-2"
-                                alt="...">
-                            Netral
-                        </button>
-                    </form>
-                </div>
+            <div class="col-4">
+                <form action="{{ route('user.mood') }}" method="POST">
+                    @csrf
+                    <input type="hidden" name="condition" value="Sehat">
+                    <button type="submit"
+                        class="mood-btn {{ optional($latestCondition)->condition === 'Sehat' ? 'mood-healthy' : '' }}">
+                        <img src="{{ asset('assets/images/smile.png') }}" width="50" class="rounded d-block mx-auto mb-2"
+                            alt="...">
+                        Sehat
+                    </button>
+                </form>
+            </div>
 
-                <div class="col-4">
-                    <form action="{{ route('user.mood') }}" method="POST">
-                        @csrf
-                        <input type="hidden" name="condition" value="Sakit">
-                        <button type="submit" class="mood-btn {{ $condition->condition === 'Sakit' ? 'mood-sick' : '' }}">
-                            <img src="{{ asset('assets/images/angry.png') }}" width="50" class="rounded d-block mx-auto mb-2"
-                                alt="...">
-                            Sakit
-                        </button>
-                    </form>
-                </div>
-            @endforeach
+            <div class="col-4">
+                <form action="{{ route('user.mood') }}" method="POST">
+                    @csrf
+                    <input type="hidden" name="condition" value="Kurang Sehat">
+                    <button type="submit"
+                        class="mood-btn {{ optional($latestCondition)->condition === 'Kurang Sehat' ? 'mood-mid' : '' }}">
+                        <img src="{{ asset('assets/images/neutral.png') }}" width="50" class="rounded d-block mx-auto mb-2"
+                            alt="...">
+                        Netral
+                    </button>
+                </form>
+            </div>
+
+            <div class="col-4">
+                <form action="{{ route('user.mood') }}" method="POST">
+                    @csrf
+                    <input type="hidden" name="condition" value="Sakit">
+                    <button type="submit"
+                        class="mood-btn {{ optional($latestCondition)->condition === 'Sakit' ? 'mood-sick' : '' }}">
+                        <img src="{{ asset('assets/images/angry.png') }}" width="50" class="rounded d-block mx-auto mb-2"
+                            alt="...">
+                        Sakit
+                    </button>
+                </form>
+            </div>
+
         </div>
 
         <!-- Tombol Telp -->
