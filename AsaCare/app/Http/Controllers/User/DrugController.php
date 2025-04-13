@@ -41,11 +41,12 @@ class DrugController extends Controller
     {
         $validatedData = $request->validate([
             'drugs' => 'required|array',
-            'drugs.*.name' => 'required|string',
+            'drugs.*.id' => 'required|integer|exists:drugs,id',
             'drugs.*.duration_day' => 'required|integer|min:1',
             'rate' => 'required|integer',
             'amount' => 'required|array'
         ]);
+        
         
 
         $drugArr = $validatedData['drugs'];
@@ -61,8 +62,8 @@ class DrugController extends Controller
 
         $total = 0;
         for ($i = 0; $i < count($drugArr); $i++) {
-            $drugName = is_array($drugArr[$i]) ? $drugArr[$i]['name'] : (is_object($drugArr[$i]) ? $drugArr[$i]->name : $drugArr[$i]);
-            $drug = Drug::where('name', 'LIKE', '%' . $drugName . '%')->first();
+            $drugId = $drugArr[$i]['id'];
+            $drug = Drug::find($drugId);
         
             if ($drug) {
                 $drugRecord = new DrugRecord();
@@ -100,8 +101,8 @@ class DrugController extends Controller
             $durasi = (int) $drugArr[$i]['duration_day'];
 
             if (isset($timeMappings[$dose])) {
-                for ($i = 0; $i < $durasi; $i++) {
-                    $tanggal = now()->addDays($i)->toDateString();
+                for ($d = 0; $d < $durasi; $d++) {
+                    $tanggal = now()->addDays($d)->toDateString();
                     foreach ($timeMappings[$dose] as $timeId) {
                         ReminderTime::insert([
                             'reminder_id' => $reminder->id,
@@ -118,7 +119,7 @@ class DrugController extends Controller
         
 
         if ($total > 0) {
-            $medical->total = $total;
+            $medical->total = $total + $request->ongkir;
             if ($medical->save()) {
                 return redirect()->route('user.tokoObat')->with(['header' => 'SUKSES', 'message' => 'Pembayaran Sukses, Obat sedang dikemas!']);
             }
