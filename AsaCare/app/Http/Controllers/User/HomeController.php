@@ -129,7 +129,7 @@ class HomeController extends Controller
 
     public function showMedicalRecord(string $id)
     {
-        $medicalRecords = DB::table('medical_records as mr')
+        $rawRecords = DB::table('medical_records as mr')
             ->join('drug_records as dr', 'mr.id', '=', 'dr.medical_record_id')
             ->select(
                 'mr.id',
@@ -144,32 +144,45 @@ class HomeController extends Controller
             ->where('mr.user_id', '=', $id)
             ->get();
 
-        if ($medicalRecords->isEmpty()) {
+        if ($rawRecords->isEmpty()) {
             return response()->json(['message' => "Data tidak ditemukan!"], 404);
         }
 
-        $doctors = [];
-        foreach ($medicalRecords as $key => $mr) {
-            $doctor = Doctor::find($mr->doctor_id);
-            if ($doctor) {
-                array_push($doctors, $doctor);
-            } else {
-                // return response()->json(['message' => "Dokter tidak ditemukan!"], 404);
-            }
-        }
+        // Grouping berdasarkan medical record ID
+        $medicalRecords = $rawRecords->groupBy('id')->map(function ($items) {
+            $first = $items->first(); // ambil satuan data rekam medis
 
-        $drugs = [];
-        foreach ($medicalRecords as $key => $record) {
-            $drug = Drug::find($record->drug_id);
-            if ($drug) {
-                # code...
-                array_push($drugs, $drug);
-            } else {
-                // return response()->json(['message' => "Obat tidak ditemukan!"], 404);
-            }
-        }
-        // return view('users.riwayat', compact('medicalRecords', 'doctors', 'drugs'));
-        return response()->json(compact('medicalRecords', 'doctors', 'drugs'));
+            $drugList = $items->map(function ($item) {
+                $drug = Drug::find($item->drug_id);
+                if ($drug) {
+                    $drug->amount = $item->amount; 
+                    return $drug;
+                }
+                return null;
+            })->filter()->values();
+
+            $doctor = Doctor::find($first->doctor_id);
+
+            $actions = DB::table('medical_actions')
+                ->where('medical_record_id', $first->id)
+                ->join('actions', 'actions.id', '=', 'medical_actions.action_id')
+                ->select('actions.*', 'medical_actions.created_at as action_time')
+                ->get();
+
+            return [
+                'id' => $first->id,
+                'diagnose' => $first->diagnose,
+                'description' => $first->description,
+                'date' => $first->date,
+                'rating' => $first->rating,
+                'doctor' => $doctor,
+                'drugs' => $drugList,
+                'actions' => $actions,
+            ];
+        })->values();
+        // return response()->json(compact('medicalRecords'));
+        return view('users.riwayat', compact('medicalRecords'));
+
     }
 
     public function showDrug()

@@ -11,11 +11,11 @@ class ConsultationController extends Controller
 {
     public function index()
     {
-        $consultations = Consultation::where('doctor_id', Auth::id())->with('user')->get();
-        return view('doctors.consultation', compact('consultations'));
-        // if($consultations){
-        //     return view('doctors.consultation', compact('consultations'));
-        // }
-        // return redirect()->back()->withErrors(['header' => "GAGAL", 'message' => "Tidak dapat menampilkan consultation!"]);
+        $consultations = Consultation::where('doctor_id', Auth::id())->with(['user', 'messages'])->orderBy('id', 'desc')->get();
+        if($consultations){
+            return view('doctors.consultation', compact('consultations'));
+            // return response()->json(compact('consultations'));
+        }
+        return redirect()->back()->withErrors(['header' => "GAGAL", 'message' => "Tidak dapat menampilkan consultation!"]);
     }
 }

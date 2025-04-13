@@ -73,7 +73,7 @@ Route::middleware(['auth', 'role:User'])->prefix('user')->group(function () {
     Route::get('/pilihDokter', [HomeController::class, 'showDoctor'])->name('user.pilihDokter');
 
     Route::post('/message', [UserMessageController::class, 'index'])->name('user.message');
-    
+
     //untuk input kondisi
     Route::post('/addMood', [HomeController::class, 'addMood'])->name('user.mood');
     //Untuk menampilkan teman
@@ -128,7 +128,7 @@ Route::middleware(['auth', 'role:Dokter'])->prefix('doctor')->group(function () 
     Route::resource('medicalRecord', DoctorMedicalRecordController::class);
     Route::resource('consultation', ConsultationController::class)->names('doctor.consultation');
 
-    Route::post('/message/{consultation_id}', [MessageController::class, 'index'])->name('doctor.message');
+    Route::post('/message', [MessageController::class, 'index'])->name('doctor.message');
 });
 
 Route::post('/message/broadcast', [MessageController::class, 'broadcast']);

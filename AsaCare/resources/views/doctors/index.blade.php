@@ -49,7 +49,7 @@
                 </form>
             </div>
             <div class="col-12 col-md-5">
-                <form action="{{route('consultation.index')}}" method="get">
+                <form action="{{route('doctor.consultation.index')}}" method="get">
                     <button class="btn-red w-100 d-flex flex-column align-items-center p-3">
                         <img src="{{ asset('assets/images/chat.png') }}" alt="Chat Konsultasi" style="width: 80px;">
                         <h4 class="mt-2">Chat Konsultasi</h4>

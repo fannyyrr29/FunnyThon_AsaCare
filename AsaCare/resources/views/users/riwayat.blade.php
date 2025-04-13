@@ -8,17 +8,20 @@
     <div class="container mt-3">
         @foreach ($medicalRecords as $medicalRecord)
             <div class="card-custom">
-                <h5>{{ $medicalRecord->diagnose }}</h5>
-                <p><strong>Catatan:</strong></p>
+                <h5>{{ $medicalRecord['diagnose'] }}</h5>
+                <h6>Oleh: {{ $medicalRecord['doctor']->name }}</h6>
+                <p>Pada: {{ \Carbon\Carbon::parse($medicalRecord['date'])->format('d M Y') }}</p>
+                <p><strong>Obat:</strong></p>
                 <ul>
-                    @foreach ($drugs as $drug)
-                        @if ($drug->medical_record_id == $medicalRecord->id)
-                            <li>{{ $drug->nama . ' ' . $drug->dosis . ' ' . $drug->periode }}</li>
-                        @endif
+                    @foreach ($medicalRecord['drugs'] as $drug)
+                        <li>{{ $drug->name }} ({{ $drug->amount }}x)</li>
                     @endforeach
-
-                    @foreach ($medicalRecord->actions as $actionRecord)
-                        <li>{{ $actionRecord->name . ' ' . $actionRecord->created_at }}</li>
+                </ul>
+                <p><strong>Layanan:</strong></p>
+                <ul>
+                    @foreach ($medicalRecord['actions'] as $actionRecord)
+                        <li>{{ $actionRecord->name }} -
+                            {{ \Carbon\Carbon::parse($actionRecord->action_time)->format('d M Y') }}</li>
                     @endforeach
                 </ul>
             </div>

@@ -91,7 +91,7 @@
                     <div class="chat-body">
                         <!-- Contoh chat -->
                         @foreach ($consultations as $consultation)
-                            <form action="{{ route('doctor.message') }}" method="POST">
+                            <form action="{{ route('doctor.message')}}" method="POST">
                                 @csrf
                                 <input type="hidden" name="consultation_id" value="{{ $consultation->id }}">
                                 <input type="hidden" name="user_name" value="{{ $consultation->user->name }}">
