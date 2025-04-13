@@ -287,10 +287,23 @@ class MedicalRecordController extends Controller
             $medicalRecord->update(['total' => $totalHargaObat]);
     
             DB::commit();
-            return response()->json([
-                'header' => 'SUKSES',
-                'message' => 'Data rekam medis berhasil diperbarui.'
-            ]);
+
+            $medicalRecords = MedicalRecord::with([
+                'user',
+                'doctor',
+                'drugRecords.drug',
+                'reminders.reminderTimes.time',
+                'actions'
+            ])->get();
+
+            return view('doctors.riwayatKesehatan', compact('medicalRecords'));
+
+            // return response()->json([
+            //     'header' => 'SUKSES',
+            //     'message' => 'Data rekam medis berhasil diperbarui.'
+            // ]);
+
+
         } catch (\Throwable $th) {
             DB::rollBack();
             return response()->json([
