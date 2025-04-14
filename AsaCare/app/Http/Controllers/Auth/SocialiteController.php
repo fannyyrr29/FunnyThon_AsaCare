@@ -30,6 +30,7 @@ class SocialiteController extends Controller
                 'name' => $socialUser->name,
                 'email' => $socialUser->email,
                 'password' => Hash::make('123'),
+                'profile' => 'default-avatar.png',
                 'role' => 'User',
                 'google_token' => $socialUser->token,
                 'google_refresh_token' => $socialUser->refreshToken,
