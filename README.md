@@ -8,6 +8,12 @@
 # 📘 Laravel Project: AsaCare
 Link Website : https://asacare.thelol.me/
 
+--- 
+
+Aplikasi AsaCare ditujukan untuk seluruh lapisan masyarakat Surabaya terutama orang-orang lanjut usia (lansia) dan mereka yang memiliki keterbatasan finansial. Dengan antarmuka yang ramah pengguna dan fitur-fitur yang inklusif, aplikasi ini mempermudah akses layanan kesehatan yang efisien dan terjangkau melalui integrasi dengan RSUD, layanan home care, pemesanan obat daring, serta pengingat konsumsi obat. Selain itu, fitur pemantauan kesehatan keluarga memastikan setiap anggota keluarga dapat memantau kondisi kesehatan kerabatnya secara berkala.
+
+---
+
 ## 🚀 Features
 
 - 🔐 User Authentication using Google.
