@@ -92,7 +92,7 @@
                         <div class="d-flex justify-content-between align-items-center">
                             <!-- data akun yang direquest -->
                             <div class="mb-0">
-                                <img src="{{ asset('assets/images/profile/' . $p->profile }}" alt="">
+                                <img src="{{ asset('assets/images/profile/' . $p->profile) }}" alt="">
                                 <div class="ms-3">
                                     <p><strong>{{ $p->name }}</strong></p>
                                     <p>{{ $p->email }}</p>
