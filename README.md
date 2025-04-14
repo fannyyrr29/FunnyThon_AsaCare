@@ -2,12 +2,15 @@
 
 ## 🚀 Features
 
-- 🔐 User Authentication using Google
-- 👥 Role-Based Access Control (Admin, Doctor, User)
-- 📝 CRUD Operations (e.g., Users, Reminders, Medical Records)
-- ⏰ Notifications or Reminders
-- 📊 Dashboard with Statistics (if applicable)
-- 🌐 API Support (optional)
+- 🔐 User Authentication using Google.
+- 👥 Role-Based Access Control (Admin, Doctor, User).
+- 📑 Automated medical records integrated with Surabaya RSUD.
+- ⏰ Medicine reminders.
+- 🧑🏻‍⚕️ Book doctor appointments (GP/specialist) via app.
+- ⌚ Real-time family health tracking.
+- ➕ Book home care for doctor visits.
+- 💬 Remote healthcare via online consultations.
+- 💊 Surabaya online pharmacy with home delivery.
 
 ---
 
