@@ -49,10 +49,15 @@ class LoginController extends Controller
                     return redirect()->route('login')->withInput()->withErrors(['Error' => 'Peran anda tidak ditemukan!']);
             }
 
+        }else{
+            return back()->withErrors([
+                'password' => 'Password yang anda masukkan salah!',
+            ])->withInput();
         }
 
-        // If authentication fails, return an error response
-        return response()->json(['message' => 'Akun tidak ditemukan!'], 401);
+        return back()->withErrors([
+            'account' => 'Pengguna tidak ditemukan',
+        ])->withInput();
     }
 
     protected function redirectTo()

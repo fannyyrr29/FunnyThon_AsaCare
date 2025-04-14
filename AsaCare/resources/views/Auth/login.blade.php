@@ -60,11 +60,17 @@
                                         <form action="{{ route('login') }}" method="post">
                                             @csrf
                                             <div class="form-outline mb-4">
+                                                @error('account')
+                                                    <p class="text-danger text-start">{{ $message }}</p>
+                                                @enderror
                                                 <input type="email" id="typeEmailX-2" name="email"
                                                     class="form-control form-control-lg" placeholder="Email" />
                                             </div>
 
                                             <div class="form-outline mb-4 position-relative">
+                                                @error('password')
+                                                    <p class="text-start text-danger">{{ $message }}</p>
+                                                @enderror
                                                 <input type="password" id="passwordField" name="password"
                                                     class="form-control form-control-lg" placeholder="Password" />
                                                 <i class="fas fa-eye toggle-password"></i>
@@ -103,11 +109,11 @@
     </div>
 
     <script>
-        document.addEventListener("DOMContentLoaded", function () {
+        document.addEventListener("DOMContentLoaded", function() {
             const passwordField = document.getElementById("passwordField");
             const togglePassword = document.querySelector(".toggle-password");
 
-            togglePassword.addEventListener("click", function () {
+            togglePassword.addEventListener("click", function() {
                 if (passwordField.type === "password") {
                     passwordField.type = "text";
                     togglePassword.classList.remove("fa-eye");
