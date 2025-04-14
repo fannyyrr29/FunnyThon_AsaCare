@@ -2,7 +2,7 @@
 
 @section('title', 'Toko Obat')
 @section('header_title', 'Toko Obat')
-@section('back_button', true)
+@section('back_button')
 
 @push('styles')
     <style>

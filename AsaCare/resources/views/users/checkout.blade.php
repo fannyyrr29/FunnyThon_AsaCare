@@ -2,7 +2,7 @@
 
 @section('title', 'Checkout')
 @section('header_title', 'Checkout')
-@section('back_button', true)
+@section('back_button')
 
 @push('styles')
     <style>

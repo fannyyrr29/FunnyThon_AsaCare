@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('title', 'Jadwal Pengingat')
-@section('back_button', true)
+@section('back_button')
 @section('header_title', 'Pengingat Minum Obat')
 
 <style>

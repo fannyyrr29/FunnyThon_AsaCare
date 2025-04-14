@@ -2,7 +2,7 @@
 
 @section('title', 'Kontak Darurat')
 @section('header_title', 'Telepon')
-@section('back_button', true)
+@section('back_button')
 
 @section('content')
     <div class="contact-card">
@@ -29,9 +29,7 @@
                     </a>
                 </div>
             </div>
-        @endforeach
-    @else
-        <p class="text-center" style="color:rgb(117, 117, 117);">Tidak ada kontak darurat.</p>
+        @endforeach 
     @endif
 
     <button class="add-button" data-bs-toggle="modal" data-bs-target="#addPhoneModal">

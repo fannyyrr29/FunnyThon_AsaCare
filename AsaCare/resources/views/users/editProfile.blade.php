@@ -2,7 +2,7 @@
 
 @section('title', 'Lengkapi Profil')
 @section('header_title', 'Lengkapi Profil')
-@section('back_button', true)
+@section('back_button')
 
 @section('content')
     <div class="card shadow" style="max-width: 400px; margin: auto; border-radius: 10px; padding: 20px;">
