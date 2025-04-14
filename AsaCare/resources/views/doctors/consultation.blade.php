@@ -91,13 +91,14 @@
                     <div class="chat-body">
                         <!-- Contoh chat -->
                         @foreach ($consultations as $consultation)
-                            <form action="{{ route('doctor.message')}}" method="POST">
+                            <form action="{{ route('doctor.message') }}" method="POST">
                                 @csrf
                                 <input type="hidden" name="consultation_id" value="{{ $consultation->id }}">
                                 <input type="hidden" name="user_name" value="{{ $consultation->user->name }}">
                                 <button type="submit" style="all: unset; cursor: pointer; width: 100%;">
                                     <div class="chat-item">
-                                        <img src="assets/images/{{ $consultation->user->profile }}" alt="Avatar" />
+                                        <img src="assets/images/profile/{{ $consultation->user->profile }}"
+                                            alt="Avatar" />
                                         <div class="chat-info">
                                             <h6 class="chat-name">{{ $consultation->user->name }}</h6>
                                         </div>

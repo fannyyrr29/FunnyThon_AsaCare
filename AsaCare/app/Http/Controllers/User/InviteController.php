@@ -61,25 +61,33 @@ class InviteController extends Controller
     public function addFriend(Request $request){
         try {
             $sender = User::find($request->sender_id);
-            $receiver = User::find($request->receiver_id);
+            $receiver = User::where('email', $request->email)->first();
             Family::create([
                 'sender_id' =>$sender->id,
                 'receiver_id' => $receiver->id,
                 'status' => 0
             ]);
-            return redirect()->route('user.family')->with([
-                'header' => 'SUCCESS',
+            return response()->json([
+                'status' => 'SUCCESS',
                 'message' => 'Pertemanan Berhasil Ditambahkan!',
                 'sender' => $sender,
                 'receiver' => $receiver,
             ]);
+            //  redirect()->route('user.family')->with([
+            //     'header' => 'SUCCESS',
+            //     'message' => 'Pertemanan Berhasil Ditambahkan!',
+            //     'sender' => $sender,
+            //     'receiver' => $receiver,
+            // ]);
 
             // $sender->receivers()->attach($receiver->id, ['status' => 0]);
                 
         } catch (\Exception $e) {
-            return redirect()->route('user.family')->withErrors(['header' => 'ERROR', 
-                                      'message' => "Gagal menambahkan pertemanan! " . $e->getMessage()], 
-                                     500);
+            return response()->json(['status' => 'error', 
+                                      'message' => "Gagal menambahkan pertemanan! " . $e->getMessage()]);
+            // return redirect()->route('user.family')->withErrors(['header' => 'ERROR', 
+            //                           'message' => "Gagal menambahkan pertemanan! " . $e->getMessage()], 
+            //                          500);
         }
     }
 
@@ -111,28 +119,72 @@ class InviteController extends Controller
 
     public function searchFriend(Request $request){
         $userId = $request->user_id;
-        $email = $request->email;
-
+        $email = $request->email ?? '';
+        $type = $request->type;
+    
+        if (empty($email) || empty($type)) {
+            return response()->json(['users' => []]);
+        }
+    
         try {
-            $users = DB::select('
-                SELECT *
-                FROM users
-                WHERE id != ?
-                AND role = \'User\'
-                AND email LIKE ?
-                AND id NOT IN (
-                    SELECT sender_id FROM families WHERE receiver_id = ?
-                    UNION
-                    SELECT receiver_id FROM families WHERE sender_id = ?
-                )
-            ', [
-                $userId, '%' . $email . '%', $userId, $userId
-            ]);
-            return response()->json(compact('users'));
+            switch ($type) {
+                case 'pending':
+                    // Kamu mengirim request, tapi belum diterima (status = 0)
+                    $users = DB::table('users')
+                        ->whereIn('id', function ($query) use ($userId) {
+                            $query->select('receiver_id')
+                                ->from('families')
+                                ->where('sender_id', $userId)
+                                ->where('status', 0);
+                        })
+                        ->where(function ($query) use ($email) {
+                            $query->where('email', 'like', '%' . $email . '%')
+                                  ->orWhere('name', 'like', '%' . $email . '%');
+                        })
+                        ->get();
+                    break;
+            
+                case 'invitor':
+                    // Mereka kirim request ke kamu, tapi kamu belum terima (status = 0)
+                    $users = DB::table('users')
+                        ->whereIn('id', function ($query) use ($userId) {
+                            $query->select('sender_id')
+                                ->from('families')
+                                ->where('receiver_id', $userId)
+                                ->where('status', 0);
+                        })
+                        ->where(function ($query) use ($email) {
+                            $query->where('email', 'like', '%' . $email . '%')
+                                  ->orWhere('name', 'like', '%' . $email . '%');
+                        })
+                        ->get();
+                    break;
+            
+                case 'families':
+                    // Sudah diterima, status = 1
+                    $users = DB::select('
+                        SELECT * FROM users
+                        WHERE id IN (
+                            SELECT CASE
+                                WHEN sender_id = ? THEN receiver_id
+                                WHEN receiver_id = ? THEN sender_id
+                            END
+                            FROM families
+                            WHERE (sender_id = ? OR receiver_id = ?)
+                            AND status = 1
+                        )
+                        AND (email LIKE ? OR name LIKE ?)
+                    ', [$userId, $userId, $userId, $userId, '%' . $email . '%', '%' . $email . '%']);
+                    break;
+            }
+            
+    
+            return response()->json(['users' => $users]);
         } catch (\Throwable $th) {
-            return response()->json(['header' => 'ERROR', 'message' => 'Pengguna tidak ditemukan']);
+            return response()->json(['users' => []]);
         }
     }
+    
 
     public function reject(Request $request){
         $sender = $request->sender_id;

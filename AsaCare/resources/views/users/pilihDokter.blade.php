@@ -15,7 +15,8 @@
                             {{-- <input type="hidden" name="consultation_id" value="{{ $consultation->id }}"> --}}
                             <input type="hidden" name="doctor_id" value="{{ $doctor->id }}">
                             <input type="hidden" name="doctor_name" value="{{ $doctor->name }}">
-                            <img src="{{'/assets/images/'. $doctor->profile }}" class="card-img-top" alt="{{ $doctor->name }}">
+                            <img src="{{ '/assets/images/profile/' . $doctor->profile }}" class="card-img-top"
+                                alt="{{ $doctor->name }}">
                             <div class="card-body">
                                 <h5 class="card-title">{{ $doctor->name }}</h5>
                                 <p class="card-text">
@@ -23,7 +24,7 @@
                                     <strong>Rating:</strong> {{ $doctor->doctor->rating }}<br>
                                     <strong>Spesialis:</strong> {{ $doctor->doctor->specialization->name }}<br>
                                     @php
-                                        $rating = $doctor->rating; 
+                                        $rating = $doctor->rating;
                                         $fullStars = floor($rating);
                                         $halfStar = $rating - $fullStars > 0 ? 1 : 0;
                                         $emptyStars = 5 - $fullStars - $halfStar;

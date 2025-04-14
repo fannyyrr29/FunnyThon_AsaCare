@@ -6,7 +6,8 @@
 @section('content')
     <!-- Kartu Profil -->
     <div class="profile-card d-flex align-items-center">
-        <img src="{{ '/assets/images/' . Auth::user()->profile }}" alt="Profile">
+        <img src="{{ '/assets/images/profile/' . (Auth::user()->profile ? Auth::user()->profile : 'default-avatar.png') }}"
+            alt="Profile">
         <div class="ms-3 w-100">
             <div class="d-flex justify-content-between align-items-start">
                 <div>
@@ -115,12 +116,12 @@
         </div>
 
         <!-- <div class="col-md-6 col-6">
-                                                    <a href="{{ route('user.call') }}" class="text-reset text-decoration-none">
-                                                        <button class="btn-red w-100">
-                                                            <img class="bg-red img-fluid" src="{{ asset('assets/images/telp.png') }}" alt="...">
-                                                        </button>
-                                                    </a>
-                                                </div> -->
+                                                                                                <a href="{{ route('user.call') }}" class="text-reset text-decoration-none">
+                                                                                                    <button class="btn-red w-100">
+                                                                                                        <img class="bg-red img-fluid" src="{{ asset('assets/images/telp.png') }}" alt="...">
+                                                                                                    </button>
+                                                                                                </a>
+                                                                                            </div> -->
         <div class="add-button">
             <a href="{{ route('user.call') }}" class="text-reset text-decoration-none btn-red h-100 rounded-circle p-0">
                 <img src="{{ asset('assets/images/telp.png') }}" width="24" alt="...">

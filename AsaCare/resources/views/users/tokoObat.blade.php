@@ -4,62 +4,62 @@
 @section('header_title', 'Toko Obat')
 @section('back_button')
 
-@push('styles')
-    <style>
-        .product-card {
-            background-color: #f8f9fa;
-            border-radius: 10px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-            transition: transform 0.2s ease;
-        }
+    @push('styles')
+        <style>
+            .product-card {
+                background-color: #f8f9fa;
+                border-radius: 10px;
+                box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+                transition: transform 0.2s ease;
+            }
 
-        .product-card:hover {
-            transform: translateY(-5px);
-        }
+            .product-card:hover {
+                transform: translateY(-5px);
+            }
 
-        .btn-red-general {
-            background-color: #A6192E;
-            color: white;
-            border: none;
-            transition: background-color 0.3s;
-        }
+            .btn-red-general {
+                background-color: #A6192E;
+                color: white;
+                border: none;
+                transition: background-color 0.3s;
+            }
 
-        .btn-red-general:hover {
-            background-color: #8b1624;
-        }
+            .btn-red-general:hover {
+                background-color: #8b1624;
+            }
 
-        .cart {
-            background-color: #A6192E;
-            color: black;
-            border-radius: 8px;
-            padding: 1rem;
-        }
+            .cart {
+                background-color: #A6192E;
+                color: black;
+                border-radius: 8px;
+                padding: 1rem;
+            }
 
-        #cart-items-container {
-            max-height: 300px;
-            overflow-y: auto;
-            padding: 0.5rem;
-        }
+            #cart-items-container {
+                max-height: 300px;
+                overflow-y: auto;
+                padding: 0.5rem;
+            }
 
-        #cart-items {
-            font-size: 14px;
-        }
+            #cart-items {
+                font-size: 14px;
+            }
 
-        #total {
-            font-size: 18px;
-            font-weight: bold;
-        }
+            #total {
+                font-size: 18px;
+                font-weight: bold;
+            }
 
-        #cart-items li {
-            padding: 5px 0;
-            border-bottom: 1px solid #ddd;
-        }
+            #cart-items li {
+                padding: 5px 0;
+                border-bottom: 1px solid #ddd;
+            }
 
-        #cart-items li:last-child {
-            border-bottom: none;
-        }
-    </style>
-@endpush
+            #cart-items li:last-child {
+                border-bottom: none;
+            }
+        </style>
+    @endpush
 
 @section('content')
     @if (session('header'))

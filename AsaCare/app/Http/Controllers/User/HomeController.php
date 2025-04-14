@@ -59,7 +59,7 @@ class HomeController extends Controller
             $extension = $image->getClientOriginalExtension();
 
             $fileName = $user->id . '.' . $extension;
-            $destinationPath = public_path('assets/images/');
+            $destinationPath = public_path('assets/images/profile/');
 
             if ($user->profile && file_exists($destinationPath . $user->profile)) {
                 unlink($destinationPath . $user->profile);

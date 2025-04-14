@@ -69,7 +69,7 @@
                     <div class="profile-card d-flex align-items-center justify-content-between mb-2">
                         <div class="">
                             <img alt="Profile" class="rounded-circle" width="60" height="60"
-                                src="{{ asset('assets/images/' . ($family->sender_id == Auth::id() ? $family->receiver->profile : $family->sender->profile)) }}">
+                                src="{{ asset('assets/images/profile/' . ($family->sender_id == Auth::id() ? $family->receiver->profile ?? 'default-avatar.png' : $family->sender->profile ?? 'default-avatar.png')) }}">
                             <div class="ms-3">
                                 <h5 class="mb-1" style="color:#A6192E;">
                                     {{ $family->sender_id == Auth::id() ? $family->receiver->name : $family->sender->name }}
@@ -92,8 +92,11 @@
                         <div class="d-flex justify-content-between align-items-center">
                             <!-- data akun yang direquest -->
                             <div class="mb-0">
-                                <p><strong>{{ $p->name }}</strong></p>
-                                <p>{{ $p->email }}</p>
+                                <img src="{{ asset('assets/images/profile/' . $p->profile }}" alt="">
+                                <div class="ms-3">
+                                    <p><strong>{{ $p->name }}</strong></p>
+                                    <p>{{ $p->email }}</p>
+                                </div>
                             </div>
                             <form action="{{ route('user.delete') }}" method="post">
                                 @csrf
@@ -113,8 +116,11 @@
                         <div class="d-flex justify-content-between align-items-center">
                             <!-- data akun yang direquest -->
                             <div class="mb-0">
-                                <p><strong>{{ $item->name }}</strong></p>
-                                <p>{{ $item->email }}</p>
+                                <img src="{{ asset('assets/images/profile/' . $item->profile) }}" alt="">
+                                <div class="ms-3">
+                                    <p><strong>{{ $item->name }}</strong></p>
+                                    <p>{{ $item->email }}</p>
+                                </div>
                             </div>
                             <div class="">
                                 <form action="{{ route('user.accept') }}" method="post">
@@ -174,7 +180,8 @@
                 <div class="modal-body">
                     <form id="emailForm">
                         <label for="emailInput" class="form-label">Masukkan Email</label>
-                        <input type="text" id="emailInput" class="form-control" placeholder="contoh@email.com">
+                        <input type="text" id="emailInput" class="form-control" name="email"
+                            placeholder="contoh@email.com">
                         <small id="emailError" class="text-danger"></small>
                     </form>
                 </div>
@@ -189,14 +196,10 @@
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="userName">Modal title</h1>
+                    <h1 class="modal-title fs-5" id="userName">Riwayat Kesehatan</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body" id="container-record">
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
                 </div>
             </div>
         </div>
@@ -207,76 +210,164 @@
 
 @push('scripts')
     <script>
-        let debounceTimer;
+        let debounceTimer = null; // <--- tambahkan ini di awal
+
         document.getElementById('searchInput').addEventListener('keyup', function() {
             clearTimeout(debounceTimer);
-            debounceTimer = setTimeout(searchItems, 300); // tunggu 300ms setelah ketikan terakhir
-        });
+            debounceTimer = setTimeout(() => {
+                const activeTab = document.querySelector('.nav-link.active').id;
+                const tabType = activeTab.replace('-tab', '');
+                const typeMap = {
+                    'approved': 'families',
+                    'pending': 'pending',
+                    'request': 'invitor'
+                };
 
-        function searchItems() {
-            let input = document.getElementById("searchInput").value.toLowerCase();
-            let items = document.querySelectorAll(".profile-card");
-            const authId = '{{ Auth::id() }}';
+                searchItems(typeMap[tabType]);
+            }, 300);
+        });
+    </script>
+
+    <script>
+        function searchItems(tab) {
+            const email = document.getElementById("searchInput").value.trim();
+            const userId = '{{ Auth::id() }}';
+
+            if (email === "") {
+                location.reload();
+                return;
+            }
+
+            const tabToIdMap = {
+                'pending': 'pending',
+                'invitor': 'request',
+                'families': 'approved'
+            };
+
             $.ajax({
-                type: "post",
+                type: "POST",
                 url: "{{ route('user.search') }}",
                 data: {
                     _token: '{{ csrf_token() }}',
-                    user_id: '<?php echo Auth::id(); ?>',
-                    email: input
+                    user_id: userId,
+                    email: email,
+                    type: tab
                 },
                 success: function(response) {
-                    $('#list-search').empty();
-                    if (response.users.length === 0) {
-                        $('#list-search').append(`<li class="list-group-item text-muted">Tidak ditemukan</li>`);
-                    } else {
-                        response.users.forEach(element => {
-                            $('#list-search').append(`
-                                <li class="list-group-item d-flex gap-2 justify-content-between align-items-center">
-                                    <div>
-                                        <h6>${element.name}</h6>
-                                        <p>${element.email}</p>
-                                    </div>
-                                    <form action="{{ route('user.add') }}" method="POST" class="d-flex align-items-center gap-1">
-                                        @csrf
-                                        <input type="hidden" name="receiver_id" value="${element.id}">
-                                        <input type="hidden" name="sender_id" value="${authId}">
-                                        <button type="submit" class="btn btn-success btn-sm">Tambah</button>
-                                    </form>
-                                </li>
-                            `);
-                        });
+                    const users = response.users;
+                    const container = $(`#${tabToIdMap[tab]}`);
+                    container.empty();
 
+                    if (users.length === 0) {
+                        container.append(`<div class="text-muted text-center p-3">Tidak ditemukan</div>`);
+                        return;
                     }
+
+                    users.forEach(user => {
+                        let html = '';
+                        const profileImage = user.profile ? user.profile : 'default-avatar.png';
+                        const imageUrl = `/assets/images/profile/${profileImage}`;
+                        if (tab === 'pending') {
+                            html = `
+                    <div class="profile-card d-flex justify-content-between align-items-center">
+                        <div>
+                            <img alt="Profile" class="rounded-circle" width="60" height="60"
+                                src="${imageUrl}">
+                            <p><strong>${user.name}</strong></p>
+                            <p>${user.email}</p>
+                        </div>
+                        <form action="{{ route('user.delete') }}" method="post">
+                            @csrf
+                            <input type="hidden" name="sender_id" value="${userId}">
+                            <input type="hidden" name="receiver_id" value="${user.id}">
+                            <button class="btn custom-btn" type="submit">Hapus</button>
+                        </form>
+                    </div>`;
+                        } else if (tab === 'invitor') {
+                            html = `
+                    <div class="profile-card d-flex justify-content-between align-items-center">
+                        <div>
+                            <p><strong>${user.name}</strong></p>
+                            <p>${user.email}</p>
+                        </div>
+                        <div>
+                            <form action="{{ route('user.accept') }}" method="post">
+                                @csrf
+                                <input type="hidden" name="sender_id" value="${user.id}">
+                                <input type="hidden" name="receiver_id" value="${userId}">
+                                <button class="btn btn-success" type="submit">Tambah</button>
+                            </form>
+                            <form action="{{ route('user.delete') }}" method="post">
+                                @csrf
+                                <input type="hidden" name="sender_id" value="${user.id}">
+                                <input type="hidden" name="receiver_id" value="${userId}">
+                                <button class="btn custom-btn" type="submit">Hapus</button>
+                            </form>
+                        </div>
+                    </div>`;
+                        } else if (tab === 'families') {
+                            html = `
+                    <div class="profile-card d-flex align-items-center justify-content-between">
+                        <div>
+                            <img alt="Profile" class="rounded-circle" width="60" height="60"
+                                src="${imageUrl}">
+                            <p><strong>${user.name}</strong></p>
+                            <p>${user.address}</p>
+                        </div>
+                        <button class="btn custom-btn" onclick="showListRecord(${user.id})">Show</button>
+                    </div>`;
+                        }
+
+                        container.append(html);
+                    });
                 }
             });
-
-            console.log(response.users);
         }
 
 
-        // function sendRequest() {
-        //     let emailInput = document.getElementById("emailInput");
-        //     let emailError = document.getElementById("emailError");
-        //     let email = emailInput.value.trim();
-        //     let isValid = true;
+        function sendRequest() {
+            let emailInput = document.getElementById("emailInput");
+            let emailError = document.getElementById("emailError");
+            let email = emailInput.value.trim();
+            let isValid = true;
 
-        //     emailError.innerText = "";
+            emailError.innerText = "";
 
-        //     if (email === "") {
-        //         emailError.innerText = "Email tidak boleh kosong!";
-        //         isValid = false;
-        //     } else if (!email.includes("@") || !email.includes(".")) {
-        //         emailError.innerText = "Format email tidak valid!";
-        //         isValid = false;
-        //     }
+            if (email === "") {
+                emailError.innerText = "Email tidak boleh kosong!";
+                isValid = false;
+            } else if (!email.includes("@") || !email.includes(".")) {
+                emailError.innerText = "Format email tidak valid!";
+                isValid = false;
+            } else {
+                const authId = '{{ Auth::id() }}';
 
-        //     if (isValid) {
-        //         let modalElement = document.getElementById('searchModal');
-        //         let modalInstance = bootstrap.Modal.getInstance(modalElement);
-        //         modalInstance.hide();
-        //     }
-        // }
+                $.ajax({
+                    type: "post",
+                    url: "{{ route('user.add') }}",
+                    data: {
+                        _token: '{{ csrf_token() }}',
+                        sender_id: '<?php echo Auth::id(); ?>',
+                        email: emailInput.value
+                    },
+                    success: function(response) {
+                        console.log(response); // untuk melihat apa isi response-nya
+                        if (response.status === 'SUCCESS') {
+                            alert(response.message);
+                            window.location.href = '/user/family';
+                        } else {
+                            alert("Gagal: " + response.message);
+                        }
+                    }
+                });
+            }
+
+            if (isValid) {
+                let modalElement = document.getElementById('searchModal');
+                let modalInstance = bootstrap.Modal.getInstance(modalElement);
+                modalInstance.hide();
+            }
+        }
 
         function showListRecord(id) {
             // console.log(id);
@@ -291,29 +382,38 @@
                 success: function(response) {
                     console.log(response);
                     let temp = "";
-                    for (const [index, value] of Object.entries(response)) {
-                        let drugList = "";
-                        for (const [i, drug] of Object.entries(value.drug_records)) {
-                            drugList += `<li>${drug.drug.name} - ${drug.amount}x</li>`;
-                        }
+                    if (Array.isArray(response) && response.length > 0) {
+                        for (const [index, value] of Object.entries(response)) {
+                            let drugList = "";
+                            for (const [i, drug] of Object.entries(value.drug_records)) {
+                                drugList += `<li>${drug.drug.name} - ${drug.amount}x</li>`;
+                            }
 
-                        let actionList = "";
-                        for (const [i, action] of Object.entries(value.actions)) {
-                            actionList += `<li>${action.name} - ${action.date}</li>`;
-                        }
+                            let actionList = "";
+                            for (const [i, action] of Object.entries(value.actions)) {
+                                actionList += `<li>${action.name} - ${action.date}</li>`;
+                            }
 
+                            temp += `<div class="card mb-3">
+                            <div class="card-body">
+                                <h5>${value.diagnose}</h5>
+                                <h6>${value.description}</h6>
+                                <p>${value.date}</p>
+                                <p class="text-bold">Obat</p>
+                                <ul>${drugList}</ul>
+                                <p><strong>Layanan</strong></p>
+                                <ul>${actionList}</ul>
+                            </div>     
+                        </div>`;
+                        }
+                    } else {
                         temp += `<div class="card mb-3">
-                    <div class="card-body">
-                        <h5>${value.diagnose}</h5>
-                        <h6>${value.description}</h6>
-                        <p>${value.date}</p>
-                        <p class="text-bold">Obat</p>
-                        <ul>${drugList}</ul>
-                        <p><strong>Layanan</strong></p>
-                        <ul>${actionList}</ul>
-                    </div>     
-                </div>`;
+                            <div class="card-body">
+                                <p>Tidak Ditemukan Riwayat Kesehatan Pengguna</p>
+                            </div>     
+                        </div>`
                     }
+
 
                     $('#container-record').html(temp);
                     // $('#showMedicalRecord').modal('show');

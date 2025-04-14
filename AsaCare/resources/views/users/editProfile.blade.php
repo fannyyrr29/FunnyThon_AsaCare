@@ -13,8 +13,8 @@
                 <div class="mb-4 text-center position-relative" style="width: 150px; height: 150px; margin: auto;">
                     <img id="previewImage"
                         src="{{ $user->profile
-                            ? asset('assets/images/' . $user->profile)
-                            : asset('assets/images/default-avatar.png') }}"
+                            ? asset('assets/images/profile/' . $user->profile)
+                            : asset('assets/images/profile/default-avatar.png') }}"
                         class="rounded-circle w-100 h-100 object-fit-cover border" alt="Foto Profil">
 
                     <label for="profile_picture"
