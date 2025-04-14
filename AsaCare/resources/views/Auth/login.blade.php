@@ -66,11 +66,10 @@
                                                 <input type="email" id="typeEmailX-2" name="email"
                                                     class="form-control form-control-lg" placeholder="Email" />
                                             </div>
-
+                                            @error('password')
+                                                <p class="text-start text-danger">{{ $message }}</p>
+                                            @enderror
                                             <div class="form-outline mb-4 position-relative">
-                                                @error('password')
-                                                    <p class="text-start text-danger">{{ $message }}</p>
-                                                @enderror
                                                 <input type="password" id="passwordField" name="password"
                                                     class="form-control form-control-lg" placeholder="Password" />
                                                 <i class="fas fa-eye toggle-password"></i>
