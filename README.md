@@ -1,4 +1,12 @@
+## Kelompok FunnyThon
+- Antonius Kustiono Putra (160422065)
+- Janet Deby Marlien Manoach (160422062)
+- Fanny Rorencia Ribowo (160422005)
+  
+---
+
 # 📘 Laravel Project: AsaCare
+Link Website : https://asacare.thelol.me/
 
 ## 🚀 Features
 
