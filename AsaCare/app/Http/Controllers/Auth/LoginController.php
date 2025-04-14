@@ -50,7 +50,7 @@ class LoginController extends Controller
             }
 
         }else{
-            return back()->withErrsors([
+            return back()->withErrors([
                 'password' => 'Password yang anda masukkan salah!',
             ])->withInput();
         }
