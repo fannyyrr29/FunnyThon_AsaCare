@@ -74,7 +74,8 @@ Route::middleware(['auth', 'role:User'])->prefix('user')->group(function () {
     Route::get('/pilihDokter', [HomeController::class, 'showDoctor'])->name('user.pilihDokter');
 
     Route::post('/message', [UserMessageController::class, 'index'])->name('user.message');
-
+    
+    Route::post('/listMedicalRecord', [InviteController::class, 'showRecord'])->name('user.listRecord');
     //untuk input kondisi
     Route::post('/addMood', [HomeController::class, 'addMood'])->name('user.mood');
     //Untuk menampilkan teman

@@ -63,17 +63,24 @@
         @if ($families != [])
             <div class="tab-pane fade" id="approved" role="tabpanel" aria-labelledby="approved-tab">
                 @foreach ($families as $family)
-                    <div class="profile-card d-flex align-items-center mb-2">
-                        <img alt="Profile" class="rounded-circle" width="60" height="60"
-                            src="{{ asset('assets/images/' . ($family->sender_id == Auth::id() ? $family->receiver->profile : $family->sender->profile)) }}">
-                        <div class="ms-3">
-                            <h5 class="mb-1" style="color:#A6192E;">
-                                {{ $family->sender_id == Auth::id() ? $family->receiver->name : $family->sender->name }}
-                            </h5>
-                            <p class="mb-0 text-muted"><i class="fas fa-map-marker-alt"></i>
-                                {{ $family->sender_id == Auth::id() ? $family->receiver->address : $family->sender->address }}
-                            </p>
+                    @php
+                        $id = $family->sender_id == Auth::id() ? $family->receiver->id : $family->sender->id;
+                    @endphp
+                    <div class="profile-card d-flex align-items-center justify-content-between mb-2">
+                        <div class="">
+                            <img alt="Profile" class="rounded-circle" width="60" height="60"
+                                src="{{ asset('assets/images/' . ($family->sender_id == Auth::id() ? $family->receiver->profile : $family->sender->profile)) }}">
+                            <div class="ms-3">
+                                <h5 class="mb-1" style="color:#A6192E;">
+                                    {{ $family->sender_id == Auth::id() ? $family->receiver->name : $family->sender->name }}
+                                </h5>
+                                <p class="mb-0 text-muted"><i class="fas fa-map-marker-alt"></i>
+                                    {{ $family->sender_id == Auth::id() ? $family->receiver->address : $family->sender->address }}
+                                </p>
+                            </div>
                         </div>
+                        <button class="btn custom-btn" type="button" data-bs-target="#showMedicalRecord"
+                            onclick="showListRecord({{ $id }})">Show</button>
                     </div>
                 @endforeach
             </div>
@@ -177,6 +184,25 @@
             </div>
         </div>
     </div>
+
+    <div class="modal fade" id="showMedicalRecord">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="userName">Modal title</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" id="container-record">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
 @endsection
 
 @push('scripts')
@@ -226,9 +252,9 @@
             });
 
             console.log(response.users);
-
-
         }
+
+
         // function sendRequest() {
         //     let emailInput = document.getElementById("emailInput");
         //     let emailError = document.getElementById("emailError");
@@ -251,5 +277,52 @@
         //         modalInstance.hide();
         //     }
         // }
+
+        function showListRecord(id) {
+            // console.log(id);
+
+            $.ajax({
+                type: "post",
+                url: "{{ route('user.listRecord') }}",
+                data: {
+                    '_token': '{{ csrf_token() }}',
+                    'id': id
+                },
+                success: function(response) {
+                    console.log(response);
+                    let temp = "";
+                    for (const [index, value] of Object.entries(response)) {
+                        let drugList = "";
+                        for (const [i, drug] of Object.entries(value.drug_records)) {
+                            drugList += `<li>${drug.drug.name} - ${drug.amount}x</li>`;
+                        }
+
+                        let actionList = "";
+                        for (const [i, action] of Object.entries(value.actions)) {
+                            actionList += `<li>${action.name} - ${action.date}</li>`;
+                        }
+
+                        temp += `<div class="card mb-3">
+                    <div class="card-body">
+                        <h5>${value.diagnose}</h5>
+                        <h6>${value.description}</h6>
+                        <p>${value.date}</p>
+                        <p class="text-bold">Obat</p>
+                        <ul>${drugList}</ul>
+                        <p><strong>Layanan</strong></p>
+                        <ul>${actionList}</ul>
+                    </div>     
+                </div>`;
+                    }
+
+                    $('#container-record').html(temp);
+                    // $('#showMedicalRecord').modal('show');
+                    let myModal = new bootstrap.Modal(document.getElementById('showMedicalRecord'));
+                    myModal.show();
+                }
+
+            });
+            // $('#container-record').modal('show');
+        }
     </script>
 @endpush

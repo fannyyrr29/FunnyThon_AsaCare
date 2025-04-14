@@ -3,7 +3,10 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
+use App\Models\Doctor;
+use App\Models\Drug;
 use App\Models\Family;
+use App\Models\MedicalRecord;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -17,6 +20,27 @@ class InviteController extends Controller
         $user = User::find($id);
         $invitor = $user->senders()->where('status', 0)->get();
         $pending = $user->receivers()->where('status', 0)->get();
+
+        $rawRecords = DB::table('medical_records as mr')
+            ->join('drug_records as dr', 'mr.id', '=', 'dr.medical_record_id')
+            ->select(
+                'mr.id',
+                'mr.diagnose',
+                'mr.description',
+                'mr.date',
+                'mr.rating',
+                'mr.doctor_id',
+                'dr.drug_id',
+                'dr.amount'
+            )
+            ->where('mr.user_id', '=', $id)
+            ->get();
+
+        // if ($rawRecords->isEmpty()) {
+        //     return response()->json(['message' => "Data tidak ditemukan!"], 404);
+        // }
+
+        // Grouping berdasarkan medical record ID
     
         $families = Family::with(['sender', 'receiver'])
             ->where(function ($query) use ($id) {
@@ -25,8 +49,13 @@ class InviteController extends Controller
             })
             ->where('status', 1)
             ->get();
-            // return response()->json(compact('pending', 'invitor', 'families'));
+        // return response()->json(compact('pending', 'invitor', 'families'));
         return view('users.family', compact('pending', 'invitor', 'families'));
+    }
+
+    public function showRecord(Request $request){
+        $medicalRecord = MedicalRecord::with(['drugRecords.drug', 'actions'])->find($request->id);
+        return response()->json(compact('medicalRecord'));
     }
 
     public function addFriend(Request $request){
