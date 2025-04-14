@@ -9,7 +9,7 @@
 
         {{-- Profile Dokter --}}
         <div class="mb-4 position-relative" style="z-index: 2;">
-            <img src="assets/images/{{ $user->profile }}" alt="Foto Dokter" class="rounded-circle img-crop">
+            <img src="assets/images/profile/{{ $user->profile }}" alt="Foto Dokter" class="rounded-circle img-crop">
             <h5 class="mt-3 mb-1">{{ $doctor->name }}</h5>
             <p class="text-muted mb-1">{{ $doctor->specialization->name }}</p>
             <div>
@@ -49,7 +49,7 @@
                 </form>
             </div>
             <div class="col-12 col-md-5">
-                <form action="{{route('doctor.consultation.index')}}" method="get">
+                <form action="{{ route('doctor.consultation.index') }}" method="get">
                     <button class="btn-red w-100 d-flex flex-column align-items-center p-3">
                         <img src="{{ asset('assets/images/chat.png') }}" alt="Chat Konsultasi" style="width: 80px;">
                         <h4 class="mt-2">Chat Konsultasi</h4>
